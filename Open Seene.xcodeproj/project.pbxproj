@@ -1,0 +1,688 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A0167F401D93EC3F00CF413B /* Upload.png in Resources */ = {isa = PBXBuildFile; fileRef = A0167F3D1D93EC3F00CF413B /* Upload.png */; };
+		A0167F411D93EC3F00CF413B /* Upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0167F3E1D93EC3F00CF413B /* Upload@2x.png */; };
+		A0167F421D93EC3F00CF413B /* Upload@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0167F3F1D93EC3F00CF413B /* Upload@3x.png */; };
+		A0276CDC1D9306E600AEE859 /* Profile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0276CD91D9306E600AEE859 /* Profile@3x.png */; };
+		A0276CDD1D9306E600AEE859 /* Profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0276CDA1D9306E600AEE859 /* Profile@2x.png */; };
+		A0276CDE1D9306E600AEE859 /* Profile.png in Resources */ = {isa = PBXBuildFile; fileRef = A0276CDB1D9306E600AEE859 /* Profile.png */; };
+		A05C2D421D8B2C7000D1E351 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C2D411D8B2C7000D1E351 /* NSString+MD5.m */; };
+		A062C1BA1D9326490090F0EE /* Timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = A062C1B71D9326490090F0EE /* Timeline.png */; };
+		A062C1BB1D9326490090F0EE /* Timeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A062C1B81D9326490090F0EE /* Timeline@2x.png */; };
+		A062C1BC1D9326490090F0EE /* Timeline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A062C1B91D9326490090F0EE /* Timeline@3x.png */; };
+		A079F9C71D8ADFBE007BB3BD /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A079F9C61D8ADFBE007BB3BD /* SettingsController.m */; };
+		A07E5F6F1D86FFD5001677CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F6E1D86FFD5001677CE /* main.m */; };
+		A07E5F721D86FFD5001677CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F711D86FFD5001677CE /* AppDelegate.m */; };
+		A07E5F751D86FFD5001677CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F741D86FFD5001677CE /* ViewController.m */; };
+		A07E5F781D86FFD5001677CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07E5F761D86FFD5001677CE /* Main.storyboard */; };
+		A07E5F7A1D86FFD5001677CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07E5F791D86FFD5001677CE /* Assets.xcassets */; };
+		A07E5F7D1D86FFD5001677CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07E5F7B1D86FFD5001677CE /* LaunchScreen.storyboard */; };
+		A07E5F881D86FFD6001677CE /* Open_SeeneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F871D86FFD6001677CE /* Open_SeeneTests.m */; };
+		A07E5F931D86FFD6001677CE /* Open_SeeneUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F921D86FFD6001677CE /* Open_SeeneUITests.m */; };
+		A07E5FA41D884DF1001677CE /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5FA31D884DF1001677CE /* AuthenticationController.m */; };
+		A0D89D921D8BCB0C0073506E /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D7F1D8BCB0C0073506E /* SBJsonParser.m */; };
+		A0D89D931D8BCB0C0073506E /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D811D8BCB0C0073506E /* SBJsonStreamParser.m */; };
+		A0D89D941D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D831D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m */; };
+		A0D89D951D8BCB0C0073506E /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D851D8BCB0C0073506E /* SBJsonStreamParserAdapter.m */; };
+		A0D89D961D8BCB0C0073506E /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D871D8BCB0C0073506E /* SBJsonStreamParserState.m */; };
+		A0D89D971D8BCB0C0073506E /* SBJsonStreamTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D891D8BCB0C0073506E /* SBJsonStreamTokeniser.m */; };
+		A0D89D981D8BCB0C0073506E /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D8B1D8BCB0C0073506E /* SBJsonStreamWriter.m */; };
+		A0D89D991D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D8D1D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.m */; };
+		A0D89D9A1D8BCB0C0073506E /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D8F1D8BCB0C0073506E /* SBJsonStreamWriterState.m */; };
+		A0D89D9B1D8BCB0C0073506E /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D911D8BCB0C0073506E /* SBJsonWriter.m */; };
+		A0DBB8D81D93EFC30082E63A /* FlickrAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DBB8D71D93EFC30082E63A /* FlickrAPI.m */; };
+		A0DBB8DB1D9419A90082E63A /* Favorized.png in Resources */ = {isa = PBXBuildFile; fileRef = A0DBB8DA1D9419A90082E63A /* Favorized.png */; };
+		A0DBB8DD1D9419B00082E63A /* Favorized@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0DBB8DC1D9419B00082E63A /* Favorized@2x.png */; };
+		A0DBB8E01D95043F0082E63A /* FlickrBuddy.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DBB8DF1D95043F0082E63A /* FlickrBuddy.m */; };
+		A0DBB8E31D952FF30082E63A /* FlickrAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DBB8E21D952FF30082E63A /* FlickrAlbum.m */; };
+		A0DBB8E51D9567ED0082E63A /* 29874512615_357e771327_o.png in Resources */ = {isa = PBXBuildFile; fileRef = A0DBB8E41D9567ED0082E63A /* 29874512615_357e771327_o.png */; };
+		A0DBB8E81D9A97770082E63A /* FlickrPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DBB8E71D9A97770082E63A /* FlickrPhoto.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A07E5F841D86FFD6001677CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A07E5F621D86FFD5001677CE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A07E5F691D86FFD5001677CE;
+			remoteInfo = "Open Seene";
+		};
+		A07E5F8F1D86FFD6001677CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A07E5F621D86FFD5001677CE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A07E5F691D86FFD5001677CE;
+			remoteInfo = "Open Seene";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A0167F3D1D93EC3F00CF413B /* Upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Upload.png; sourceTree = "<group>"; };
+		A0167F3E1D93EC3F00CF413B /* Upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Upload@2x.png"; sourceTree = "<group>"; };
+		A0167F3F1D93EC3F00CF413B /* Upload@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Upload@3x.png"; sourceTree = "<group>"; };
+		A0276CD91D9306E600AEE859 /* Profile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile@3x.png"; sourceTree = "<group>"; };
+		A0276CDA1D9306E600AEE859 /* Profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile@2x.png"; sourceTree = "<group>"; };
+		A0276CDB1D9306E600AEE859 /* Profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Profile.png; sourceTree = "<group>"; };
+		A05C2D401D8B2C2F00D1E351 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		A05C2D411D8B2C7000D1E351 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		A062C1B71D9326490090F0EE /* Timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Timeline.png; sourceTree = "<group>"; };
+		A062C1B81D9326490090F0EE /* Timeline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Timeline@2x.png"; sourceTree = "<group>"; };
+		A062C1B91D9326490090F0EE /* Timeline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Timeline@3x.png"; sourceTree = "<group>"; };
+		A079F9C61D8ADFBE007BB3BD /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
+		A079F9C81D8ADFEC007BB3BD /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
+		A07E5F6A1D86FFD5001677CE /* Open Seene.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Open Seene.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A07E5F6E1D86FFD5001677CE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A07E5F701D86FFD5001677CE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A07E5F711D86FFD5001677CE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A07E5F731D86FFD5001677CE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A07E5F741D86FFD5001677CE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A07E5F771D86FFD5001677CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A07E5F791D86FFD5001677CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A07E5F7C1D86FFD5001677CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A07E5F7E1D86FFD5001677CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A07E5F831D86FFD6001677CE /* Open SeeneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Open SeeneTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A07E5F871D86FFD6001677CE /* Open_SeeneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Open_SeeneTests.m; sourceTree = "<group>"; };
+		A07E5F891D86FFD6001677CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A07E5F8E1D86FFD6001677CE /* Open SeeneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Open SeeneUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A07E5F921D86FFD6001677CE /* Open_SeeneUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Open_SeeneUITests.m; sourceTree = "<group>"; };
+		A07E5F941D86FFD6001677CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A07E5FA01D882A83001677CE /* flickrAPI.secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = flickrAPI.secret.xcconfig; sourceTree = "<group>"; };
+		A07E5FA31D884DF1001677CE /* AuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationController.m; sourceTree = "<group>"; };
+		A07E5FA51D884EAA001677CE /* AuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationController.h; sourceTree = "<group>"; };
+		A0BEF3DB1D9E5B810087D829 /* FlickrAPI_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPI_keys.h; sourceTree = "<group>"; };
+		A0D89D7D1D8BCB0C0073506E /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
+		A0D89D7E1D8BCB0C0073506E /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		A0D89D7F1D8BCB0C0073506E /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		A0D89D801D8BCB0C0073506E /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		A0D89D811D8BCB0C0073506E /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
+		A0D89D821D8BCB0C0073506E /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
+		A0D89D831D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAccumulator.m; sourceTree = "<group>"; };
+		A0D89D841D8BCB0C0073506E /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		A0D89D851D8BCB0C0073506E /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		A0D89D861D8BCB0C0073506E /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		A0D89D871D8BCB0C0073506E /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		A0D89D881D8BCB0C0073506E /* SBJsonStreamTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamTokeniser.h; sourceTree = "<group>"; };
+		A0D89D891D8BCB0C0073506E /* SBJsonStreamTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamTokeniser.m; sourceTree = "<group>"; };
+		A0D89D8A1D8BCB0C0073506E /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		A0D89D8B1D8BCB0C0073506E /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		A0D89D8C1D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
+		A0D89D8D1D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterAccumulator.m; sourceTree = "<group>"; };
+		A0D89D8E1D8BCB0C0073506E /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		A0D89D8F1D8BCB0C0073506E /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		A0D89D901D8BCB0C0073506E /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		A0D89D911D8BCB0C0073506E /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		A0DBB8D71D93EFC30082E63A /* FlickrAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrAPI.m; sourceTree = "<group>"; };
+		A0DBB8D91D93EFEB0082E63A /* FlickrAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPI.h; sourceTree = "<group>"; };
+		A0DBB8DA1D9419A90082E63A /* Favorized.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Favorized.png; sourceTree = "<group>"; };
+		A0DBB8DC1D9419B00082E63A /* Favorized@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorized@2x.png"; sourceTree = "<group>"; };
+		A0DBB8DE1D9502510082E63A /* FlickrBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrBuddy.h; sourceTree = "<group>"; };
+		A0DBB8DF1D95043F0082E63A /* FlickrBuddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrBuddy.m; sourceTree = "<group>"; };
+		A0DBB8E11D952D3F0082E63A /* FlickrAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAlbum.h; sourceTree = "<group>"; };
+		A0DBB8E21D952FF30082E63A /* FlickrAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrAlbum.m; sourceTree = "<group>"; };
+		A0DBB8E41D9567ED0082E63A /* 29874512615_357e771327_o.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29874512615_357e771327_o.png; sourceTree = "<group>"; };
+		A0DBB8E61D9A97610082E63A /* FlickrPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPhoto.h; sourceTree = "<group>"; };
+		A0DBB8E71D9A97770082E63A /* FlickrPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhoto.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A07E5F671D86FFD5001677CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A07E5F801D86FFD6001677CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A07E5F8B1D86FFD6001677CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A07E5F611D86FFD5001677CE = {
+			isa = PBXGroup;
+			children = (
+				A07E5F6C1D86FFD5001677CE /* Open Seene */,
+				A07E5F861D86FFD6001677CE /* Open SeeneTests */,
+				A07E5F911D86FFD6001677CE /* Open SeeneUITests */,
+				A07E5F6B1D86FFD5001677CE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A07E5F6B1D86FFD5001677CE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A07E5F6A1D86FFD5001677CE /* Open Seene.app */,
+				A07E5F831D86FFD6001677CE /* Open SeeneTests.xctest */,
+				A07E5F8E1D86FFD6001677CE /* Open SeeneUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A07E5F6C1D86FFD5001677CE /* Open Seene */ = {
+			isa = PBXGroup;
+			children = (
+				A0D89D7C1D8BCAE90073506E /* SBJSON */,
+				A07E5F701D86FFD5001677CE /* AppDelegate.h */,
+				A07E5F711D86FFD5001677CE /* AppDelegate.m */,
+				A07E5F731D86FFD5001677CE /* ViewController.h */,
+				A07E5F741D86FFD5001677CE /* ViewController.m */,
+				A0BEF3DB1D9E5B810087D829 /* FlickrAPI_keys.h */,
+				A0DBB8D91D93EFEB0082E63A /* FlickrAPI.h */,
+				A0DBB8D71D93EFC30082E63A /* FlickrAPI.m */,
+				A0DBB8E11D952D3F0082E63A /* FlickrAlbum.h */,
+				A0DBB8E21D952FF30082E63A /* FlickrAlbum.m */,
+				A0DBB8DE1D9502510082E63A /* FlickrBuddy.h */,
+				A0DBB8DF1D95043F0082E63A /* FlickrBuddy.m */,
+				A0DBB8E61D9A97610082E63A /* FlickrPhoto.h */,
+				A0DBB8E71D9A97770082E63A /* FlickrPhoto.m */,
+				A07E5FA51D884EAA001677CE /* AuthenticationController.h */,
+				A07E5FA31D884DF1001677CE /* AuthenticationController.m */,
+				A05C2D401D8B2C2F00D1E351 /* NSString+MD5.h */,
+				A05C2D411D8B2C7000D1E351 /* NSString+MD5.m */,
+				A079F9C81D8ADFEC007BB3BD /* SettingsController.h */,
+				A079F9C61D8ADFBE007BB3BD /* SettingsController.m */,
+				A07E5F761D86FFD5001677CE /* Main.storyboard */,
+				A07E5F791D86FFD5001677CE /* Assets.xcassets */,
+				A07E5F7B1D86FFD5001677CE /* LaunchScreen.storyboard */,
+				A07E5F7E1D86FFD5001677CE /* Info.plist */,
+				A062C1B71D9326490090F0EE /* Timeline.png */,
+				A062C1B81D9326490090F0EE /* Timeline@2x.png */,
+				A062C1B91D9326490090F0EE /* Timeline@3x.png */,
+				A0167F3D1D93EC3F00CF413B /* Upload.png */,
+				A0167F3E1D93EC3F00CF413B /* Upload@2x.png */,
+				A0167F3F1D93EC3F00CF413B /* Upload@3x.png */,
+				A0276CD91D9306E600AEE859 /* Profile@3x.png */,
+				A0276CDA1D9306E600AEE859 /* Profile@2x.png */,
+				A0276CDB1D9306E600AEE859 /* Profile.png */,
+				A0DBB8DC1D9419B00082E63A /* Favorized@2x.png */,
+				A0DBB8DA1D9419A90082E63A /* Favorized.png */,
+				A0DBB8E41D9567ED0082E63A /* 29874512615_357e771327_o.png */,
+				A07E5F6D1D86FFD5001677CE /* Supporting Files */,
+				A07E5FA01D882A83001677CE /* flickrAPI.secret.xcconfig */,
+			);
+			path = "Open Seene";
+			sourceTree = "<group>";
+		};
+		A07E5F6D1D86FFD5001677CE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A07E5F6E1D86FFD5001677CE /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A07E5F861D86FFD6001677CE /* Open SeeneTests */ = {
+			isa = PBXGroup;
+			children = (
+				A07E5F871D86FFD6001677CE /* Open_SeeneTests.m */,
+				A07E5F891D86FFD6001677CE /* Info.plist */,
+			);
+			path = "Open SeeneTests";
+			sourceTree = "<group>";
+		};
+		A07E5F911D86FFD6001677CE /* Open SeeneUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A07E5F921D86FFD6001677CE /* Open_SeeneUITests.m */,
+				A07E5F941D86FFD6001677CE /* Info.plist */,
+			);
+			path = "Open SeeneUITests";
+			sourceTree = "<group>";
+		};
+		A0D89D7C1D8BCAE90073506E /* SBJSON */ = {
+			isa = PBXGroup;
+			children = (
+				A0D89D7D1D8BCB0C0073506E /* SBJson.h */,
+				A0D89D7E1D8BCB0C0073506E /* SBJsonParser.h */,
+				A0D89D7F1D8BCB0C0073506E /* SBJsonParser.m */,
+				A0D89D801D8BCB0C0073506E /* SBJsonStreamParser.h */,
+				A0D89D811D8BCB0C0073506E /* SBJsonStreamParser.m */,
+				A0D89D821D8BCB0C0073506E /* SBJsonStreamParserAccumulator.h */,
+				A0D89D831D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m */,
+				A0D89D841D8BCB0C0073506E /* SBJsonStreamParserAdapter.h */,
+				A0D89D851D8BCB0C0073506E /* SBJsonStreamParserAdapter.m */,
+				A0D89D861D8BCB0C0073506E /* SBJsonStreamParserState.h */,
+				A0D89D871D8BCB0C0073506E /* SBJsonStreamParserState.m */,
+				A0D89D881D8BCB0C0073506E /* SBJsonStreamTokeniser.h */,
+				A0D89D891D8BCB0C0073506E /* SBJsonStreamTokeniser.m */,
+				A0D89D8A1D8BCB0C0073506E /* SBJsonStreamWriter.h */,
+				A0D89D8B1D8BCB0C0073506E /* SBJsonStreamWriter.m */,
+				A0D89D8C1D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.h */,
+				A0D89D8D1D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.m */,
+				A0D89D8E1D8BCB0C0073506E /* SBJsonStreamWriterState.h */,
+				A0D89D8F1D8BCB0C0073506E /* SBJsonStreamWriterState.m */,
+				A0D89D901D8BCB0C0073506E /* SBJsonWriter.h */,
+				A0D89D911D8BCB0C0073506E /* SBJsonWriter.m */,
+			);
+			name = SBJSON;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A07E5F691D86FFD5001677CE /* Open Seene */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A07E5F971D86FFD6001677CE /* Build configuration list for PBXNativeTarget "Open Seene" */;
+			buildPhases = (
+				A07E5F661D86FFD5001677CE /* Sources */,
+				A07E5F671D86FFD5001677CE /* Frameworks */,
+				A07E5F681D86FFD5001677CE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Open Seene";
+			productName = "Open Seene";
+			productReference = A07E5F6A1D86FFD5001677CE /* Open Seene.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A07E5F821D86FFD6001677CE /* Open SeeneTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A07E5F9A1D86FFD6001677CE /* Build configuration list for PBXNativeTarget "Open SeeneTests" */;
+			buildPhases = (
+				A07E5F7F1D86FFD6001677CE /* Sources */,
+				A07E5F801D86FFD6001677CE /* Frameworks */,
+				A07E5F811D86FFD6001677CE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A07E5F851D86FFD6001677CE /* PBXTargetDependency */,
+			);
+			name = "Open SeeneTests";
+			productName = "Open SeeneTests";
+			productReference = A07E5F831D86FFD6001677CE /* Open SeeneTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A07E5F8D1D86FFD6001677CE /* Open SeeneUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A07E5F9D1D86FFD6001677CE /* Build configuration list for PBXNativeTarget "Open SeeneUITests" */;
+			buildPhases = (
+				A07E5F8A1D86FFD6001677CE /* Sources */,
+				A07E5F8B1D86FFD6001677CE /* Frameworks */,
+				A07E5F8C1D86FFD6001677CE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A07E5F901D86FFD6001677CE /* PBXTargetDependency */,
+			);
+			name = "Open SeeneUITests";
+			productName = "Open SeeneUITests";
+			productReference = A07E5F8E1D86FFD6001677CE /* Open SeeneUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A07E5F621D86FFD5001677CE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Mathias Zettler";
+				TargetAttributes = {
+					A07E5F691D86FFD5001677CE = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					A07E5F821D86FFD6001677CE = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = A07E5F691D86FFD5001677CE;
+					};
+					A07E5F8D1D86FFD6001677CE = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = A07E5F691D86FFD5001677CE;
+					};
+				};
+			};
+			buildConfigurationList = A07E5F651D86FFD5001677CE /* Build configuration list for PBXProject "Open Seene" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A07E5F611D86FFD5001677CE;
+			productRefGroup = A07E5F6B1D86FFD5001677CE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A07E5F691D86FFD5001677CE /* Open Seene */,
+				A07E5F821D86FFD6001677CE /* Open SeeneTests */,
+				A07E5F8D1D86FFD6001677CE /* Open SeeneUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A07E5F681D86FFD5001677CE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0276CDE1D9306E600AEE859 /* Profile.png in Resources */,
+				A07E5F7D1D86FFD5001677CE /* LaunchScreen.storyboard in Resources */,
+				A0DBB8DB1D9419A90082E63A /* Favorized.png in Resources */,
+				A062C1BC1D9326490090F0EE /* Timeline@3x.png in Resources */,
+				A0167F411D93EC3F00CF413B /* Upload@2x.png in Resources */,
+				A062C1BB1D9326490090F0EE /* Timeline@2x.png in Resources */,
+				A062C1BA1D9326490090F0EE /* Timeline.png in Resources */,
+				A0DBB8DD1D9419B00082E63A /* Favorized@2x.png in Resources */,
+				A0167F401D93EC3F00CF413B /* Upload.png in Resources */,
+				A0276CDC1D9306E600AEE859 /* Profile@3x.png in Resources */,
+				A07E5F7A1D86FFD5001677CE /* Assets.xcassets in Resources */,
+				A0167F421D93EC3F00CF413B /* Upload@3x.png in Resources */,
+				A0DBB8E51D9567ED0082E63A /* 29874512615_357e771327_o.png in Resources */,
+				A07E5F781D86FFD5001677CE /* Main.storyboard in Resources */,
+				A0276CDD1D9306E600AEE859 /* Profile@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A07E5F811D86FFD6001677CE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A07E5F8C1D86FFD6001677CE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A07E5F661D86FFD5001677CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0D89D961D8BCB0C0073506E /* SBJsonStreamParserState.m in Sources */,
+				A0D89D921D8BCB0C0073506E /* SBJsonParser.m in Sources */,
+				A0D89D951D8BCB0C0073506E /* SBJsonStreamParserAdapter.m in Sources */,
+				A05C2D421D8B2C7000D1E351 /* NSString+MD5.m in Sources */,
+				A0D89D941D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m in Sources */,
+				A0DBB8E31D952FF30082E63A /* FlickrAlbum.m in Sources */,
+				A0D89D9B1D8BCB0C0073506E /* SBJsonWriter.m in Sources */,
+				A07E5F751D86FFD5001677CE /* ViewController.m in Sources */,
+				A07E5FA41D884DF1001677CE /* AuthenticationController.m in Sources */,
+				A0DBB8D81D93EFC30082E63A /* FlickrAPI.m in Sources */,
+				A0D89D981D8BCB0C0073506E /* SBJsonStreamWriter.m in Sources */,
+				A079F9C71D8ADFBE007BB3BD /* SettingsController.m in Sources */,
+				A0D89D9A1D8BCB0C0073506E /* SBJsonStreamWriterState.m in Sources */,
+				A0DBB8E81D9A97770082E63A /* FlickrPhoto.m in Sources */,
+				A07E5F721D86FFD5001677CE /* AppDelegate.m in Sources */,
+				A0D89D991D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.m in Sources */,
+				A0D89D971D8BCB0C0073506E /* SBJsonStreamTokeniser.m in Sources */,
+				A0DBB8E01D95043F0082E63A /* FlickrBuddy.m in Sources */,
+				A07E5F6F1D86FFD5001677CE /* main.m in Sources */,
+				A0D89D931D8BCB0C0073506E /* SBJsonStreamParser.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A07E5F7F1D86FFD6001677CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A07E5F881D86FFD6001677CE /* Open_SeeneTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A07E5F8A1D86FFD6001677CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A07E5F931D86FFD6001677CE /* Open_SeeneUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A07E5F851D86FFD6001677CE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A07E5F691D86FFD5001677CE /* Open Seene */;
+			targetProxy = A07E5F841D86FFD6001677CE /* PBXContainerItemProxy */;
+		};
+		A07E5F901D86FFD6001677CE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A07E5F691D86FFD5001677CE /* Open Seene */;
+			targetProxy = A07E5F8F1D86FFD6001677CE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A07E5F761D86FFD5001677CE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A07E5F771D86FFD5001677CE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A07E5F7B1D86FFD5001677CE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A07E5F7C1D86FFD5001677CE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A07E5F951D86FFD6001677CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A07E5F961D86FFD6001677CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A07E5F981D86FFD6001677CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Open Seene/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Seene-Club.Open-Seene";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A07E5F991D86FFD6001677CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Open Seene/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Seene-Club.Open-Seene";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A07E5F9B1D86FFD6001677CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Open SeeneTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Seene-Club.Open-SeeneTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Open Seene.app/Open Seene";
+			};
+			name = Debug;
+		};
+		A07E5F9C1D86FFD6001677CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Open SeeneTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Seene-Club.Open-SeeneTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Open Seene.app/Open Seene";
+			};
+			name = Release;
+		};
+		A07E5F9E1D86FFD6001677CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Open SeeneUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Seene-Club.Open-SeeneUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Open Seene";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		A07E5F9F1D86FFD6001677CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Open SeeneUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Seene-Club.Open-SeeneUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Open Seene";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A07E5F651D86FFD5001677CE /* Build configuration list for PBXProject "Open Seene" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A07E5F951D86FFD6001677CE /* Debug */,
+				A07E5F961D86FFD6001677CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A07E5F971D86FFD6001677CE /* Build configuration list for PBXNativeTarget "Open Seene" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A07E5F981D86FFD6001677CE /* Debug */,
+				A07E5F991D86FFD6001677CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A07E5F9A1D86FFD6001677CE /* Build configuration list for PBXNativeTarget "Open SeeneTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A07E5F9B1D86FFD6001677CE /* Debug */,
+				A07E5F9C1D86FFD6001677CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A07E5F9D1D86FFD6001677CE /* Build configuration list for PBXNativeTarget "Open SeeneUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A07E5F9E1D86FFD6001677CE /* Debug */,
+				A07E5F9F1D86FFD6001677CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A07E5F621D86FFD5001677CE /* Project object */;
+}
