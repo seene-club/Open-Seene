@@ -7,11 +7,14 @@
 //
 
 #import "FlickrBuddy.h"
+#import "FlickrPhoto.h"
 #import "FlickrAPI_keys.h"
 
 @interface FlickrAPI : NSObject
 
 // API methods catalogue
+-(Boolean)likeSeene:(FlickrPhoto*)photo;                     //flickr.favorites.add
+-(Boolean)removeLike:(FlickrPhoto*)photo;                    //flickr.favorites.remove
 -(NSMutableArray*)getPublicSeenesList:(FlickrBuddy*)buddy;   //flickr.photosets.getPhotos
 -(NSMutableArray*)getAlbumList:(NSString*)flickr_nsid;       //flickr.photosets.getList
 -(NSMutableArray*)getContactList;                            //flickr.contacts.getList

@@ -18,6 +18,7 @@
 @interface ViewController () {
 
     FlickrAPI *flickrAPI;
+    FlickrPhoto *photo;
     NSString *flickr_token;
     NSString *flickr_nsid;
     NSString *flickr_username;
@@ -82,7 +83,7 @@
 
 - (void)showSeene {
     //NSString *fullURL = @"https://seene-shelter.github.io/viewer/#/?url=https:%2F%2Fc7.staticflickr.com%2F9%2F8066%2F29189599710_5cff46eac9_o.jpg";
-    FlickrPhoto *photo = [timelinePhotos objectAtIndex:showIndex];
+    photo = [timelinePhotos objectAtIndex:showIndex];
     
     NSString *viewerURL = [NSString stringWithFormat:@"https://seene-shelter.github.io/viewer/#/?url=%@", photo.originalURL];
     NSLog(@"Loading Seene: %d %@ %@", showIndex, photo.ownerName, photo.originalURL);
@@ -90,13 +91,20 @@
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [_SeeneViewer loadRequest:requestObj];
     
-    
+    // Fill-in labels
     [_usernameButton setTitle:[NSString stringWithFormat:@"@%@",photo.ownerName] forState:UIControlStateNormal];
     [_titleLabel setText:photo.title];
     [_likesCountLabel setText:[NSString stringWithFormat:@"%@ likes",photo.favoritesCount]];
     [_commentsCountButton setTitle:[NSString stringWithFormat:@"%@ comments",photo.commentsCount] forState:UIControlStateNormal];
     
+    // check if photo is already liked
+    if ([[NSString stringWithFormat:@"%@",photo.isFavorite] isEqualToString:[NSString stringWithFormat:@"1"]]) {
+        [_likeButton setTitle:@"remove like" forState:UIControlStateNormal];
+    } else {
+        [_likeButton setTitle:@"like" forState:UIControlStateNormal];
+    }
     
+    // dis-/enable previous / next buttons
     [_nextButton setEnabled:(showIndex + 1 < [timelinePhotos count])];
     [_nextButton setHidden:!(showIndex + 1 < [timelinePhotos count])];
     [_previousButton setEnabled:(showIndex + 0 > 0)];
@@ -112,6 +120,25 @@
 - (IBAction)nextPushed:(id)sender {
     showIndex++;
     [self showSeene];
+}
+
+-(IBAction)likePushed:(id)sender {
+    flickrAPI = [[FlickrAPI alloc] init];
+    if ([[NSString stringWithFormat:@"%@",photo.isFavorite] isEqualToString:[NSString stringWithFormat:@"1"]]) {
+        Boolean success = [flickrAPI removeLike:photo];
+        if (success) {
+            photo.isFavorite = @"0";
+            photo.favoritesCount =  [NSString stringWithFormat:@"%d",[photo.favoritesCount intValue] - 1];
+            [self showSeene];
+        }
+    } else {
+        Boolean success = [flickrAPI likeSeene:photo];
+        if (success) {
+            photo.isFavorite = @"1";
+            photo.favoritesCount =  [NSString stringWithFormat:@"%d",[photo.favoritesCount intValue] + 1];
+            [self showSeene];
+        }
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView

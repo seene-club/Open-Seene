@@ -16,12 +16,84 @@
 
 @implementation FlickrAPI
 
+
 //flickr.favorites.add
--(void)likeSeene:(FlickrPhoto*)photo {
+-(Boolean)likeSeene:(FlickrPhoto*)photo {
     
     NSString *flrMethod = @"flickr.favorites.add";
-    //TODO
+    
+    NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@format%smethod%@nojsoncallback%sphoto_id%@", flrSecret, flrAPIKey, flickr_token, "json", flrMethod, "1", photo.photoid];
+    NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
+    NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=%@&photo_id=%@&api_key=%@&auth_token=%@&api_sig=%@&format=json&nojsoncallback=1", flrMethod, photo.photoid, flrAPIKey, flickr_token, flrSigStr.MD5 ];
+    NSLog(@"FlickrAPI %@ URL: %@", flrMethod, urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // 2. Get URLResponse string & parse JSON to Foundation objects.
+    
+    NSString *connectionResponse = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    
+    NSLog(@"FlickrAPI %@ RESPONSE: %@", flrMethod, connectionResponse);
+    
+    if ([connectionResponse rangeOfString:@"{\"stat\":\"ok\"}"].location == NSNotFound) {
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        id jsonResponse = [jsonParser objectWithString:connectionResponse];
+        NSDictionary *results = (NSDictionary *)jsonResponse;
+        NSString *code = (NSString*) [results valueForKey:@"code"];
+        NSString *message = (NSString*) [results valueForKey:@"message"];
+        NSLog(@"FlickrAPI %@ ERROR: %@ - %@", flrMethod, code, message);
+
+        return false;
+    } else {
+        NSLog(@"FlickrAPI %@ OK: %@ - %@", flrMethod, photo.photoid, photo.ownerName);
+        return true;
+    }
+    
+    return false;
 }
+
+//flickr.favorites.remove
+-(Boolean)removeLike:(FlickrPhoto*)photo {
+    
+    NSString *flrMethod = @"flickr.favorites.remove";
+    
+    NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@format%smethod%@nojsoncallback%sphoto_id%@", flrSecret, flrAPIKey, flickr_token, "json", flrMethod, "1", photo.photoid];
+    NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
+    NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=%@&photo_id=%@&api_key=%@&auth_token=%@&api_sig=%@&format=json&nojsoncallback=1", flrMethod, photo.photoid, flrAPIKey, flickr_token, flrSigStr.MD5 ];
+    NSLog(@"FlickrAPI %@ URL: %@", flrMethod, urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // 2. Get URLResponse string & parse JSON to Foundation objects.
+    
+    NSString *connectionResponse = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    
+    NSLog(@"FlickrAPI %@ RESPONSE: %@", flrMethod, connectionResponse);
+    
+    if ([connectionResponse rangeOfString:@"{\"stat\":\"ok\"}"].location == NSNotFound) {
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        id jsonResponse = [jsonParser objectWithString:connectionResponse];
+        NSDictionary *results = (NSDictionary *)jsonResponse;
+        NSString *code = (NSString*) [results valueForKey:@"code"];
+        NSString *message = (NSString*) [results valueForKey:@"message"];
+        NSLog(@"FlickrAPI %@ ERROR: %@ - %@", flrMethod, code, message);
+        
+        return false;
+    } else {
+        NSLog(@"FlickrAPI %@ OK: %@ - %@", flrMethod, photo.photoid, photo.ownerName);
+        return true;
+    }
+    
+    return false;
+}
+
+
 
 //flickr.photosets.getPhotos
 -(NSMutableArray*)getPublicSeenesList:(FlickrBuddy*)buddy {
