@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *SeeneViewer;
 @property (weak, nonatomic) IBOutlet UIButton *usernameButton;

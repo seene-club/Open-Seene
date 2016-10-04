@@ -9,12 +9,65 @@
 #import <Foundation/Foundation.h>
 #import "FlickrAPI.h"
 #import "FlickrBuddy.h"
+#import "FlickrComment.h"
 #import "FlickrAlbum.h"
 #import "FlickrPhoto.h"
 #import "SBJson.h"
 #import "NSString+MD5.h"
 
 @implementation FlickrAPI
+
+//flickr.photos.comments.getList
+-(NSMutableArray*)getComments:(NSString*)photoid {
+    
+    NSString *flrMethod = @"flickr.photos.comments.getList";
+    
+    NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@format%smethod%@nojsoncallback%sphoto_id%@", flrSecret, flrAPIKey, flickr_token, "json", flrMethod, "1", photoid];
+    NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
+    NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=%@&photo_id=%@&api_key=%@&auth_token=%@&api_sig=%@&format=json&nojsoncallback=1", flrMethod, photoid, flrAPIKey, flickr_token, flrSigStr.MD5 ];
+    NSLog(@"FlickrAPI %@ URL: %@", flrMethod, urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // 2. Get URLResponse string & parse JSON to Foundation objects.
+    
+    NSString *connectionResponse = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    
+    SBJsonParser *jsonParser = [SBJsonParser new];
+    id jsonResponse = [jsonParser objectWithString:connectionResponse];
+    NSDictionary *results = (NSDictionary *)jsonResponse;
+    NSDictionary *commentsEnvelope = [results objectForKey:@"comments"];
+    NSDictionary *comments = [commentsEnvelope objectForKey:@"comment"];
+    NSMutableArray *commentids = (NSMutableArray*) [comments valueForKey:@"id"];
+    NSMutableArray *authors = (NSMutableArray*) [comments valueForKey:@"author"];
+    NSMutableArray *authorsdeleted = (NSMutableArray*) [comments valueForKey:@"author_is_deleted"];
+    NSMutableArray *authornames = (NSMutableArray*) [comments valueForKey:@"authorname"];
+    NSMutableArray *servers = (NSMutableArray*) [comments valueForKey:@"iconserver"];
+    NSMutableArray *farms = (NSMutableArray*) [comments valueForKey:@"iconfarm"];
+    NSMutableArray *datescreate = (NSMutableArray*) [comments valueForKey:@"datecreate"];
+    NSMutableArray *commentsText = (NSMutableArray*) [comments valueForKey:@"_content"];
+    
+    NSMutableArray *commentList = [[NSMutableArray alloc] init];
+    
+    int ndx;
+    for (ndx = 0; ndx < commentids.count; ndx++) {
+        FlickrComment *aComment = [FlickrComment flickrCommentWithID:(NSString *)[commentids objectAtIndex:ndx]];
+        aComment.authorname = (NSString *)[authornames objectAtIndex:ndx];
+        aComment.authorNSID = (NSString *)[authors objectAtIndex:ndx];
+        aComment.author_is_deleted = (NSString *)[authorsdeleted objectAtIndex:ndx];
+        aComment.iconserver = (NSString *)[servers objectAtIndex:ndx];
+        aComment.iconfarm = (NSString *)[farms objectAtIndex:ndx];
+        aComment.dateCreate = (NSString *)[datescreate objectAtIndex:ndx];
+        aComment.commentText = (NSString *)[commentsText objectAtIndex:ndx];
+        [commentList addObject:aComment];
+    }
+    
+    return commentList;
+}
+
 
 
 //flickr.favorites.add
@@ -151,7 +204,11 @@
         aPhoto.isFavorite = (NSString *)[isFavorites objectAtIndex:ndx];
         aPhoto.ownerNSID = buddy.nsid;
         aPhoto.ownerName = buddy.username;
-        [photoList addObject:aPhoto];
+        if(![aPhoto.originalURL isEqual:[NSNull null]]) {
+            [photoList addObject:aPhoto];
+        } else {
+            NSLog(@"WARNING: %@'s Photo (%@) seems to be protected! Won't add it to the timeline!", buddy.username, aPhoto.photoid);
+        }
     }
 
     return photoList;

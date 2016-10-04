@@ -58,10 +58,10 @@
             </objects>
             <point key="canvasLocation" x="-801" y="3"/>
         </scene>
-        <!--View Controller-->
+        <!--Upload Controller-->
         <scene sceneID="f3y-mx-122">
             <objects>
-                <viewController id="0Om-Ab-3em" sceneMemberID="viewController">
+                <viewController title="Upload Controller" id="0Om-Ab-3em" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Zpk-fd-Xzd"/>
                         <viewControllerLayoutGuide type="bottom" id="dYO-98-1KC"/>
@@ -78,6 +78,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ET7-zS-3Pw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-236" y="3"/>
+        </scene>
+        <!--Comments Controller-->
+        <scene sceneID="2at-Ui-F7F">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bhc-lv-KLi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController title="Comments Controller" id="kCQ-ee-TBJ" customClass="CommentsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="j0V-FQ-KGg"/>
+                        <viewControllerLayoutGuide type="bottom" id="SM8-qy-b0o"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VZL-dD-61F">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bzX-F1-nbq">
+                                <rect key="frame" x="0.0" y="28" width="414" height="653"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="kCQ-ee-TBJ" id="5Nu-0x-WYk"/>
+                                    <outlet property="delegate" destination="kCQ-ee-TBJ" id="T8s-Jl-SLL"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kLp-9V-dSD"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="tableView" destination="bzX-F1-nbq" id="hhG-5K-fVx"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="564" y="-377"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="3kQ-Oq-LKk">
@@ -118,6 +155,9 @@
                                 <state key="normal" title="comment">
                                     <color key="titleColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="commentButtonPushed:" destination="tcF-yL-U5Z" eventType="touchUpInside" id="OSY-61-V5l"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7GE-EU-zOt">
                                 <rect key="frame" x="328" y="642" width="78" height="30"/>
@@ -181,11 +221,12 @@
                         <outlet property="titleLabel" destination="Gxu-46-fs3" id="Klj-lF-KhE"/>
                         <outlet property="usernameButton" destination="tGq-9r-oji" id="WmG-AH-g0y"/>
                         <segue destination="Th2-JY-oh0" kind="presentation" identifier="authSegue" modalTransitionStyle="flipHorizontal" id="qEn-51-2He"/>
+                        <segue destination="kCQ-ee-TBJ" kind="showDetail" identifier="commentsSegue" id="S2s-jD-tAH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eJH-oU-YbJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-236" y="-904"/>
+            <point key="canvasLocation" x="-218" y="-914"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="AoQ-DU-MI1">
@@ -298,7 +339,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1as-GW-jWG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="278" y="-904"/>
+            <point key="canvasLocation" x="570" y="-1238"/>
         </scene>
     </scenes>
     <resources>

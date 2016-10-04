@@ -13,6 +13,7 @@
 @interface FlickrAPI : NSObject
 
 // API methods catalogue
+-(NSMutableArray*)getComments:(NSString*)photoid;            //flickr.photos.comments.getList
 -(Boolean)likeSeene:(FlickrPhoto*)photo;                     //flickr.favorites.add
 -(Boolean)removeLike:(FlickrPhoto*)photo;                    //flickr.favorites.remove
 -(NSMutableArray*)getPublicSeenesList:(FlickrBuddy*)buddy;   //flickr.photosets.getPhotos

@@ -27,6 +27,8 @@
 		A07E5F881D86FFD6001677CE /* Open_SeeneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F871D86FFD6001677CE /* Open_SeeneTests.m */; };
 		A07E5F931D86FFD6001677CE /* Open_SeeneUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F921D86FFD6001677CE /* Open_SeeneUITests.m */; };
 		A07E5FA41D884DF1001677CE /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5FA31D884DF1001677CE /* AuthenticationController.m */; };
+		A0A155961DA3B99000119380 /* FlickrComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A155951DA3B99000119380 /* FlickrComment.m */; };
+		A0A155991DA3D92000119380 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A155981DA3D92000119380 /* CommentsViewController.m */; };
 		A0D89D921D8BCB0C0073506E /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D7F1D8BCB0C0073506E /* SBJsonParser.m */; };
 		A0D89D931D8BCB0C0073506E /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D811D8BCB0C0073506E /* SBJsonStreamParser.m */; };
 		A0D89D941D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D831D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m */; };
@@ -96,6 +98,10 @@
 		A07E5FA01D882A83001677CE /* flickrAPI.secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = flickrAPI.secret.xcconfig; sourceTree = "<group>"; };
 		A07E5FA31D884DF1001677CE /* AuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationController.m; sourceTree = "<group>"; };
 		A07E5FA51D884EAA001677CE /* AuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationController.h; sourceTree = "<group>"; };
+		A0A155941DA3B96D00119380 /* FlickrComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrComment.h; sourceTree = "<group>"; };
+		A0A155951DA3B99000119380 /* FlickrComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrComment.m; sourceTree = "<group>"; };
+		A0A155971DA3D90000119380 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		A0A155981DA3D92000119380 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		A0BEF3DB1D9E5B810087D829 /* FlickrAPI_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPI_keys.h; sourceTree = "<group>"; };
 		A0D89D7D1D8BCB0C0073506E /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
 		A0D89D7E1D8BCB0C0073506E /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
@@ -184,6 +190,8 @@
 				A07E5F711D86FFD5001677CE /* AppDelegate.m */,
 				A07E5F731D86FFD5001677CE /* ViewController.h */,
 				A07E5F741D86FFD5001677CE /* ViewController.m */,
+				A0A155971DA3D90000119380 /* CommentsViewController.h */,
+				A0A155981DA3D92000119380 /* CommentsViewController.m */,
 				A0BEF3DB1D9E5B810087D829 /* FlickrAPI_keys.h */,
 				A0DBB8D91D93EFEB0082E63A /* FlickrAPI.h */,
 				A0DBB8D71D93EFC30082E63A /* FlickrAPI.m */,
@@ -191,6 +199,8 @@
 				A0DBB8E21D952FF30082E63A /* FlickrAlbum.m */,
 				A0DBB8DE1D9502510082E63A /* FlickrBuddy.h */,
 				A0DBB8DF1D95043F0082E63A /* FlickrBuddy.m */,
+				A0A155941DA3B96D00119380 /* FlickrComment.h */,
+				A0A155951DA3B99000119380 /* FlickrComment.m */,
 				A0DBB8E61D9A97610082E63A /* FlickrPhoto.h */,
 				A0DBB8E71D9A97770082E63A /* FlickrPhoto.m */,
 				A07E5FA51D884EAA001677CE /* AuthenticationController.h */,
@@ -419,6 +429,7 @@
 			files = (
 				A0D89D961D8BCB0C0073506E /* SBJsonStreamParserState.m in Sources */,
 				A0D89D921D8BCB0C0073506E /* SBJsonParser.m in Sources */,
+				A0A155991DA3D92000119380 /* CommentsViewController.m in Sources */,
 				A0D89D951D8BCB0C0073506E /* SBJsonStreamParserAdapter.m in Sources */,
 				A05C2D421D8B2C7000D1E351 /* NSString+MD5.m in Sources */,
 				A0D89D941D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m in Sources */,
@@ -429,6 +440,7 @@
 				A0DBB8D81D93EFC30082E63A /* FlickrAPI.m in Sources */,
 				A0D89D981D8BCB0C0073506E /* SBJsonStreamWriter.m in Sources */,
 				A079F9C71D8ADFBE007BB3BD /* SettingsController.m in Sources */,
+				A0A155961DA3B99000119380 /* FlickrComment.m in Sources */,
 				A0D89D9A1D8BCB0C0073506E /* SBJsonStreamWriterState.m in Sources */,
 				A0DBB8E81D9A97770082E63A /* FlickrPhoto.m in Sources */,
 				A07E5F721D86FFD5001677CE /* AppDelegate.m in Sources */,

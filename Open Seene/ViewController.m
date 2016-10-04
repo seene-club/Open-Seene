@@ -14,6 +14,7 @@
 #import "FlickrBuddy.h"
 #import "FlickrAlbum.h"
 #import "FlickrPhoto.h"
+#import "CommentsViewController.h"
 
 @interface ViewController () {
 
@@ -141,8 +142,27 @@
     }
 }
 
+-(void) prepareForSegue:(UIStoryboardPopoverSegue *)segue sender:(id)sender
+{
+    NSLog(@"segue.destinationViewController: %@", segue.destinationViewController);
+    if ([segue.destinationViewController isKindOfClass:[CommentsViewController class]]) {
+        CommentsViewController *cvc = (CommentsViewController *) segue.destinationViewController;
+        cvc.photoID = photo.photoid;
+    }
+}
+
+-(IBAction)commentButtonPushed:(id)sender {
+    [self performSegueWithIdentifier: @"commentsSegue" sender: self];
+}
+
+-(void)webViewDidStartLoad:(UIWebView *)webView {
+    NSLog(@"WebViewDidStartLoad");
+}
+
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    NSLog(@"webViewDidFinishLoad");
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
