@@ -9,7 +9,7 @@
 #import "FlickrPhoto.h"
 
 @implementation FlickrPhoto
-@synthesize photoid, secret, server, farm, title, dateupload, ownerName, ownerNSID, originalURL, favoritesCount, commentsCount, isFavorite;
+@synthesize photoid, secret, server, farm, title, dateupload, ownerName, ownerNSID, originalURL,thumbnailURL, favoritesCount, commentsCount, isFavorite;
 
 
 /* Instance (-) custom constructor method */

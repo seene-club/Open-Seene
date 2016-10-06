@@ -142,16 +142,21 @@
     }
 }
 
+// parameters for the segue to the CommentsViewController
 -(void) prepareForSegue:(UIStoryboardPopoverSegue *)segue sender:(id)sender
 {
     NSLog(@"segue.destinationViewController: %@", segue.destinationViewController);
     if ([segue.destinationViewController isKindOfClass:[CommentsViewController class]]) {
         CommentsViewController *cvc = (CommentsViewController *) segue.destinationViewController;
         cvc.photoID = photo.photoid;
+        cvc.photographerName = photo.ownerName;
+        cvc.thumbnailURL = photo.thumbnailURL;
+        cvc.phototitle = photo.title;
     }
 }
 
 -(IBAction)commentButtonPushed:(id)sender {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self performSegueWithIdentifier: @"commentsSegue" sender: self];
 }
 

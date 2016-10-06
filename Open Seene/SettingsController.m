@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "SettingsController.h"
+#import "FlickrAPI.h"
 
 @interface SettingsController () {
     
+    FlickrAPI *flickrAPI;
     NSString *flickr_token;
     NSString *flickr_nsid;
     NSString *flickr_username;
@@ -29,6 +31,7 @@
 @implementation SettingsController
 
 - (void)viewDidLoad {
+    flickrAPI = [[FlickrAPI alloc] init];
     
     [self.tabBarItem setImage:[[UIImage imageNamed:@"Profile.png"]
                                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
@@ -57,11 +60,7 @@
 }
 
 - (IBAction)logoutPushed:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrNSID"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrUsername"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrFullname"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrProfileIconURL"];
+    [flickrAPI resetLoginUserDefaults];
 }
 
 @end

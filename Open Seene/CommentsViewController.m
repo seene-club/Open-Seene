@@ -22,20 +22,34 @@
 
 @implementation CommentsViewController
 
-@synthesize photoID;
+@synthesize photoID, thumbnailURL, photographerName, phototitle;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
     flickrAPI = [[FlickrAPI alloc] init];
+    
+    
+    NSURL *url = [NSURL URLWithString:thumbnailURL];
+    NSData *data = [NSData dataWithContentsOfURL : url];
+    
+    [_photoThumbnail setImage:[UIImage imageWithData: data]];
+    [_photographerLabel setText:photographerName];
+    [_photoTitleLabel setText:phototitle];
+    
     comments = [[NSMutableArray alloc] init];
     
     comments = [flickrAPI getComments:photoID];
     
     [self.tableView reloadData];
     
-   
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+- (IBAction)closeButtonPushed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -66,14 +80,22 @@
     
     FlickrComment *selectedComment = [comments objectAtIndex:indexPath.row];
     
+    cell.textLabel.font = [UIFont systemFontOfSize:12.0];
+    cell.textLabel.numberOfLines = 0;
+    
+    NSString *iconUrl = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/buddyicons/%@.jpg",
+                         selectedComment.iconfarm, selectedComment.iconserver, selectedComment.authorNSID];
+    
+    NSURL *url = [NSURL URLWithString:iconUrl];
+    NSData *data = [NSData dataWithContentsOfURL : url];
 
     
-    // Bild und Beschriftung der Zelle
+    // Label and Image of the cell
     cell.textLabel.text = selectedComment.commentText;
-    //[cell.imageView setImage:[self getMIMETypeImage:selectedNode]];
+    [cell.imageView setImage:[UIImage imageWithData: data]];
     
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    cell.userInteractionEnabled = YES;
+    //cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    //cell.userInteractionEnabled = YES;
     cell.textLabel.enabled = YES;
     
 

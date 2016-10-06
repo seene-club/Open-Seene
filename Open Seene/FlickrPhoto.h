@@ -19,6 +19,7 @@
     NSString *ownerName;
     NSString *ownerNSID;
     NSString *originalURL;
+    NSString *thumbnailURL;
     NSString *favoritesCount;
     NSString *commentsCount;
     NSString *isFavorite;
@@ -34,6 +35,7 @@
 @property (nonatomic, copy) NSString *ownerName;
 @property (nonatomic, copy) NSString *ownerNSID;
 @property (nonatomic, copy) NSString *originalURL;
+@property (nonatomic, copy) NSString *thumbnailURL;
 @property (nonatomic, copy) NSString *favoritesCount;
 @property (nonatomic, copy) NSString *commentsCount;
 @property (nonatomic, copy) NSString *isFavorite;
