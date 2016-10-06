@@ -13,6 +13,7 @@
 @interface FlickrAPI : NSObject
 
 // API methods catalogue
+-(Boolean)testFlickrLogin;                                   //flickr.test.login
 -(NSMutableArray*)getComments:(NSString*)photoid;            //flickr.photos.comments.getList
 -(Boolean)likeSeene:(FlickrPhoto*)photo;                     //flickr.favorites.add
 -(Boolean)removeLike:(FlickrPhoto*)photo;                    //flickr.favorites.remove
@@ -21,6 +22,7 @@
 -(NSMutableArray*)getContactList;                            //flickr.contacts.getList
 -(NSString*)getProfileIconURL:(NSString*)flickr_nsid;        //flickr.people.getInfo
 -(void)exchangeMiniTokenToFullToken:(NSString*)miniToken;    //flickr.auth.getFullToken
+-(void)resetLoginUserDefaults;                               //No API call, just reset login related UserDefaults.
 
 @end
 

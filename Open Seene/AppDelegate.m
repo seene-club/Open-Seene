@@ -39,15 +39,18 @@
     
     if ((flickr_token) || ([flickr_token length] > 10)) {
         
-        flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
-        flickr_username = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrUsername"];
-        flickr_fullname = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrFullname"];
-        NSLog(@"AppDelegate: UserDefaults 'FlickrNSID': %@", flickr_nsid);
-        NSLog(@"AppDelegate: UserDefaults 'FlickrUsername': %@", flickr_username);
-        NSLog(@"AppDelegate: UserDefaults 'FlickrFullname': %@", flickr_fullname);
+        if ([flickrAPI testFlickrLogin]) {
         
-        // Update Profile and Buddy-List
-        [self updateProfileContacts];
+            flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
+            flickr_username = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrUsername"];
+            flickr_fullname = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrFullname"];
+            NSLog(@"AppDelegate: UserDefaults 'FlickrNSID': %@", flickr_nsid);
+            NSLog(@"AppDelegate: UserDefaults 'FlickrUsername': %@", flickr_username);
+            NSLog(@"AppDelegate: UserDefaults 'FlickrFullname': %@", flickr_fullname);
+        
+            // Update Profile and Buddy-List
+        [   self updateProfileContacts];
+        }
     }
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;

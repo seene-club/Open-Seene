@@ -68,7 +68,55 @@
     return commentList;
 }
 
+//flickr.test.login
+-(Boolean)testFlickrLogin {
+    
+    NSString *flrMethod = @"flickr.test.login";
+    
+    NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    NSString *flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
+    
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@format%smethod%@nojsoncallback%s", flrSecret, flrAPIKey, flickr_token, "json", flrMethod, "1"];
+    NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
+    NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=%@&api_key=%@&auth_token=%@&api_sig=%@&format=json&nojsoncallback=1", flrMethod, flrAPIKey, flickr_token, flrSigStr.MD5 ];
+    NSLog(@"FlickrAPI %@ URL: %@", flrMethod, urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // 2. Get URLResponse string & parse JSON to Foundation objects.
+    
+    NSString *connectionResponse = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    
+    NSLog(@"FlickrAPI %@ RESPONSE: %@", flrMethod, connectionResponse);
+    
+    
+    if ([connectionResponse rangeOfString:flickr_nsid].location == NSNotFound) {
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        id jsonResponse = [jsonParser objectWithString:connectionResponse];
+        NSDictionary *results = (NSDictionary *)jsonResponse;
+        NSString *code = (NSString*) [results valueForKey:@"code"];
+        NSString *message = (NSString*) [results valueForKey:@"message"];
+        NSLog(@"FlickrAPI %@ ERROR: %@ - %@", flrMethod, code, message);
+        
+        [self resetLoginUserDefaults];
+        return false;
+    } else {
+        NSLog(@"FlickrAPI %@ : %@ valid login!", flrMethod, flickr_nsid);
+        return true;
+    }
+    
+    return false;
+}
 
+// reset the Login related UserDefaults (in case of logout, invalid token, ...)
+-(void)resetLoginUserDefaults {
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrNSID"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrUsername"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrFullname"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrProfileIconURL"];
+}
 
 //flickr.favorites.add
 -(Boolean)likeSeene:(FlickrPhoto*)photo {
@@ -152,7 +200,7 @@
 -(NSMutableArray*)getPublicSeenesList:(FlickrBuddy*)buddy {
     
     NSString *flrMethod = @"flickr.photosets.getPhotos";
-    NSString *flrExtras = @"date_upload,url_o,count_comments,count_faves,isfavorite";               // ! some of them are not documented on official Flickr API !
+    NSString *flrExtras = @"date_upload,url_o,url_q,count_comments,count_faves,isfavorite";               // ! some of them are not documented on official Flickr API !
     
     NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
     
@@ -184,6 +232,7 @@
     NSMutableArray *titles=(NSMutableArray*) [photos valueForKey:@"title"];
     NSMutableArray *datesUpload =(NSMutableArray*) [photos valueForKey:@"dateupload"];
     NSMutableArray *originalURLs =(NSMutableArray*) [photos valueForKey:@"url_o"];
+    NSMutableArray *thumbnailURLs =(NSMutableArray*) [photos valueForKey:@"url_q"];
     NSMutableArray *commentsCount =(NSMutableArray*) [photos valueForKey:@"count_comments"];
     NSMutableArray *favoritesCount =(NSMutableArray*) [photos valueForKey:@"count_faves"];
     NSMutableArray *isFavorites =(NSMutableArray*) [photos valueForKey:@"isfavorite"];
@@ -199,6 +248,7 @@
         aPhoto.title = (NSString *)[titles objectAtIndex:ndx];
         aPhoto.dateupload = (NSString *)[datesUpload objectAtIndex:ndx];
         aPhoto.originalURL = (NSString *)[originalURLs objectAtIndex:ndx];
+        aPhoto.thumbnailURL = (NSString *)[thumbnailURLs objectAtIndex:ndx];
         aPhoto.favoritesCount = (NSString *)[favoritesCount objectAtIndex:ndx];
         aPhoto.commentsCount = (NSString *)[commentsCount objectAtIndex:ndx];
         aPhoto.isFavorite = (NSString *)[isFavorites objectAtIndex:ndx];
@@ -355,6 +405,7 @@
     
     return iconUrl;
 }
+
 
 // Authorization by MiniToken to FullToken exchange
 -(void)exchangeMiniTokenToFullToken:(NSString*)miniToken {
