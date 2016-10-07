@@ -20,6 +20,7 @@
 -(Boolean)removeLike:(FlickrPhoto*)photo;                                       //flickr.favorites.remove
 -(NSMutableArray*)getPublicSeenesList:(FlickrBuddy*)buddy;                      //flickr.photosets.getPhotos
 -(NSMutableArray*)getAlbumList:(NSString*)flickr_nsid;                          //flickr.photosets.getList
+-(NSMutableArray*)getGroupContactList;                                          //flickr.groups.members.getList - members of the "Seene" group.
 -(NSMutableArray*)getContactList;                                               //flickr.contacts.getList
 -(NSString*)getProfileIconURL:(NSString*)flickr_nsid;                           //flickr.people.getInfo
 -(void)exchangeMiniTokenToFullToken:(NSString*)miniToken;                       //flickr.auth.getFullToken

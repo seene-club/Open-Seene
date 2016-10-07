@@ -368,7 +368,61 @@
     return albumList;
 }
 
-//flickr.contacts.getList
+//flickr.groups.members.getList - members of the "Seene" group.
+-(NSMutableArray*)getGroupContactList {
+    
+    NSString *flrMethod = @"flickr.groups.members.getList";
+    
+    NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@format%sgroup_id%@method%@nojsoncallback%sper_page500", flrSecret, flrAPIKey, flickr_token, "json", seeneGroupID, flrMethod, "1"];
+    NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
+    NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=%@&group_id=%@&per_page=500&api_key=%@&auth_token=%@&api_sig=%@&format=json&nojsoncallback=1", flrMethod, seeneGroupID, flrAPIKey, flickr_token, flrSigStr.MD5 ];
+    NSLog(@"FlickrAPI %@ URL: %@", flrMethod, urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // 2. Get URLResponse string & parse JSON to Foundation objects.
+    
+    NSString *connectionResponse = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    
+    SBJsonParser *jsonParser = [SBJsonParser new];
+    id jsonResponse = [jsonParser objectWithString:connectionResponse];
+    NSDictionary *results = (NSDictionary *)jsonResponse;
+    NSDictionary *membersEnvelope = [results objectForKey:@"members"];
+    NSString *total = [membersEnvelope objectForKey:@"total"];
+    NSLog(@"FlickrAPI Seene group members: %@", total);
+    NSDictionary *members = [membersEnvelope objectForKey:@"member"];
+    
+    NSMutableArray *nsids=(NSMutableArray*) [members valueForKey:@"nsid"];
+    NSMutableArray *usernames=(NSMutableArray*) [members valueForKey:@"username"];
+    NSMutableArray *realnames=(NSMutableArray*) [members valueForKey:@"realname"];
+    NSMutableArray *locations=(NSMutableArray*) [members valueForKey:@"location"];
+    NSMutableArray *pathaliases=(NSMutableArray*) [members valueForKey:@"path_alias"];
+    NSMutableArray *iconservers=(NSMutableArray*) [members valueForKey:@"iconserver"];
+    NSMutableArray *iconfarms=(NSMutableArray*) [members valueForKey:@"iconfarm"];
+    
+    NSMutableArray *memberList = [[NSMutableArray alloc] init];
+    
+    int ndx;
+    for (ndx = 0; ndx < nsids.count; ndx++) {
+        FlickrBuddy *aMember = [FlickrBuddy flickrBuddyWithID:(NSString *)[nsids objectAtIndex:ndx]];
+        aMember.username = (NSString *)[usernames objectAtIndex:ndx];
+        aMember.realname = (NSString *)[realnames objectAtIndex:ndx];
+        aMember.location = (NSString *)[locations objectAtIndex:ndx];
+        aMember.pathalias = (NSString *)[pathaliases objectAtIndex:ndx];
+        aMember.iconserver = (NSString *)[iconservers objectAtIndex:ndx];
+        aMember.iconfarm = (NSString *)[iconfarms objectAtIndex:ndx];
+        NSLog(@"FlickrAPI Seene group member: %@ - %@", aMember.nsid, aMember.username);
+        [memberList addObject:aMember];
+    }
+    
+    return memberList;
+}
+
+
+//flickr.contacts.getList - flickr buddies of the logged-in user.
 -(NSMutableArray*)getContactList {
     
     // 1. Call Flickr API Method "contacts.getList" with MD5 signed parameters. (Parameters must be concatenated in alphabetical order for signing!)
