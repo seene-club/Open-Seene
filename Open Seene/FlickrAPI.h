@@ -13,16 +13,21 @@
 @interface FlickrAPI : NSObject
 
 // API methods catalogue
--(Boolean)testFlickrLogin;                                   //flickr.test.login
--(NSMutableArray*)getComments:(NSString*)photoid;            //flickr.photos.comments.getList
--(Boolean)likeSeene:(FlickrPhoto*)photo;                     //flickr.favorites.add
--(Boolean)removeLike:(FlickrPhoto*)photo;                    //flickr.favorites.remove
--(NSMutableArray*)getPublicSeenesList:(FlickrBuddy*)buddy;   //flickr.photosets.getPhotos
--(NSMutableArray*)getAlbumList:(NSString*)flickr_nsid;       //flickr.photosets.getList
--(NSMutableArray*)getContactList;                            //flickr.contacts.getList
--(NSString*)getProfileIconURL:(NSString*)flickr_nsid;        //flickr.people.getInfo
--(void)exchangeMiniTokenToFullToken:(NSString*)miniToken;    //flickr.auth.getFullToken
--(void)resetLoginUserDefaults;                               //No API call, just reset login related UserDefaults.
+-(Boolean)testFlickrLogin;                                                      //flickr.test.login
+-(Boolean)commentSeene:(FlickrPhoto*)photo withText:(NSString*)comment_text;    //flickr.photos.comments.addComment
+-(NSMutableArray*)getComments:(NSString*)photoid;                               //flickr.photos.comments.getList
+-(Boolean)likeSeene:(FlickrPhoto*)photo;                                        //flickr.favorites.add
+-(Boolean)removeLike:(FlickrPhoto*)photo;                                       //flickr.favorites.remove
+-(NSMutableArray*)getPublicSeenesList:(FlickrBuddy*)buddy;                      //flickr.photosets.getPhotos
+-(NSMutableArray*)getAlbumList:(NSString*)flickr_nsid;                          //flickr.photosets.getList
+-(NSMutableArray*)getContactList;                                               //flickr.contacts.getList
+-(NSString*)getProfileIconURL:(NSString*)flickr_nsid;                           //flickr.people.getInfo
+-(void)exchangeMiniTokenToFullToken:(NSString*)miniToken;                       //flickr.auth.getFullToken
+-(void)resetLoginUserDefaults;                                                  //No API call, just reset login related UserDefaults.
+-(NSString*) getLastFailOrigin;
+-(NSString*) getLastFailID;
+-(NSString*) getLastFailText;
+-(void) lastFailClear;
 
 @end
 

@@ -148,10 +148,7 @@
     NSLog(@"segue.destinationViewController: %@", segue.destinationViewController);
     if ([segue.destinationViewController isKindOfClass:[CommentsViewController class]]) {
         CommentsViewController *cvc = (CommentsViewController *) segue.destinationViewController;
-        cvc.photoID = photo.photoid;
-        cvc.photographerName = photo.ownerName;
-        cvc.thumbnailURL = photo.thumbnailURL;
-        cvc.phototitle = photo.title;
+        cvc.photo = photo;
     }
 }
 

@@ -7,23 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlickrPhoto.h"
 
 @interface CommentsViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource> {
-    NSString* photoID;
-    NSString* thumbnailURL;
-    NSString* photographerName;
-    NSString* phototitle;
+    
+    FlickrPhoto *photo;
+
 }
 
-@property (nonatomic, retain) NSString* photoID;
-@property (nonatomic, retain) NSString* thumbnailURL;
-@property (nonatomic, retain) NSString* photographerName;
-@property (nonatomic, retain) NSString* phototitle;
+@property (nonatomic, retain) FlickrPhoto *photo;
+
+//InterfaceBuilder outlets
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UIButton *postButton;
 @property (weak, nonatomic) IBOutlet UIImageView *photoThumbnail;
 @property (weak, nonatomic) IBOutlet UILabel *photographerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *photoTitleLabel;
+@property (weak, nonatomic) IBOutlet UITextField *commentTextField;
 
 @end

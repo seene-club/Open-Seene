@@ -22,7 +22,7 @@
 
 @implementation CommentsViewController
 
-@synthesize photoID, thumbnailURL, photographerName, phototitle;
+@synthesize photo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,22 +30,39 @@
     
     flickrAPI = [[FlickrAPI alloc] init];
     
-    
-    NSURL *url = [NSURL URLWithString:thumbnailURL];
+    NSURL *url = [NSURL URLWithString:photo.thumbnailURL];
     NSData *data = [NSData dataWithContentsOfURL : url];
     
     [_photoThumbnail setImage:[UIImage imageWithData: data]];
-    [_photographerLabel setText:photographerName];
-    [_photoTitleLabel setText:phototitle];
+    [_photographerLabel setText:photo.ownerName];
+    [_photoTitleLabel setText:photo.title];
     
     comments = [[NSMutableArray alloc] init];
-    
-    comments = [flickrAPI getComments:photoID];
-    
+    comments = [flickrAPI getComments:photo.photoid];
     [self.tableView reloadData];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (IBAction)postButtonPushed:(id)sender {
     
+    if ([_commentTextField.text length] > 0) {
+        
+        if ([flickrAPI commentSeene:photo withText:_commentTextField.text]) {
+            _commentTextField.text = @"";
+            comments = [flickrAPI getComments:photo.photoid];
+            [self.tableView reloadData];
+        } else {
+            NSString *errMsg = [NSString stringWithFormat:@"%@\nError Code: %@\n%@",flickrAPI.getLastFailOrigin,flickrAPI.getLastFailID,flickrAPI.getLastFailText];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Posting comment failed!"
+                                                            message:errMsg
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            [flickrAPI lastFailClear];
+        }
+    }
 }
 
 - (IBAction)closeButtonPushed:(id)sender {

@@ -17,6 +17,56 @@
 
 @implementation FlickrAPI
 
+//flickr.photos.comments.addComment
+-(Boolean)commentSeene:(FlickrPhoto*)photo withText:(NSString*)comment_text {
+    
+    NSString *flrMethod = @"flickr.photos.comments.addComment";
+    
+    NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@comment_text%@format%smethod%@nojsoncallback%sphoto_id%@", flrSecret, flrAPIKey, flickr_token, comment_text, "json", flrMethod, "1", photo.photoid];
+    NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
+    NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
+    
+    // IMPORTANT: The comment_text must be url-encoded for the request, but it MUST NOT be url-encoded for the MD5-Signature!
+    NSMutableCharacterSet *chars = NSCharacterSet.URLQueryAllowedCharacterSet.mutableCopy;
+    [chars removeCharactersInRange:NSMakeRange('&', 1)]; // %26
+    NSString *encodedComment = [comment_text stringByAddingPercentEncodingWithAllowedCharacters:chars];
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=%@&photo_id=%@&comment_text=%@&api_key=%@&auth_token=%@&api_sig=%@&format=json&nojsoncallback=1", flrMethod, photo.photoid, encodedComment, flrAPIKey, flickr_token, flrSigStr.MD5 ];
+    NSLog(@"FlickrAPI %@ URL: %@", flrMethod, urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // 2. Get URLResponse string & parse JSON to Foundation objects.
+    
+    NSString *connectionResponse = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    
+    if (connectionResponse == nil) {
+        [self lastFailToWithOrigin:flrMethod errorID:@"-1" errorText:@"Request execution failed"];
+        return false;
+    }
+    
+    NSLog(@"FlickrAPI %@ RESPONSE: %@", flrMethod, connectionResponse);
+    
+    if ([connectionResponse rangeOfString:@"\"stat\":\"ok\"}"].location == NSNotFound) {
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        id jsonResponse = [jsonParser objectWithString:connectionResponse];
+        NSDictionary *results = (NSDictionary *)jsonResponse;
+        NSString *code = (NSString*) [results valueForKey:@"code"];
+        NSString *message = (NSString*) [results valueForKey:@"message"];
+        NSLog(@"FlickrAPI %@ ERROR: %@ - %@", flrMethod, code, message);
+        [self lastFailToWithOrigin:flrMethod errorID:code errorText:message];
+        
+        return false;
+    } else {
+        NSLog(@"FlickrAPI %@ OK: %@ - %@", flrMethod, photo.photoid, encodedComment);
+        return true;
+    }
+    
+    return false;
+}
+
+
 //flickr.photos.comments.getList
 -(NSMutableArray*)getComments:(NSString*)photoid {
     
@@ -90,7 +140,6 @@
     
     NSLog(@"FlickrAPI %@ RESPONSE: %@", flrMethod, connectionResponse);
     
-    
     if ([connectionResponse rangeOfString:flickr_nsid].location == NSNotFound) {
         SBJsonParser *jsonParser = [SBJsonParser new];
         id jsonResponse = [jsonParser objectWithString:connectionResponse];
@@ -107,15 +156,6 @@
     }
     
     return false;
-}
-
-// reset the Login related UserDefaults (in case of logout, invalid token, ...)
--(void)resetLoginUserDefaults {
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrNSID"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrUsername"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrFullname"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrProfileIconURL"];
 }
 
 //flickr.favorites.add
@@ -146,7 +186,8 @@
         NSString *code = (NSString*) [results valueForKey:@"code"];
         NSString *message = (NSString*) [results valueForKey:@"message"];
         NSLog(@"FlickrAPI %@ ERROR: %@ - %@", flrMethod, code, message);
-
+        [self lastFailToWithOrigin:flrMethod errorID:code errorText:message];
+        
         return false;
     } else {
         NSLog(@"FlickrAPI %@ OK: %@ - %@", flrMethod, photo.photoid, photo.ownerName);
@@ -184,6 +225,7 @@
         NSString *code = (NSString*) [results valueForKey:@"code"];
         NSString *message = (NSString*) [results valueForKey:@"message"];
         NSLog(@"FlickrAPI %@ ERROR: %@ - %@", flrMethod, code, message);
+        [self lastFailToWithOrigin:flrMethod errorID:code errorText:message];
         
         return false;
     } else {
@@ -442,7 +484,6 @@
     NSLog(@"FlickrAPI received: %@", fullname);
     
     // 3. Store Token & userdata to UserDefaults
-    
     [[NSUserDefaults standardUserDefaults] setValue:token forKey:@"FlickrToken"];
     [[NSUserDefaults standardUserDefaults] setValue:nsid forKey:@"FlickrNSID"];
     [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"FlickrUsername"];
@@ -452,6 +493,43 @@
     [[NSUserDefaults standardUserDefaults] setValue:[self getProfileIconURL:nsid] forKey:@"FlickrProfileIconURL"];
     
 }
+
+// persist last fail of an API-Call in UserDefaults
+-(void) lastFailToWithOrigin:(NSString*)origin errorID:(NSString*)errid errorText:(NSString*)errtxt {
+    [[NSUserDefaults standardUserDefaults] setValue:origin forKey:@"LastFailOrigin"];
+    [[NSUserDefaults standardUserDefaults] setValue:errid forKey:@"LastFailID"];
+    [[NSUserDefaults standardUserDefaults] setValue:errtxt forKey:@"LastFailText"];
+}
+
+-(NSString*) getLastFailOrigin {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"LastFailOrigin"];
+}
+
+-(NSString*) getLastFailID {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"LastFailID"];
+}
+
+-(NSString*) getLastFailText {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"LastFailText"];
+}
+
+-(void) lastFailClear {
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"LastFailOrigin"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"LastFailID"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"LastFailText"];
+}
+
+// reset the Login related UserDefaults (in case of logout, invalid token, ...)
+-(void)resetLoginUserDefaults {
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrNSID"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrUsername"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrFullname"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrProfileIconURL"];
+    [self lastFailClear];
+}
+
+
 
 
 @end
