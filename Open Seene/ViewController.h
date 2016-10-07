@@ -10,7 +10,6 @@
 
 @interface ViewController : UIViewController <UIWebViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIWebView *SeeneViewer;
 @property (weak, nonatomic) IBOutlet UIButton *usernameButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;

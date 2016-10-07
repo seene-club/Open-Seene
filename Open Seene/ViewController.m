@@ -20,6 +20,7 @@
 
     FlickrAPI *flickrAPI;
     FlickrPhoto *photo;
+    UIWebView *webView;
     NSString *flickr_token;
     NSString *flickr_nsid;
     NSString *flickr_username;
@@ -42,6 +43,10 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self createTimeline];
+    
+    webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 20, 414, 414)];
+    webView.delegate = self;
+    [self.view addSubview:webView];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
@@ -88,9 +93,17 @@
     
     NSString *viewerURL = [NSString stringWithFormat:@"https://seene-shelter.github.io/viewer/#/?url=%@", photo.originalURL];
     NSLog(@"Loading Seene: %d %@ %@", showIndex, photo.ownerName, photo.originalURL);
+
     NSURL *url = [NSURL URLWithString:viewerURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [_SeeneViewer loadRequest:requestObj];
+    
+    if (webView==nil) {
+        webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 20, 414, 414)];
+        webView.delegate = self;
+        [self.view addSubview:webView];
+    }
+    
+    [webView loadRequest:requestObj];
     
     // Fill-in labels
     [_usernameButton setTitle:[NSString stringWithFormat:@"@%@",photo.ownerName] forState:UIControlStateNormal];
@@ -158,13 +171,12 @@
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView {
-    NSLog(@"WebViewDidStartLoad");
+   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSLog(@"webViewDidFinishLoad");
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
@@ -184,7 +196,9 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [webView loadHTMLString: @"" baseURL: nil];
+    webView = nil;
+    [self showSeene];
 }
 
 @end

@@ -31,6 +31,11 @@
     // Override point for customization after application launch.
     
     // If we have a already a token in the UserDefaults, we'll try to retrieve the user's profile data.
+    int cacheSizeMemory = 4*1024*1024; // 4MB
+    int cacheSizeDisk = 32*1024*1024; // 32MB
+    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
+    [NSURLCache setSharedURLCache:sharedCache];
+    
     flickrAPI = [[FlickrAPI alloc] init];
     
     flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
@@ -79,6 +84,10 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+}
+
 - (void)updateProfileContacts {
     
     // Call API for User's profile icon & store the URL to UserDefaults
@@ -87,7 +96,9 @@
     
     // Call API for User's ContactList (buddies)
     buddyList = [[NSMutableArray alloc] init];
-    buddyList = [flickrAPI getContactList];
+    //buddyList = [flickrAPI getContactList];
+    buddyList = [flickrAPI getGroupContactList];
+
     
     int ndx;
     for (ndx = 0; ndx < buddyList.count; ndx++) {
