@@ -30,7 +30,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    // If we have a already a token in the UserDefaults, we'll try to retrieve the user's profile data.
+    // Experimenting with Cache Sizes to get rid of the memory leak of UIWebView...
     int cacheSizeMemory = 4*1024*1024; // 4MB
     int cacheSizeDisk = 32*1024*1024; // 32MB
     NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
@@ -42,6 +42,7 @@
     
     NSLog(@"AppDelegate: UserDefaults 'FlickrToken': %@", flickr_token);
     
+    // If we have a already a token in the UserDefaults, we'll try to retrieve the user's profile data.
     if ((flickr_token) || ([flickr_token length] > 10)) {
         
         if ([flickrAPI testFlickrLogin]) {
@@ -54,7 +55,7 @@
             NSLog(@"AppDelegate: UserDefaults 'FlickrFullname': %@", flickr_fullname);
         
             // Update Profile and Buddy-List
-        [   self updateProfileContacts];
+        [ self updateProfileContacts];
         }
     }
 
@@ -97,7 +98,7 @@
     // Call API for User's ContactList (buddies)
     buddyList = [[NSMutableArray alloc] init];
     //buddyList = [flickrAPI getContactList];
-    buddyList = [flickrAPI getGroupContactList];
+    //buddyList = [flickrAPI getGroupContactList];
 
     
     int ndx;

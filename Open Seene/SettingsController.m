@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SettingsController.h"
 #import "FlickrAPI.h"
+#import "GroupMembersViewController.h"
 
 @interface SettingsController () {
     
@@ -25,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lblUsername;
 @property (weak, nonatomic) IBOutlet UILabel *lblFullname;
+@property (weak, nonatomic) IBOutlet UIButton *membersButton;
 
 @end
 
@@ -57,6 +59,16 @@
     self.imgProfile.clipsToBounds = YES;
     self.imgProfile.layer.borderWidth = 3.0f;
     self.imgProfile.layer.borderColor = [UIColor whiteColor].CGColor;
+}
+
+- (IBAction)membersBUttonPushed:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
+    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SeeneGroupMembersView"];
+
+    viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (IBAction)logoutPushed:(id)sender {

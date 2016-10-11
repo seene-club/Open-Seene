@@ -6,6 +6,7 @@
 //  Copyright © 2016 Mathias Zettler. All rights reserved.
 //
 
+#import <WebKit/WebKit.h>
 #import "ViewController.h"
 #import "NSString+MD5.h"
 #import "SBJson.h"
@@ -20,7 +21,8 @@
 
     FlickrAPI *flickrAPI;
     FlickrPhoto *photo;
-    UIWebView *webView;
+    WKWebViewConfiguration *wKWebConfig;
+    WKWebView *webView;
     NSString *flickr_token;
     NSString *flickr_nsid;
     NSString *flickr_username;
@@ -44,8 +46,9 @@
     
     [self createTimeline];
     
-    webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 20, 414, 414)];
-    webView.delegate = self;
+    wKWebConfig = [[WKWebViewConfiguration alloc] init];
+    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 20, 414, 414) configuration:wKWebConfig];
+    webView.navigationDelegate = self;
     [self.view addSubview:webView];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -98,8 +101,9 @@
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     
     if (webView==nil) {
-        webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 20, 414, 414)];
-        webView.delegate = self;
+        wKWebConfig = [[WKWebViewConfiguration alloc] init];
+        webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 20, 414, 414) configuration:wKWebConfig];
+        webView.navigationDelegate = self;
         [self.view addSubview:webView];
     }
     

@@ -28,17 +28,24 @@
                                 <rect key="frame" x="20" y="34" width="75" height="75"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="fullname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1nD-Vl-WEx">
-                                <rect key="frame" x="103" y="83" width="242" height="21"/>
+                                <rect key="frame" x="103" y="70" width="242" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwB-U4-0x4">
                                 <rect key="frame" x="103" y="34" width="242" height="46"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LJN-ZV-bak">
+                                <rect key="frame" x="267" y="115" width="132" height="22"/>
+                                <state key="normal" title="Seene Members"/>
+                                <connections>
+                                    <action selector="membersBUttonPushed:" destination="ru2-Yf-O5C" eventType="touchUpInside" id="HEY-uh-c4a"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
@@ -52,6 +59,7 @@
                         <outlet property="lblFullname" destination="1nD-Vl-WEx" id="Njp-zh-DYt"/>
                         <outlet property="lblUsername" destination="NwB-U4-0x4" id="ojY-SP-reL"/>
                         <outlet property="logoutButton" destination="4Ac-K3-fnQ" id="RD9-e6-sqf"/>
+                        <outlet property="membersButton" destination="LJN-ZV-bak" id="r4C-Mv-eS9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aeR-nt-hnp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -78,6 +86,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ET7-zS-3Pw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-236" y="3"/>
+        </scene>
+        <!--Group Members View Controller-->
+        <scene sceneID="Z6z-ZO-tDI">
+            <objects>
+                <viewController storyboardIdentifier="SeeneGroupMembersView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="w9h-OG-XAC" customClass="GroupMembersViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7WN-9h-fFo"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jhb-cx-wFg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d4J-y5-r5u">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aoF-0k-Dqt">
+                                <rect key="frame" x="0.0" y="81" width="414" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="w9h-OG-XAC" id="K9s-r4-doX"/>
+                                    <outlet property="delegate" destination="w9h-OG-XAC" id="bLE-Xi-BFc"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83Z-XU-Yo9">
+                                <rect key="frame" x="353" y="28" width="46" height="30"/>
+                                <state key="normal" title="close"/>
+                                <connections>
+                                    <action selector="closeButtonPushed:" destination="w9h-OG-XAC" eventType="touchUpInside" id="aJI-wr-xtU"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Seenester Directory" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBg-KX-TiB">
+                                <rect key="frame" x="14" y="20" width="268" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Members of the &quot;Seene&quot; group in Flickr" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkf-r2-3P4">
+                                <rect key="frame" x="14" y="47" width="268" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="closeButton" destination="83Z-XU-Yo9" id="MC3-09-dkV"/>
+                        <outlet property="tableView" destination="aoF-0k-Dqt" id="woz-rb-1ao"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0xD-3r-NKh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="364" y="455"/>
         </scene>
         <!--Comments Controller-->
         <scene sceneID="2at-Ui-F7F">
@@ -261,7 +325,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eJH-oU-YbJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-218" y="-914"/>
+            <point key="canvasLocation" x="-75" y="-931"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="AoQ-DU-MI1">

@@ -114,7 +114,6 @@
     //cell.accessoryType = UITableViewCellAccessoryCheckmark;
     //cell.userInteractionEnabled = YES;
     cell.textLabel.enabled = YES;
-    
 
     
     return cell;

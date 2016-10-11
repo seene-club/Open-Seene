@@ -13,6 +13,7 @@
 		A0276CDC1D9306E600AEE859 /* Profile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0276CD91D9306E600AEE859 /* Profile@3x.png */; };
 		A0276CDD1D9306E600AEE859 /* Profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0276CDA1D9306E600AEE859 /* Profile@2x.png */; };
 		A0276CDE1D9306E600AEE859 /* Profile.png in Resources */ = {isa = PBXBuildFile; fileRef = A0276CDB1D9306E600AEE859 /* Profile.png */; };
+		A034C95F1DAD12D200BE13E5 /* GroupMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A034C95E1DAD12D200BE13E5 /* GroupMembersViewController.m */; };
 		A05C2D421D8B2C7000D1E351 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C2D411D8B2C7000D1E351 /* NSString+MD5.m */; };
 		A062C1BA1D9326490090F0EE /* Timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = A062C1B71D9326490090F0EE /* Timeline.png */; };
 		A062C1BB1D9326490090F0EE /* Timeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A062C1B81D9326490090F0EE /* Timeline@2x.png */; };
@@ -72,6 +73,8 @@
 		A0276CD91D9306E600AEE859 /* Profile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile@3x.png"; sourceTree = "<group>"; };
 		A0276CDA1D9306E600AEE859 /* Profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile@2x.png"; sourceTree = "<group>"; };
 		A0276CDB1D9306E600AEE859 /* Profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Profile.png; sourceTree = "<group>"; };
+		A034C95D1DAD12BC00BE13E5 /* GroupMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMembersViewController.h; sourceTree = "<group>"; };
+		A034C95E1DAD12D200BE13E5 /* GroupMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMembersViewController.m; sourceTree = "<group>"; };
 		A05C2D401D8B2C2F00D1E351 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		A05C2D411D8B2C7000D1E351 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		A062C1B71D9326490090F0EE /* Timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Timeline.png; sourceTree = "<group>"; };
@@ -192,6 +195,12 @@
 				A07E5F741D86FFD5001677CE /* ViewController.m */,
 				A0A155971DA3D90000119380 /* CommentsViewController.h */,
 				A0A155981DA3D92000119380 /* CommentsViewController.m */,
+				A034C95D1DAD12BC00BE13E5 /* GroupMembersViewController.h */,
+				A034C95E1DAD12D200BE13E5 /* GroupMembersViewController.m */,
+				A07E5FA51D884EAA001677CE /* AuthenticationController.h */,
+				A07E5FA31D884DF1001677CE /* AuthenticationController.m */,
+				A079F9C81D8ADFEC007BB3BD /* SettingsController.h */,
+				A079F9C61D8ADFBE007BB3BD /* SettingsController.m */,
 				A0BEF3DB1D9E5B810087D829 /* FlickrAPI_keys.h */,
 				A0DBB8D91D93EFEB0082E63A /* FlickrAPI.h */,
 				A0DBB8D71D93EFC30082E63A /* FlickrAPI.m */,
@@ -203,12 +212,8 @@
 				A0A155951DA3B99000119380 /* FlickrComment.m */,
 				A0DBB8E61D9A97610082E63A /* FlickrPhoto.h */,
 				A0DBB8E71D9A97770082E63A /* FlickrPhoto.m */,
-				A07E5FA51D884EAA001677CE /* AuthenticationController.h */,
-				A07E5FA31D884DF1001677CE /* AuthenticationController.m */,
 				A05C2D401D8B2C2F00D1E351 /* NSString+MD5.h */,
 				A05C2D411D8B2C7000D1E351 /* NSString+MD5.m */,
-				A079F9C81D8ADFEC007BB3BD /* SettingsController.h */,
-				A079F9C61D8ADFBE007BB3BD /* SettingsController.m */,
 				A07E5F761D86FFD5001677CE /* Main.storyboard */,
 				A07E5F791D86FFD5001677CE /* Assets.xcassets */,
 				A07E5F7B1D86FFD5001677CE /* LaunchScreen.storyboard */,
@@ -443,6 +448,7 @@
 				A0A155961DA3B99000119380 /* FlickrComment.m in Sources */,
 				A0D89D9A1D8BCB0C0073506E /* SBJsonStreamWriterState.m in Sources */,
 				A0DBB8E81D9A97770082E63A /* FlickrPhoto.m in Sources */,
+				A034C95F1DAD12D200BE13E5 /* GroupMembersViewController.m in Sources */,
 				A07E5F721D86FFD5001677CE /* AppDelegate.m in Sources */,
 				A0D89D991D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.m in Sources */,
 				A0D89D971D8BCB0C0073506E /* SBJsonStreamTokeniser.m in Sources */,
@@ -539,7 +545,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -577,7 +583,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
