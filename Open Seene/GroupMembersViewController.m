@@ -14,6 +14,9 @@
 @interface GroupMembersViewController () {
     
     FlickrAPI *flickrAPI;
+    NSString *personalDir;
+    NSString *followingDir;
+    NSFileManager *fileManager;
     NSMutableArray *memberList;
 }
 
@@ -28,6 +31,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    fileManager = [NSFileManager new];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    [self checkAndCreateDir:documentsDirectory];
+    NSString *flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
+    personalDir = [documentsDirectory stringByAppendingPathComponent:flickr_nsid];
+    followingDir = [personalDir stringByAppendingPathComponent:@"following"];
+    [self checkAndCreateDir:personalDir];
+    [self checkAndCreateDir:followingDir];
     
     flickrAPI = [[FlickrAPI alloc] init];
     
@@ -87,12 +99,15 @@
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     FlickrBuddy *selectedMember = [memberList objectAtIndex:indexPath.row];
     
+    // special cell properties
     cell.textLabel.font = [UIFont systemFontOfSize:12.0];
     cell.textLabel.numberOfLines = 0;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     NSString *iconUrl = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/buddyicons/%@.jpg",
                                  selectedMember.iconfarm, selectedMember.iconserver, selectedMember.nsid];
@@ -109,8 +124,34 @@
     NSData *data = [NSData dataWithContentsOfURL : url];
     
     
+    
+    NSString *canFollowString;
+    if (selectedMember.public_set == nil) {
+        canFollowString = @"No Album \"Public Seenes\" found for this user.";
+    } else {
+        canFollowString = @"\"Public Seenes\" Album available!";
+        
+        
+        //TODO
+        BOOL checked =  false;
+        UIImage *image = (checked) ? [UIImage imageNamed:@"checked.png"] : [UIImage imageNamed:@"unchecked.png"];
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+        button.frame = frame;   // match the button's size with the image size
+        button.tag = indexPath.row;
+        [button setBackgroundImage:image forState:UIControlStateNormal];
+        
+        // set the button's target to this table view controller so we can interpret touch events and map that to a NSIndexSet
+        [button addTarget:self action:@selector(checkButton_click:event:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.accessoryView = button;
+        
+    }
+    
+    
     // Label and Image of the cell
-    cell.textLabel.text = selectedMember.username;
+    cell.textLabel.text = [NSString stringWithFormat:@"@%@\n%@\n%@" , selectedMember.username, selectedMember.realname, canFollowString];
     [cell.imageView setImage:[UIImage imageWithData: data]];
     
     //cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -121,8 +162,46 @@
     return cell;
 }
 
+// click on "follow"
+- (void)checkButton_click:(id)sender event:(id)event
+{
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
+    if (indexPath != nil)
+    {
+        FlickrBuddy *followingMember = [memberList objectAtIndex:indexPath.item];
+        [self writeFollowingFile:followingMember];
+        [self tableView: self.tableView didSelectRowAtIndexPath: indexPath];
+    }
+}
+
+//username.mode-Datei anlegen
+- (void)writeFollowingFile:(FlickrBuddy*)person {
+    FlickrAlbum *publicset = person.public_set;
+    if (publicset) {
+        NSString *followingFileName = person.nsid;
+        NSString *followingFile = [followingDir stringByAppendingPathComponent:followingFileName];
+        [[publicset.setid dataUsingEncoding:NSUTF8StringEncoding] writeToFile:followingFile atomically:YES];
+         NSLog(@"writing file: %@", followingFile);
+    }
+}
+
 - (IBAction)closeButtonPushed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)checkAndCreateDir:(NSString*)dirPath {
+    NSError *error;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dirPath])
+    {
+        NSLog(@"Creating Directory: %@",dirPath);
+        if (![[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:NO attributes:nil error:&error])
+        {
+            NSLog(@"Create directory error: %@", error);
+        }
+    }
 }
 
 
