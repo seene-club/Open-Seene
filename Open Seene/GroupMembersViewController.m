@@ -14,10 +14,12 @@
 @interface GroupMembersViewController () {
     
     FlickrAPI *flickrAPI;
+    BOOL scanComplete;
     NSString *personalDir;
     NSString *followingDir;
     NSFileManager *fileManager;
     NSMutableArray *memberList;
+    NSMutableArray *followingList;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -31,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    scanComplete = NO;
     fileManager = [NSFileManager new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -46,8 +49,38 @@
     // Call API for FlickrGroup "Seene" Members
     memberList = [[NSMutableArray alloc] init];
     memberList = [flickrAPI getGroupContactList];
+    followingList = [self loadFollowingListFromPhone];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+
+// Read following list from device (AppDirectory/Documents/<NSID>/following/...)
+- (NSMutableArray*)loadFollowingListFromPhone {
+    NSMutableArray *personList;
+    NSString *item;
+    NSError *error;
+    
+    personList = [[NSMutableArray alloc] init];
+    
+       NSArray *directoryContent = [fileManager contentsOfDirectoryAtPath:followingDir error:NULL];
+    for (item in directoryContent){
+     
+        NSString *followingFile = [followingDir stringByAppendingPathComponent:item];
+        NSString *followingFileData = [NSString stringWithContentsOfFile:followingFile encoding:NSUTF8StringEncoding error:&error];
+        
+        NSLog(@"file: %@ - content: %@", item, followingFileData);
+        
+        FlickrBuddy *aPerson = [FlickrBuddy flickrBuddyWithID:(NSString *) item];
+        FlickrAlbum *thePublicAlbum = [FlickrAlbum flickrAlbumWithID:(NSString *)followingFileData];
+        thePublicAlbum.settype = 1;
+        aPerson.public_set = thePublicAlbum;
+        
+        [personList addObject:aPerson];
+   
+    }
+    
+    return personList;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -67,8 +100,9 @@
         }
     }
     
-    
+    scanComplete = YES;
     [self.tableView reloadData];
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
 
@@ -99,7 +133,7 @@
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     FlickrBuddy *selectedMember = [memberList objectAtIndex:indexPath.row];
@@ -107,7 +141,7 @@
     // special cell properties
     cell.textLabel.font = [UIFont systemFontOfSize:12.0];
     cell.textLabel.numberOfLines = 0;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
     
     NSString *iconUrl = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/buddyicons/%@.jpg",
                                  selectedMember.iconfarm, selectedMember.iconserver, selectedMember.nsid];
@@ -120,33 +154,41 @@
        url = [NSURL URLWithString:@"https://www.flickr.com/images/buddyicon.gif"];
     }
     
-    
     NSData *data = [NSData dataWithContentsOfURL : url];
     
-    
-    
-    NSString *canFollowString;
-    if (selectedMember.public_set == nil) {
-        canFollowString = @"No Album \"Public Seenes\" found for this user.";
-    } else {
-        canFollowString = @"\"Public Seenes\" Album available!";
-        
-        
-        //TODO
-        BOOL checked =  false;
-        UIImage *image = (checked) ? [UIImage imageNamed:@"checked.png"] : [UIImage imageNamed:@"unchecked.png"];
-        
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
-        button.frame = frame;   // match the button's size with the image size
-        button.tag = indexPath.row;
-        [button setBackgroundImage:image forState:UIControlStateNormal];
-        
-        // set the button's target to this table view controller so we can interpret touch events and map that to a NSIndexSet
-        [button addTarget:self action:@selector(checkButton_click:event:) forControlEvents:UIControlEventTouchUpInside];
-        
-        cell.accessoryView = button;
-        
+    NSString *canFollowString = @"scanning...";
+    if (scanComplete) {
+        if (selectedMember.public_set == nil) {
+            canFollowString = @"No Album \"Public Seenes\" found for this user.";
+        } else {
+            canFollowString = @"\"Public Seenes\" Album available!";
+            
+            BOOL checked =  false;
+            selectedMember.following = 0;
+            int ndx;
+            for (ndx = 0; ndx < followingList.count; ndx++) {
+                FlickrBuddy *aPerson = [followingList objectAtIndex:ndx];
+                if ([aPerson.nsid caseInsensitiveCompare:selectedMember.nsid] == NSOrderedSame) {
+                    checked = true;
+                    selectedMember.following = 1;
+                }
+            }
+
+            
+            UIImage *image = (checked) ? [UIImage imageNamed:@"checked.png"] : [UIImage imageNamed:@"unchecked.png"];
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+            button.frame = frame;   // match the button's size with the image size
+            button.tag = indexPath.row;
+            [button setBackgroundImage:image forState:UIControlStateNormal];
+            
+            // set the button's target to this table view controller so we can interpret touch events and map that to a NSIndexSet
+            [button addTarget:self action:@selector(checkButton_click:event:) forControlEvents:UIControlEventTouchUpInside];
+            
+            cell.accessoryView = button;
+            
+        }
     }
     
     
@@ -172,19 +214,42 @@
     if (indexPath != nil)
     {
         FlickrBuddy *followingMember = [memberList objectAtIndex:indexPath.item];
-        [self writeFollowingFile:followingMember];
-        [self tableView: self.tableView didSelectRowAtIndexPath: indexPath];
+        // perform follow or unfollow?
+        if (followingMember.following == 0) {
+            [self writeFollowingFile:followingMember];
+            [self tableView: self.tableView didSelectRowAtIndexPath: indexPath];
+        } else {
+            NSString *followingFileName = followingMember.nsid;
+            NSString *fileToDelete = [followingDir stringByAppendingPathComponent:followingFileName];
+            NSError *err;
+            [fileManager removeItemAtPath:fileToDelete error:&err];
+        }
+        UIImage *newImage;
+        
+        // change visible state
+        BOOL checked =  (followingMember.following==0) ? NO : YES;
+        if (checked) {
+            followingMember.following=0;
+            newImage = [UIImage imageNamed:@"unchecked.png"];
+        } else {
+            followingMember.following=1;
+            newImage = [UIImage imageNamed:@"checked.png"];
+        }
+        
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        UIButton *button = (UIButton *)cell.accessoryView;
+        [button setBackgroundImage:newImage forState:UIControlStateNormal];
     }
 }
 
-//username.mode-Datei anlegen
+//create "following" File
 - (void)writeFollowingFile:(FlickrBuddy*)person {
     FlickrAlbum *publicset = person.public_set;
     if (publicset) {
         NSString *followingFileName = person.nsid;
         NSString *followingFile = [followingDir stringByAppendingPathComponent:followingFileName];
+        NSLog(@"writing file: %@ with content: %@ (Public Seenes Album ID)", followingFile, publicset.setid);
         [[publicset.setid dataUsingEncoding:NSUTF8StringEncoding] writeToFile:followingFile atomically:YES];
-         NSLog(@"writing file: %@", followingFile);
     }
 }
 

@@ -9,7 +9,7 @@
 #import "FlickrBuddy.h"
 
 @implementation FlickrBuddy
-@synthesize nsid, username, realname, location, pathalias, iconfarm, iconserver, public_set, private_set;
+@synthesize nsid, username, realname, location, pathalias, iconfarm, iconserver, following, public_set, private_set;
 
 
 /* Instance (-) custom constructor method */

@@ -17,6 +17,7 @@
     NSString *pathalias;
     NSString *iconfarm;
     NSString *iconserver;
+    int following;
     FlickrAlbum *public_set;
     FlickrAlbum *private_set;
 }
@@ -29,6 +30,7 @@
 @property (nonatomic, copy) NSString *pathalias;
 @property (nonatomic, copy) NSString *iconfarm;
 @property (nonatomic, copy) NSString *iconserver;
+@property (nonatomic, assign) int following;
 @property (nonatomic, retain) FlickrAlbum *public_set;
 @property (nonatomic, retain) FlickrAlbum *private_set;
 
