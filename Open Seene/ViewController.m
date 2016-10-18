@@ -113,7 +113,7 @@
     
     if (webView==nil) {
         wKWebConfig = [[WKWebViewConfiguration alloc] init];
-        webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 50, 414, 414) configuration:wKWebConfig];
+        webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 60, 414, 414) configuration:wKWebConfig];
         webView.navigationDelegate = self;
         [self.view addSubview:webView];
     }
@@ -128,9 +128,11 @@
     
     // check if photo is already liked
     if ([[NSString stringWithFormat:@"%@",photo.isFavorite] isEqualToString:[NSString stringWithFormat:@"1"]]) {
-        [_likeButton setTitle:@"remove like" forState:UIControlStateNormal];
+        //[_likeButton setTitle:@"remove like" forState:UIControlStateNormal];
+        [_likeButton setImage:[UIImage imageNamed:@"heart.png"] forState:UIControlStateNormal];
     } else {
-        [_likeButton setTitle:@"like" forState:UIControlStateNormal];
+        //[_likeButton setTitle:@"like" forState:UIControlStateNormal];
+        [_likeButton setImage:[UIImage imageNamed:@"heart_empty.png"] forState:UIControlStateNormal];
     }
     
     // dis-/enable previous / next buttons
