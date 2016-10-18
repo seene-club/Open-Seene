@@ -16,6 +16,8 @@
 		A034C95F1DAD12D200BE13E5 /* GroupMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A034C95E1DAD12D200BE13E5 /* GroupMembersViewController.m */; };
 		A034C9611DB108A700BE13E5 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = A034C9601DB108A700BE13E5 /* unchecked.png */; };
 		A034C9631DB108AE00BE13E5 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = A034C9621DB108AE00BE13E5 /* checked.png */; };
+		A034C9651DB62CE100BE13E5 /* fail.png in Resources */ = {isa = PBXBuildFile; fileRef = A034C9641DB62CE100BE13E5 /* fail.png */; };
+		A034C9671DB6593F00BE13E5 /* FileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A034C9661DB6593F00BE13E5 /* FileHelper.m */; };
 		A05C2D421D8B2C7000D1E351 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C2D411D8B2C7000D1E351 /* NSString+MD5.m */; };
 		A062C1BA1D9326490090F0EE /* Timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = A062C1B71D9326490090F0EE /* Timeline.png */; };
 		A062C1BB1D9326490090F0EE /* Timeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A062C1B81D9326490090F0EE /* Timeline@2x.png */; };
@@ -79,6 +81,9 @@
 		A034C95E1DAD12D200BE13E5 /* GroupMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMembersViewController.m; sourceTree = "<group>"; };
 		A034C9601DB108A700BE13E5 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
 		A034C9621DB108AE00BE13E5 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
+		A034C9641DB62CE100BE13E5 /* fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fail.png; sourceTree = "<group>"; };
+		A034C9661DB6593F00BE13E5 /* FileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHelper.m; sourceTree = "<group>"; };
+		A034C9681DB6595000BE13E5 /* FileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHelper.h; sourceTree = "<group>"; };
 		A05C2D401D8B2C2F00D1E351 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		A05C2D411D8B2C7000D1E351 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		A062C1B71D9326490090F0EE /* Timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Timeline.png; sourceTree = "<group>"; };
@@ -201,6 +206,8 @@
 				A0A155981DA3D92000119380 /* CommentsViewController.m */,
 				A034C95D1DAD12BC00BE13E5 /* GroupMembersViewController.h */,
 				A034C95E1DAD12D200BE13E5 /* GroupMembersViewController.m */,
+				A034C9681DB6595000BE13E5 /* FileHelper.h */,
+				A034C9661DB6593F00BE13E5 /* FileHelper.m */,
 				A07E5FA51D884EAA001677CE /* AuthenticationController.h */,
 				A07E5FA31D884DF1001677CE /* AuthenticationController.m */,
 				A079F9C81D8ADFEC007BB3BD /* SettingsController.h */,
@@ -224,6 +231,7 @@
 				A07E5F7E1D86FFD5001677CE /* Info.plist */,
 				A034C9621DB108AE00BE13E5 /* checked.png */,
 				A034C9601DB108A700BE13E5 /* unchecked.png */,
+				A034C9641DB62CE100BE13E5 /* fail.png */,
 				A062C1B71D9326490090F0EE /* Timeline.png */,
 				A062C1B81D9326490090F0EE /* Timeline@2x.png */,
 				A062C1B91D9326490090F0EE /* Timeline@3x.png */,
@@ -410,6 +418,7 @@
 				A0167F401D93EC3F00CF413B /* Upload.png in Resources */,
 				A0276CDC1D9306E600AEE859 /* Profile@3x.png in Resources */,
 				A034C9611DB108A700BE13E5 /* unchecked.png in Resources */,
+				A034C9651DB62CE100BE13E5 /* fail.png in Resources */,
 				A07E5F7A1D86FFD5001677CE /* Assets.xcassets in Resources */,
 				A0167F421D93EC3F00CF413B /* Upload@3x.png in Resources */,
 				A0DBB8E51D9567ED0082E63A /* 29874512615_357e771327_o.png in Resources */,
@@ -459,6 +468,7 @@
 				A034C95F1DAD12D200BE13E5 /* GroupMembersViewController.m in Sources */,
 				A07E5F721D86FFD5001677CE /* AppDelegate.m in Sources */,
 				A0D89D991D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.m in Sources */,
+				A034C9671DB6593F00BE13E5 /* FileHelper.m in Sources */,
 				A0D89D971D8BCB0C0073506E /* SBJsonStreamTokeniser.m in Sources */,
 				A0DBB8E01D95043F0082E63A /* FlickrBuddy.m in Sources */,
 				A07E5F6F1D86FFD5001677CE /* main.m in Sources */,

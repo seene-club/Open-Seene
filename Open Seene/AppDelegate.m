@@ -11,10 +11,12 @@
 #import "FlickrAPI.h"
 #import "FlickrBuddy.h"
 #import "FlickrAlbum.h"
+#import "FileHelper.h"
 
 @interface AppDelegate () {
     
     FlickrAPI *flickrAPI;
+    FileHelper *fileHelper;
     NSString *flickr_token;
     NSString *flickr_nsid;
     NSString *flickr_username;
@@ -24,7 +26,6 @@
 @end
 
 @implementation AppDelegate
-@synthesize buddyList;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -37,6 +38,7 @@
     [NSURLCache setSharedURLCache:sharedCache];
     
     flickrAPI = [[FlickrAPI alloc] init];
+    fileHelper = [[FileHelper alloc] initFileHelper];
     
     flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
     
@@ -54,8 +56,8 @@
             NSLog(@"AppDelegate: UserDefaults 'FlickrUsername': %@", flickr_username);
             NSLog(@"AppDelegate: UserDefaults 'FlickrFullname': %@", flickr_fullname);
         
-            // Update Profile and Buddy-List
-        [ self updateProfileContacts];
+            // Update Profile Pic
+            [self updateOwnProfile];
         }
     }
 
@@ -89,31 +91,10 @@
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 
-- (void)updateProfileContacts {
-    
-    // Call API for User's profile icon & store the URL to UserDefaults
+// Call API for User's profile icon & store the URL to UserDefaults
+- (void)updateOwnProfile {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [[NSUserDefaults standardUserDefaults] setValue:[flickrAPI getProfileIconURL:flickr_nsid] forKey:@"FlickrProfileIconURL"];
-    
-    // Call API for User's ContactList (buddies)
-    buddyList = [[NSMutableArray alloc] init];
-    //buddyList = [flickrAPI getContactList];
-    //buddyList = [flickrAPI getGroupContactList];
-
-    
-    int ndx;
-    for (ndx = 0; ndx < buddyList.count; ndx++) {
-        FlickrBuddy *buddy = [buddyList objectAtIndex:ndx];
-        NSLog(@"Buddy: %@", buddy.username);
-        NSMutableArray *albumList = [[NSMutableArray alloc] init];
-        // Call API for Buddies Albums (extracting "Public Seenes" only this time).
-        albumList = [flickrAPI getAlbumList:buddy.nsid];
-        int adx;
-        for (adx = 0; adx < albumList.count; adx++) {
-            FlickrAlbum *album = [albumList objectAtIndex:adx];
-            if (album.settype == 1) buddy.public_set = album;
-        }
-    }
 }
 
 @end

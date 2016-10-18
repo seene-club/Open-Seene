@@ -10,14 +10,13 @@
 #import "GroupMembersViewController.h"
 #import "FlickrAPI.h"
 #import "FlickrBuddy.h"
+#import "FileHelper.h"
 
 @interface GroupMembersViewController () {
     
     FlickrAPI *flickrAPI;
+    FileHelper *fileHelper;
     BOOL scanComplete;
-    NSString *personalDir;
-    NSString *followingDir;
-    NSFileManager *fileManager;
     NSMutableArray *memberList;
     NSMutableArray *followingList;
 }
@@ -34,58 +33,31 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     scanComplete = NO;
-    fileManager = [NSFileManager new];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    [self checkAndCreateDir:documentsDirectory];
-    NSString *flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
-    personalDir = [documentsDirectory stringByAppendingPathComponent:flickr_nsid];
-    followingDir = [personalDir stringByAppendingPathComponent:@"following"];
-    [self checkAndCreateDir:personalDir];
-    [self checkAndCreateDir:followingDir];
     
+    fileHelper = [[FileHelper alloc] initFileHelper];
     flickrAPI = [[FlickrAPI alloc] init];
+    memberList = [[NSMutableArray alloc] init];
+    followingList = [[NSMutableArray alloc] init];
     
     // Call API for FlickrGroup "Seene" Members
-    memberList = [[NSMutableArray alloc] init];
     memberList = [flickrAPI getGroupContactList];
-    followingList = [self loadFollowingListFromPhone];
-    
+    followingList = [fileHelper loadFollowingListFromPhone];
+    [_progressBar setProgress:0];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}
-
-
-// Read following list from device (AppDirectory/Documents/<NSID>/following/...)
-- (NSMutableArray*)loadFollowingListFromPhone {
-    NSMutableArray *personList;
-    NSString *item;
-    NSError *error;
-    
-    personList = [[NSMutableArray alloc] init];
-    
-       NSArray *directoryContent = [fileManager contentsOfDirectoryAtPath:followingDir error:NULL];
-    for (item in directoryContent){
-     
-        NSString *followingFile = [followingDir stringByAppendingPathComponent:item];
-        NSString *followingFileData = [NSString stringWithContentsOfFile:followingFile encoding:NSUTF8StringEncoding error:&error];
-        
-        NSLog(@"file: %@ - content: %@", item, followingFileData);
-        
-        FlickrBuddy *aPerson = [FlickrBuddy flickrBuddyWithID:(NSString *) item];
-        FlickrAlbum *thePublicAlbum = [FlickrAlbum flickrAlbumWithID:(NSString *)followingFileData];
-        thePublicAlbum.settype = 1;
-        aPerson.public_set = thePublicAlbum;
-        
-        [personList addObject:aPerson];
-   
-    }
-    
-    return personList;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self performSelectorInBackground:@selector(scanForPublicSeenesInBackgroundProcess) withObject:nil];
+    scanComplete = YES;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
+}
+
+// Looking for album "public seenes" for every member of the "Seene" group (Background Thread)
+- (void)scanForPublicSeenesInBackgroundProcess
+{
+    [self performSelectorOnMainThread:@selector(setScanProgress:) withObject:[NSNumber numberWithFloat:0.0] waitUntilDone:NO];
     int ndx;
     for (ndx = 0; ndx < memberList.count; ndx++) {
         FlickrBuddy *member = [memberList objectAtIndex:ndx];
@@ -98,14 +70,18 @@
             FlickrAlbum *album = [albumList objectAtIndex:adx];
             if (album.settype == 1) member.public_set = album;
         }
+        float progress = (float)ndx / (float)memberList.count;
+        NSLog(@"progress: %f", progress);
+        [self performSelectorOnMainThread:@selector(setScanProgress:) withObject:[NSNumber numberWithFloat:progress] waitUntilDone:NO];
     }
-    
-    scanComplete = YES;
-    [self.tableView reloadData];
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self performSelectorOnMainThread:@selector(setScanProgress:) withObject:[NSNumber numberWithFloat:1.0] waitUntilDone:NO];
+}
 
-
+// Update ProgressBar on (UI)MainThread
+- (void)setScanProgress:(NSNumber *)number
+{
+    [_progressBar setProgress:number.floatValue animated:YES];
+    if (number.floatValue == 1.0) [self.tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -130,7 +106,6 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
-    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
         //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -146,7 +121,6 @@
     NSString *iconUrl = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/buddyicons/%@.jpg",
                                  selectedMember.iconfarm, selectedMember.iconserver, selectedMember.nsid];
     
-    
     NSURL *url;
     if ([iconUrl rangeOfString:@"farm0."].location == NSNotFound) {
        url = [NSURL URLWithString:iconUrl];
@@ -160,6 +134,17 @@
     if (scanComplete) {
         if (selectedMember.public_set == nil) {
             canFollowString = @"No Album \"Public Seenes\" found for this user.";
+            
+            UIImage *image = [UIImage imageNamed:@"fail.png"];
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+            button.frame = frame;   // match the button's size with the image size
+            button.tag = indexPath.row;
+            [button setBackgroundImage:image forState:UIControlStateNormal];
+            
+            cell.accessoryView = button;
+            
         } else {
             canFollowString = @"\"Public Seenes\" Album available!";
             
@@ -169,11 +154,11 @@
             for (ndx = 0; ndx < followingList.count; ndx++) {
                 FlickrBuddy *aPerson = [followingList objectAtIndex:ndx];
                 if ([aPerson.nsid caseInsensitiveCompare:selectedMember.nsid] == NSOrderedSame) {
+                    NSLog(@"DEBUG: NSID match! %@", selectedMember.nsid);
                     checked = true;
                     selectedMember.following = 1;
                 }
             }
-
             
             UIImage *image = (checked) ? [UIImage imageNamed:@"checked.png"] : [UIImage imageNamed:@"unchecked.png"];
             
@@ -187,19 +172,17 @@
             [button addTarget:self action:@selector(checkButton_click:event:) forControlEvents:UIControlEventTouchUpInside];
             
             cell.accessoryView = button;
-            
         }
     }
-    
     
     // Label and Image of the cell
     cell.textLabel.text = [NSString stringWithFormat:@"@%@\n%@\n%@" , selectedMember.username, selectedMember.realname, canFollowString];
     [cell.imageView setImage:[UIImage imageWithData: data]];
     
-    //cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    //cell.userInteractionEnabled = YES;
+    cell.imageView.layer.cornerRadius = cell.imageView.frame.size.width / 2;
+    cell.imageView.clipsToBounds = YES;
+
     cell.textLabel.enabled = YES;
-    
     
     return cell;
 }
@@ -213,26 +196,24 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
     if (indexPath != nil)
     {
-        FlickrBuddy *followingMember = [memberList objectAtIndex:indexPath.item];
+        FlickrBuddy *selectedMember = [memberList objectAtIndex:indexPath.item];
         // perform follow or unfollow?
-        if (followingMember.following == 0) {
-            [self writeFollowingFile:followingMember];
+        if (selectedMember.following == 0) {
+            [fileHelper createFollowingFile:selectedMember];
             [self tableView: self.tableView didSelectRowAtIndexPath: indexPath];
         } else {
-            NSString *followingFileName = followingMember.nsid;
-            NSString *fileToDelete = [followingDir stringByAppendingPathComponent:followingFileName];
-            NSError *err;
-            [fileManager removeItemAtPath:fileToDelete error:&err];
+            [fileHelper deleteFollowingFile:selectedMember];
         }
+
         UIImage *newImage;
         
         // change visible state
-        BOOL checked =  (followingMember.following==0) ? NO : YES;
+        BOOL checked =  (selectedMember.following==0) ? NO : YES;
         if (checked) {
-            followingMember.following=0;
+            selectedMember.following = 0;
             newImage = [UIImage imageNamed:@"unchecked.png"];
         } else {
-            followingMember.following=1;
+            selectedMember.following = 1;
             newImage = [UIImage imageNamed:@"checked.png"];
         }
         
@@ -240,35 +221,14 @@
         UIButton *button = (UIButton *)cell.accessoryView;
         [button setBackgroundImage:newImage forState:UIControlStateNormal];
     }
+    
+    followingList = [fileHelper loadFollowingListFromPhone];
 }
 
-//create "following" File
-- (void)writeFollowingFile:(FlickrBuddy*)person {
-    FlickrAlbum *publicset = person.public_set;
-    if (publicset) {
-        NSString *followingFileName = person.nsid;
-        NSString *followingFile = [followingDir stringByAppendingPathComponent:followingFileName];
-        NSLog(@"writing file: %@ with content: %@ (Public Seenes Album ID)", followingFile, publicset.setid);
-        [[publicset.setid dataUsingEncoding:NSUTF8StringEncoding] writeToFile:followingFile atomically:YES];
-    }
-}
 
 - (IBAction)closeButtonPushed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-- (void)checkAndCreateDir:(NSString*)dirPath {
-    NSError *error;
-    if (![[NSFileManager defaultManager] fileExistsAtPath:dirPath])
-    {
-        NSLog(@"Creating Directory: %@",dirPath);
-        if (![[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:NO attributes:nil error:&error])
-        {
-            NSLog(@"Create directory error: %@", error);
-        }
-    }
-}
-
 
 
 @end

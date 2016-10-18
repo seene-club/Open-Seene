@@ -16,11 +16,13 @@
 #import "FlickrAlbum.h"
 #import "FlickrPhoto.h"
 #import "CommentsViewController.h"
+#import "FileHelper.h"
 
 @interface ViewController () {
 
     FlickrAPI *flickrAPI;
     FlickrPhoto *photo;
+    FileHelper *fileHelper;
     WKWebViewConfiguration *wKWebConfig;
     WKWebView *webView;
     NSString *flickr_token;
@@ -46,19 +48,28 @@
     
     [self createTimeline];
     
-    wKWebConfig = [[WKWebViewConfiguration alloc] init];
-    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 20, 414, 414) configuration:wKWebConfig];
-    webView.navigationDelegate = self;
-    [self.view addSubview:webView];
-    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
+// when view appears, check if user has already authorized Flickr account for "Open Seene"
+- (void)viewDidAppear:(BOOL)animated {
+    
+    flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    NSLog(@"UserDefaults 'FlickrToken': %@", flickr_token);
+    
+    if (([flickr_token length] == 0) || (!flickr_token) || ([flickr_token isEqualToString:@"(null)"])) {
+        [self performSegueWithIdentifier: @"authSegue" sender: self];
+    }
+    
+    if (!timelineCreated) [self createTimeline];
+}
 
 - (void)createTimeline {
     // Building Timeline from FlickrBuddies
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    buddyList = appDelegate.buddyList;
+    //AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    //buddyList = appDelegate.buddyList;
+    fileHelper = [[FileHelper alloc] initFileHelper];
+    buddyList = [fileHelper loadFollowingListFromPhone];
     
     flickrAPI = [[FlickrAPI alloc] init];
     timelinePhotos = [[NSMutableArray alloc] init];
@@ -102,7 +113,7 @@
     
     if (webView==nil) {
         wKWebConfig = [[WKWebViewConfiguration alloc] init];
-        webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 20, 414, 414) configuration:wKWebConfig];
+        webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 50, 414, 414) configuration:wKWebConfig];
         webView.navigationDelegate = self;
         [self.view addSubview:webView];
     }
@@ -128,6 +139,10 @@
     [_previousButton setEnabled:(showIndex + 0 > 0)];
     [_previousButton setHidden:!(showIndex + 0 > 0)];
     
+}
+
+- (IBAction)reloadPushed:(id)sender {
+    [self createTimeline];
 }
 
 - (IBAction)previousPushed:(id)sender {
@@ -182,20 +197,6 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-}
-
-
-// when view appears, check if user has already authorized Flickr account for "Open Seene"
-- (void)viewDidAppear:(BOOL)animated {
-    
-    flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
-    NSLog(@"UserDefaults 'FlickrToken': %@", flickr_token);
-    
-    if (([flickr_token length] == 0) || (!flickr_token) || ([flickr_token isEqualToString:@"(null)"])) {
-        [self performSegueWithIdentifier: @"authSegue" sender: self];
-    }
-    
-    if (!timelineCreated) [self createTimeline];
 }
 
 - (void)didReceiveMemoryWarning {

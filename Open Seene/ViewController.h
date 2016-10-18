@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *likesCountLabel;
 @property (weak, nonatomic) IBOutlet UIButton *commentsCountButton;
+@property (weak, nonatomic) IBOutlet UIButton *reloadButton;
 
 
 @end

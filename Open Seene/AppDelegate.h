@@ -8,15 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate> {
-    NSMutableArray *buddyList;
-}
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-- (void)updateProfileContacts;
+- (void)updateOwnProfile;
 
-@property (nonatomic, retain) NSMutableArray *buddyList;
 @property (strong, nonatomic) UIWindow *window;
-
 
 @end
 

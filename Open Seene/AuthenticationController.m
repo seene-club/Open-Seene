@@ -49,7 +49,7 @@
     [flickrAPI exchangeMiniTokenToFullToken:miniToken];
     
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate updateProfileContacts];
+    [appDelegate updateOwnProfile];
 
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
