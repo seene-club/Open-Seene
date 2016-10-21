@@ -46,9 +46,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    [self viewerControlsHidden:YES];
     [self createTimeline];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (void)viewerControlsHidden:(BOOL)hiddenstate {
+    [_titleLabel setHidden:hiddenstate];
+    [_usernameButton setHidden:hiddenstate];
+    [_likeButton setHidden:hiddenstate];
+    [_commentButton setHidden:hiddenstate];
+    [_nextButton setHidden:hiddenstate];
+    [_previousButton setHidden:hiddenstate];
 }
 
 // when view appears, check if user has already authorized Flickr account for "Open Seene"
@@ -96,7 +106,10 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         showIndex = 0;
         [self showSeene];
-        
+        [self viewerControlsHidden:NO];
+    } else {
+        [fileHelper createInitialFollowingFiles];
+        [self createTimeline];
     }
 }
 
@@ -123,17 +136,21 @@
     // Fill-in labels
     [_usernameButton setTitle:[NSString stringWithFormat:@"@%@",photo.ownerName] forState:UIControlStateNormal];
     [_titleLabel setText:photo.title];
-    [_likesCountLabel setText:[NSString stringWithFormat:@"%@ likes",photo.favoritesCount]];
-    [_commentsCountButton setTitle:[NSString stringWithFormat:@"%@ comments",photo.commentsCount] forState:UIControlStateNormal];
+    
+    UIImage *likeButton;
+    UIImage *commentButton = [UIImage imageNamed:@"comment.png"];
     
     // check if photo is already liked
     if ([[NSString stringWithFormat:@"%@",photo.isFavorite] isEqualToString:[NSString stringWithFormat:@"1"]]) {
         //[_likeButton setTitle:@"remove like" forState:UIControlStateNormal];
-        [_likeButton setImage:[UIImage imageNamed:@"heart.png"] forState:UIControlStateNormal];
+        likeButton = [UIImage imageNamed:@"heart.png"];
     } else {
         //[_likeButton setTitle:@"like" forState:UIControlStateNormal];
-        [_likeButton setImage:[UIImage imageNamed:@"heart_empty.png"] forState:UIControlStateNormal];
+        likeButton = [UIImage imageNamed:@"heart_empty.png"];
     }
+    
+    [_likeButton setImage:[self burnTextIntoImage:photo.favoritesCount :likeButton] forState:UIControlStateNormal];
+    [_commentButton setImage:[self burnTextIntoImage:photo.commentsCount :commentButton] forState:UIControlStateNormal];
     
     // dis-/enable previous / next buttons
     [_nextButton setEnabled:(showIndex + 1 < [timelinePhotos count])];
@@ -141,6 +158,45 @@
     [_previousButton setEnabled:(showIndex + 0 > 0)];
     [_previousButton setHidden:!(showIndex + 0 > 0)];
     
+}
+
+
+- (UIImage *)burnTextIntoImage:(NSString *)text :(UIImage *)img {
+    
+    UIGraphicsBeginImageContext(img.size);
+    
+    CGRect rect = CGRectMake(0,0, img.size.width, img.size.height);
+    [img drawInRect:rect];
+    
+    [[UIColor blackColor] set];           // set text color
+    NSInteger fontSize = 14;
+    UIFont *font = [UIFont systemFontOfSize:fontSize];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+    
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{ NSFontAttributeName: font,
+                                  NSParagraphStyleAttributeName: paragraphStyle,
+                                  NSForegroundColorAttributeName: [UIColor blackColor]};
+
+    CGSize size = [text sizeWithAttributes:attributes];
+    //CGSize size = [text sizeWithFont:font];
+
+    if (size.width < rect.size.width) {
+        CGRect r = CGRectMake(rect.origin.x,
+                              rect.origin.y + (rect.size.height - size.height)/2,
+                              rect.size.width,
+                              (rect.size.height - size.height)/2);
+        [text drawInRect:r withFont:font lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentCenter];
+        //[text drawInRect:r withAttributes:attributes];
+    }
+
+    
+    UIImage *theImage=UIGraphicsGetImageFromCurrentImageContext();   // extract the image
+    UIGraphicsEndImageContext();     // clean  up the context.
+    return theImage;
 }
 
 - (IBAction)reloadPushed:(id)sender {

@@ -34,13 +34,13 @@
     NSData *data = [NSData dataWithContentsOfURL : url];
     
     [_photoThumbnail setImage:[UIImage imageWithData: data]];
-    [_photographerLabel setText:photo.ownerName];
+    [_photographerLabel setText:[NSString stringWithFormat:@"@%@",photo.ownerName]];
     [_photoTitleLabel setText:photo.title];
     
     comments = [[NSMutableArray alloc] init];
     comments = [flickrAPI getComments:photo.photoid];
     [self.tableView reloadData];
-    
+    [self.tableView setBackgroundColor:[UIColor darkGrayColor]];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
@@ -99,6 +99,7 @@
     
     cell.textLabel.font = [UIFont systemFontOfSize:12.0];
     cell.textLabel.numberOfLines = 0;
+    [cell setBackgroundColor:[UIColor darkGrayColor]];
     
     NSString *iconUrl = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/buddyicons/%@.jpg",
                          selectedComment.iconfarm, selectedComment.iconserver, selectedComment.authorNSID];

@@ -54,6 +54,8 @@
     
     personList = [[NSMutableArray alloc] init];
     
+    NSLog(@"DEBUG: following DIR: %@", followingDir);
+    
     int ndx = 0;
     NSArray *directoryContent = [fileManager contentsOfDirectoryAtPath:followingDir error:NULL];
     for (item in directoryContent){
@@ -65,7 +67,10 @@
         NSLog(@"DEBUG: following file: %i. %@ - content: %@", ndx, item, followingFileData);
         
         FlickrBuddy *aPerson = [FlickrBuddy flickrBuddyWithID:(NSString *) item];
-        FlickrAlbum *thePublicAlbum = [FlickrAlbum flickrAlbumWithID:(NSString *)followingFileData];
+        aPerson.username = [[followingFileData componentsSeparatedByString:@"{#}"] objectAtIndex:1];
+        aPerson.realname = [[followingFileData componentsSeparatedByString:@"{#}"] objectAtIndex:2];
+        
+        FlickrAlbum *thePublicAlbum = [FlickrAlbum flickrAlbumWithID:(NSString *)[[followingFileData componentsSeparatedByString:@"{#}"] objectAtIndex:0]];
         thePublicAlbum.settype = 1;
         aPerson.public_set = thePublicAlbum;
         
@@ -82,9 +87,20 @@
     if (publicset) {
         NSString *followingFileName = person.nsid;
         NSString *followingFile = [followingDir stringByAppendingPathComponent:followingFileName];
-        NSLog(@"writing file: %@ with content: %@ (Public Seenes Album ID)", followingFile, publicset.setid);
-        [[publicset.setid dataUsingEncoding:NSUTF8StringEncoding] writeToFile:followingFile atomically:YES];
+        NSString *persistenceString = [NSString stringWithFormat:@"%@{#}%@{#}%@",publicset.setid, person.username, person.realname];
+        NSLog(@"writing file: %@ with content: %@ (Public Seenes Album ID)", followingFile, persistenceString);
+        [[persistenceString dataUsingEncoding:NSUTF8StringEncoding] writeToFile:followingFile atomically:YES];
     }
+}
+
+- (void)createInitialFollowingFiles {
+        // Add Album "public seenes" of the "Staff Picks" Flickr Account to following list
+        [[@"72157671955461494{#}Seene: Staff Picks{#}Staff Picks Seene" dataUsingEncoding:NSUTF8StringEncoding]
+            writeToFile:[followingDir stringByAppendingPathComponent:@"146378156@N07"] atomically:YES];
+   
+        // Add Album "public seenes" of the "User Picks" Flickr Account to following list
+        [[@"72157675498674745{#}Seene: User Picks{#}User Picks Seene" dataUsingEncoding:NSUTF8StringEncoding]
+            writeToFile:[followingDir stringByAppendingPathComponent:@"143161055@N06"] atomically:YES];
 }
 
 //remove "following" File for a person

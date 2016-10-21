@@ -99,14 +99,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aoF-0k-Dqt">
-                                <rect key="frame" x="0.0" y="91" width="414" height="645"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="w9h-OG-XAC" id="K9s-r4-doX"/>
-                                    <outlet property="delegate" destination="w9h-OG-XAC" id="bLE-Xi-BFc"/>
-                                </connections>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83Z-XU-Yo9">
                                 <rect key="frame" x="353" y="28" width="46" height="30"/>
                                 <state key="normal" title="close"/>
@@ -129,6 +121,19 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Snm-AX-nNd">
                                 <rect key="frame" x="16" y="76" width="220" height="2"/>
                             </progressView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aoF-0k-Dqt">
+                                <rect key="frame" x="0.0" y="91" width="414" height="645"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="w9h-OG-XAC" id="K9s-r4-doX"/>
+                                    <outlet property="delegate" destination="w9h-OG-XAC" id="bLE-Xi-BFc"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
@@ -159,9 +164,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bzX-F1-nbq">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bzX-F1-nbq">
                                 <rect key="frame" x="0.0" y="198" width="414" height="538"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexTrackingBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -193,8 +199,8 @@
                                 <rect key="frame" x="20" y="28" width="125" height="125"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;title&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQH-kt-dtB">
-                                <rect key="frame" x="157" y="83" width="194" height="61"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <rect key="frame" x="157" y="83" width="237" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -273,25 +279,12 @@
                                     <action selector="nextPushed:" destination="tcF-yL-U5Z" eventType="touchUpInside" id="WN1-R6-asb"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;title&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gxu-46-fs3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;title&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gxu-46-fs3">
                                 <rect key="frame" x="7" y="519" width="399" height="109"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;x likes&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOT-op-nS1">
-                                <rect key="frame" x="185" y="490" width="93" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqR-iJ-4pE">
-                                <rect key="frame" x="286" y="486" width="111" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="&lt;x comments&gt;">
-                                    <color key="titleColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZn-CT-ZRn">
                                 <rect key="frame" x="20" y="25" width="32" height="32"/>
                                 <state key="normal" image="reload.png">
@@ -325,9 +318,7 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="commentButton" destination="RkW-2y-spd" id="wGc-uw-ECn"/>
-                        <outlet property="commentsCountButton" destination="aqR-iJ-4pE" id="b5S-T4-3yJ"/>
                         <outlet property="likeButton" destination="CIz-hp-Ays" id="pkp-zx-ANR"/>
-                        <outlet property="likesCountLabel" destination="SOT-op-nS1" id="OQZ-ZW-8j7"/>
                         <outlet property="nextButton" destination="7GE-EU-zOt" id="Cic-Xi-CW8"/>
                         <outlet property="previousButton" destination="MxV-Vh-CZN" id="AUe-d5-Jyx"/>
                         <outlet property="reloadButton" destination="uZn-CT-ZRn" id="r5d-NY-Uep"/>

@@ -15,6 +15,7 @@
 - (void)checkAndCreateDir:(NSString*)dirPath;       //checks if a directory exists. If not it will be created.
 - (void)createFollowingFile:(FlickrBuddy*)person;   //create "following" File for a person
 - (void)deleteFollowingFile:(FlickrBuddy*)person;   //remove "following" File for a person
+- (void)createInitialFollowingFiles;                //create "following" Files for "Staff Picks" and "User Picks"
 
 
 //Instance (-) custom constructor method
