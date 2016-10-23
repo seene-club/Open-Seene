@@ -112,6 +112,10 @@
     cell.textLabel.text = selectedComment.commentText;
     [cell.imageView setImage:[UIImage imageWithData: data]];
     
+    // Round images
+    cell.imageView.layer.cornerRadius = cell.imageView.frame.size.width / 2;
+    cell.imageView.clipsToBounds = YES;
+    
     //cell.accessoryType = UITableViewCellAccessoryCheckmark;
     //cell.userInteractionEnabled = YES;
     cell.textLabel.enabled = YES;

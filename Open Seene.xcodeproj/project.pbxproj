@@ -17,6 +17,7 @@
 		A0167F401D93EC3F00CF413B /* Upload.png in Resources */ = {isa = PBXBuildFile; fileRef = A0167F3D1D93EC3F00CF413B /* Upload.png */; };
 		A0167F411D93EC3F00CF413B /* Upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0167F3E1D93EC3F00CF413B /* Upload@2x.png */; };
 		A0167F421D93EC3F00CF413B /* Upload@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0167F3F1D93EC3F00CF413B /* Upload@3x.png */; };
+		A0210B841DBC340A005E5C13 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0210B831DBC340A005E5C13 /* PhotosUI.framework */; };
 		A0276CDC1D9306E600AEE859 /* Profile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0276CD91D9306E600AEE859 /* Profile@3x.png */; };
 		A0276CDD1D9306E600AEE859 /* Profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0276CDA1D9306E600AEE859 /* Profile@2x.png */; };
 		A0276CDE1D9306E600AEE859 /* Profile.png in Resources */ = {isa = PBXBuildFile; fileRef = A0276CDB1D9306E600AEE859 /* Profile.png */; };
@@ -41,6 +42,7 @@
 		A07E5FA41D884DF1001677CE /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5FA31D884DF1001677CE /* AuthenticationController.m */; };
 		A0A155961DA3B99000119380 /* FlickrComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A155951DA3B99000119380 /* FlickrComment.m */; };
 		A0A155991DA3D92000119380 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A155981DA3D92000119380 /* CommentsViewController.m */; };
+		A0CF64E41DBBFCF000CA15FF /* UploadController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CF64E31DBBFCF000CA15FF /* UploadController.m */; };
 		A0D89D921D8BCB0C0073506E /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D7F1D8BCB0C0073506E /* SBJsonParser.m */; };
 		A0D89D931D8BCB0C0073506E /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D811D8BCB0C0073506E /* SBJsonStreamParser.m */; };
 		A0D89D941D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D831D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m */; };
@@ -88,6 +90,7 @@
 		A0167F3D1D93EC3F00CF413B /* Upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Upload.png; sourceTree = "<group>"; };
 		A0167F3E1D93EC3F00CF413B /* Upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Upload@2x.png"; sourceTree = "<group>"; };
 		A0167F3F1D93EC3F00CF413B /* Upload@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Upload@3x.png"; sourceTree = "<group>"; };
+		A0210B831DBC340A005E5C13 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		A0276CD91D9306E600AEE859 /* Profile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile@3x.png"; sourceTree = "<group>"; };
 		A0276CDA1D9306E600AEE859 /* Profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile@2x.png"; sourceTree = "<group>"; };
 		A0276CDB1D9306E600AEE859 /* Profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Profile.png; sourceTree = "<group>"; };
@@ -129,6 +132,8 @@
 		A0A155971DA3D90000119380 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
 		A0A155981DA3D92000119380 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		A0BEF3DB1D9E5B810087D829 /* FlickrAPI_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPI_keys.h; sourceTree = "<group>"; };
+		A0CF64E21DBBFCD200CA15FF /* UploadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadController.h; sourceTree = "<group>"; };
+		A0CF64E31DBBFCF000CA15FF /* UploadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadController.m; sourceTree = "<group>"; };
 		A0D89D7D1D8BCB0C0073506E /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
 		A0D89D7E1D8BCB0C0073506E /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		A0D89D7F1D8BCB0C0073506E /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
@@ -168,6 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0210B841DBC340A005E5C13 /* PhotosUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +194,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A0210B821DBC3409005E5C13 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0210B831DBC340A005E5C13 /* PhotosUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A07E5F611D86FFD5001677CE = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +209,7 @@
 				A07E5F861D86FFD6001677CE /* Open SeeneTests */,
 				A07E5F911D86FFD6001677CE /* Open SeeneUITests */,
 				A07E5F6B1D86FFD5001677CE /* Products */,
+				A0210B821DBC3409005E5C13 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -240,6 +255,8 @@
 				A05C2D401D8B2C2F00D1E351 /* NSString+MD5.h */,
 				A05C2D411D8B2C7000D1E351 /* NSString+MD5.m */,
 				A07E5F761D86FFD5001677CE /* Main.storyboard */,
+				A0CF64E21DBBFCD200CA15FF /* UploadController.h */,
+				A0CF64E31DBBFCF000CA15FF /* UploadController.m */,
 				A07E5F791D86FFD5001677CE /* Assets.xcassets */,
 				A07E5F7B1D86FFD5001677CE /* LaunchScreen.storyboard */,
 				A07E5F7E1D86FFD5001677CE /* Info.plist */,
@@ -392,6 +409,7 @@
 				TargetAttributes = {
 					A07E5F691D86FFD5001677CE = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 67ZDN37K8F;
 					};
 					A07E5F821D86FFD6001677CE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -488,6 +506,7 @@
 				A07E5F751D86FFD5001677CE /* ViewController.m in Sources */,
 				A07E5FA41D884DF1001677CE /* AuthenticationController.m in Sources */,
 				A0DBB8D81D93EFC30082E63A /* FlickrAPI.m in Sources */,
+				A0CF64E41DBBFCF000CA15FF /* UploadController.m in Sources */,
 				A0D89D981D8BCB0C0073506E /* SBJsonStreamWriter.m in Sources */,
 				A079F9C71D8ADFBE007BB3BD /* SettingsController.m in Sources */,
 				A0A155961DA3B99000119380 /* FlickrComment.m in Sources */,
@@ -641,6 +660,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 67ZDN37K8F;
 				INFOPLIST_FILE = "Open Seene/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Seene-Club.Open-Seene";
@@ -652,6 +672,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 67ZDN37K8F;
 				INFOPLIST_FILE = "Open Seene/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Seene-Club.Open-Seene";

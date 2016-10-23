@@ -247,6 +247,10 @@
     [self performSegueWithIdentifier: @"commentsSegue" sender: self];
 }
 
+-(IBAction)cameraButtonPushed:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"seene://camera"]];
+}
+
 -(void)webViewDidStartLoad:(UIWebView *)webView {
    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }

@@ -48,6 +48,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self.tableView setBackgroundColor:[UIColor darkGrayColor]];
     [self performSelectorInBackground:@selector(scanForPublicSeenesInBackgroundProcess) withObject:nil];
     scanComplete = YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -122,6 +123,7 @@
                                  selectedMember.iconfarm, selectedMember.iconserver, selectedMember.nsid];
     
     NSURL *url;
+    //TODO: makes tableview slow!!! cache pictures!
     if ([iconUrl rangeOfString:@"farm0."].location == NSNotFound) {
        url = [NSURL URLWithString:iconUrl];
     } else {
@@ -151,6 +153,7 @@
             BOOL checked =  false;
             selectedMember.following = 0;
             int ndx;
+            // TODO: Speed up
             for (ndx = 0; ndx < followingList.count; ndx++) {
                 FlickrBuddy *aPerson = [followingList objectAtIndex:ndx];
                 if ([aPerson.nsid caseInsensitiveCompare:selectedMember.nsid] == NSOrderedSame) {
@@ -179,6 +182,7 @@
     cell.textLabel.text = [NSString stringWithFormat:@"@%@\n%@\n%@" , selectedMember.username, selectedMember.realname, canFollowString];
     [cell.imageView setImage:[UIImage imageWithData: data]];
     
+    // Round images
     cell.imageView.layer.cornerRadius = cell.imageView.frame.size.width / 2;
     cell.imageView.clipsToBounds = YES;
 
