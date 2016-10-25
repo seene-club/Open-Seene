@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
+#import "SVProgressHUD.h"
 #import "GroupMembersViewController.h"
 #import "FlickrAPI.h"
 #import "FlickrBuddy.h"
@@ -32,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [self.tableView setHidden:YES];
     scanComplete = NO;
     
     fileHelper = [[FileHelper alloc] initFileHelper];
@@ -39,20 +42,20 @@
     memberList = [[NSMutableArray alloc] init];
     followingList = [[NSMutableArray alloc] init];
     
-    // Call API for FlickrGroup "Seene" Members
-    memberList = [flickrAPI getGroupContactList];
+    // Load Following List from Device
     followingList = [fileHelper loadFollowingListFromPhone];
-    [_progressBar setProgress:0];
+    [SVProgressHUD showWithStatus:@"contacting Flickr"];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [self.tableView setBackgroundColor:[UIColor darkGrayColor]];
-    [self performSelectorInBackground:@selector(scanForPublicSeenesInBackgroundProcess) withObject:nil];
-    scanComplete = YES;
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    // 1. Load all members from the "Seene" group
+    memberList = [flickrAPI getGroupContactList];
     
+    // 2. Looking for "Public Seenes" Album for every single member
+    [self performSelectorInBackground:@selector(scanForPublicSeenesInBackgroundProcess) withObject:nil];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 // Looking for album "public seenes" for every member of the "Seene" group (Background Thread)
@@ -79,10 +82,15 @@
 }
 
 // Update ProgressBar on (UI)MainThread
-- (void)setScanProgress:(NSNumber *)number
-{
-    [_progressBar setProgress:number.floatValue animated:YES];
-    if (number.floatValue == 1.0) [self.tableView reloadData];
+- (void)setScanProgress:(NSNumber *)number {
+    [SVProgressHUD showProgress:number.floatValue status:@"Loading from Flickr"];
+    if (number.floatValue == 1.0) {
+        [SVProgressHUD dismiss];
+        scanComplete = YES;
+        [self.tableView reloadData];
+        [self.tableView setHidden:NO];
+        [self.tableView setBackgroundColor:[UIColor darkGrayColor]];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -117,20 +125,8 @@
     // special cell properties
     cell.textLabel.font = [UIFont systemFontOfSize:12.0];
     cell.textLabel.numberOfLines = 0;
-    
-    
-    NSString *iconUrl = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/buddyicons/%@.jpg",
-                                 selectedMember.iconfarm, selectedMember.iconserver, selectedMember.nsid];
-    
-    NSURL *url;
-    //TODO: makes tableview slow!!! cache pictures!
-    if ([iconUrl rangeOfString:@"farm0."].location == NSNotFound) {
-       url = [NSURL URLWithString:iconUrl];
-    } else {
-       url = [NSURL URLWithString:@"https://www.flickr.com/images/buddyicon.gif"];
-    }
-    
-    NSData *data = [NSData dataWithContentsOfURL : url];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    [cell setBackgroundColor:[UIColor darkGrayColor]];
     
     NSString *canFollowString = @"scanning...";
     if (scanComplete) {
@@ -180,7 +176,7 @@
     
     // Label and Image of the cell
     cell.textLabel.text = [NSString stringWithFormat:@"@%@\n%@\n%@" , selectedMember.username, selectedMember.realname, canFollowString];
-    [cell.imageView setImage:[UIImage imageWithData: data]];
+    [cell.imageView setImage:[fileHelper getCachedImageForNSID:selectedMember.nsid]];
     
     // Round images
     cell.imageView.layer.cornerRadius = cell.imageView.frame.size.width / 2;

@@ -12,6 +12,7 @@
 #import "FlickrComment.h"
 #import "FlickrAlbum.h"
 #import "FlickrPhoto.h"
+#import "FileHelper.h"
 #import "SBJson.h"
 #import "NSString+MD5.h"
 
@@ -404,6 +405,7 @@
     NSMutableArray *iconfarms=(NSMutableArray*) [members valueForKey:@"iconfarm"];
     
     NSMutableArray *memberList = [[NSMutableArray alloc] init];
+    FileHelper *fileHelper = [[FileHelper alloc] initFileHelper];
     
     int ndx;
     for (ndx = 0; ndx < nsids.count; ndx++) {
@@ -415,6 +417,7 @@
         aMember.iconserver = (NSString *)[iconservers objectAtIndex:ndx];
         aMember.iconfarm = (NSString *)[iconfarms objectAtIndex:ndx];
         NSLog(@"FlickrAPI Seene group member: %@ - %@", aMember.nsid, aMember.username);
+        [fileHelper cacheMemberOnDevice:aMember];
         [memberList addObject:aMember];
     }
     

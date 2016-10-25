@@ -30,6 +30,12 @@
 		A062C1BA1D9326490090F0EE /* Timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = A062C1B71D9326490090F0EE /* Timeline.png */; };
 		A062C1BB1D9326490090F0EE /* Timeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A062C1B81D9326490090F0EE /* Timeline@2x.png */; };
 		A062C1BC1D9326490090F0EE /* Timeline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A062C1B91D9326490090F0EE /* Timeline@3x.png */; };
+		A06E6ED81DBF8218008684DE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06E6ED71DBF8218008684DE /* QuartzCore.framework */; };
+		A06E6EE61DBF8437008684DE /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = A06E6EDD1DBF8437008684DE /* SVIndefiniteAnimatedView.m */; };
+		A06E6EE71DBF8437008684DE /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = A06E6EDF1DBF8437008684DE /* SVProgressAnimatedView.m */; };
+		A06E6EE81DBF8437008684DE /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A06E6EE11DBF8437008684DE /* SVProgressHUD.bundle */; };
+		A06E6EE91DBF8437008684DE /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A06E6EE31DBF8437008684DE /* SVProgressHUD.m */; };
+		A06E6EEA1DBF8437008684DE /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06E6EE51DBF8437008684DE /* SVRadialGradientLayer.m */; };
 		A079F9C71D8ADFBE007BB3BD /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A079F9C61D8ADFBE007BB3BD /* SettingsController.m */; };
 		A07E5F6F1D86FFD5001677CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F6E1D86FFD5001677CE /* main.m */; };
 		A07E5F721D86FFD5001677CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F711D86FFD5001677CE /* AppDelegate.m */; };
@@ -106,6 +112,17 @@
 		A062C1B71D9326490090F0EE /* Timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Timeline.png; sourceTree = "<group>"; };
 		A062C1B81D9326490090F0EE /* Timeline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Timeline@2x.png"; sourceTree = "<group>"; };
 		A062C1B91D9326490090F0EE /* Timeline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Timeline@3x.png"; sourceTree = "<group>"; };
+		A06E6ED71DBF8218008684DE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A06E6EDC1DBF8437008684DE /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		A06E6EDD1DBF8437008684DE /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		A06E6EDE1DBF8437008684DE /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		A06E6EDF1DBF8437008684DE /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		A06E6EE01DBF8437008684DE /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		A06E6EE11DBF8437008684DE /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		A06E6EE21DBF8437008684DE /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		A06E6EE31DBF8437008684DE /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		A06E6EE41DBF8437008684DE /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		A06E6EE51DBF8437008684DE /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		A079F9C61D8ADFBE007BB3BD /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
 		A079F9C81D8ADFEC007BB3BD /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
 		A07E5F6A1D86FFD5001677CE /* Open Seene.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Open Seene.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A06E6ED81DBF8218008684DE /* QuartzCore.framework in Frameworks */,
 				A0210B841DBC340A005E5C13 /* PhotosUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,9 +215,27 @@
 		A0210B821DBC3409005E5C13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A06E6ED71DBF8218008684DE /* QuartzCore.framework */,
 				A0210B831DBC340A005E5C13 /* PhotosUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A06E6EDB1DBF840D008684DE /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				A06E6EDC1DBF8437008684DE /* SVIndefiniteAnimatedView.h */,
+				A06E6EDD1DBF8437008684DE /* SVIndefiniteAnimatedView.m */,
+				A06E6EDE1DBF8437008684DE /* SVProgressAnimatedView.h */,
+				A06E6EDF1DBF8437008684DE /* SVProgressAnimatedView.m */,
+				A06E6EE01DBF8437008684DE /* SVProgressHUD-Prefix.pch */,
+				A06E6EE11DBF8437008684DE /* SVProgressHUD.bundle */,
+				A06E6EE21DBF8437008684DE /* SVProgressHUD.h */,
+				A06E6EE31DBF8437008684DE /* SVProgressHUD.m */,
+				A06E6EE41DBF8437008684DE /* SVRadialGradientLayer.h */,
+				A06E6EE51DBF8437008684DE /* SVRadialGradientLayer.m */,
+			);
+			name = SVProgressHUD;
 			sourceTree = "<group>";
 		};
 		A07E5F611D86FFD5001677CE = {
@@ -226,6 +262,7 @@
 		A07E5F6C1D86FFD5001677CE /* Open Seene */ = {
 			isa = PBXGroup;
 			children = (
+				A06E6EDB1DBF840D008684DE /* SVProgressHUD */,
 				A0D89D7C1D8BCAE90073506E /* SBJSON */,
 				A07E5F701D86FFD5001677CE /* AppDelegate.h */,
 				A07E5F711D86FFD5001677CE /* AppDelegate.m */,
@@ -455,6 +492,7 @@
 				A062C1BB1D9326490090F0EE /* Timeline@2x.png in Resources */,
 				A062C1BA1D9326490090F0EE /* Timeline.png in Resources */,
 				A00A49B51DB6A2EA007C3263 /* Arrow1 Right.png in Resources */,
+				A06E6EE81DBF8437008684DE /* SVProgressHUD.bundle in Resources */,
 				A0DBB8DD1D9419B00082E63A /* Favorized@2x.png in Resources */,
 				A00A49B31DB6A2E1007C3263 /* Arrow1 Left.png in Resources */,
 				A0167F401D93EC3F00CF413B /* Upload.png in Resources */,
@@ -496,9 +534,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0D89D961D8BCB0C0073506E /* SBJsonStreamParserState.m in Sources */,
+				A06E6EE61DBF8437008684DE /* SVIndefiniteAnimatedView.m in Sources */,
 				A0D89D921D8BCB0C0073506E /* SBJsonParser.m in Sources */,
 				A0A155991DA3D92000119380 /* CommentsViewController.m in Sources */,
 				A0D89D951D8BCB0C0073506E /* SBJsonStreamParserAdapter.m in Sources */,
+				A06E6EE71DBF8437008684DE /* SVProgressAnimatedView.m in Sources */,
 				A05C2D421D8B2C7000D1E351 /* NSString+MD5.m in Sources */,
 				A0D89D941D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m in Sources */,
 				A0DBB8E31D952FF30082E63A /* FlickrAlbum.m in Sources */,
@@ -510,12 +550,14 @@
 				A0D89D981D8BCB0C0073506E /* SBJsonStreamWriter.m in Sources */,
 				A079F9C71D8ADFBE007BB3BD /* SettingsController.m in Sources */,
 				A0A155961DA3B99000119380 /* FlickrComment.m in Sources */,
+				A06E6EE91DBF8437008684DE /* SVProgressHUD.m in Sources */,
 				A0D89D9A1D8BCB0C0073506E /* SBJsonStreamWriterState.m in Sources */,
 				A0DBB8E81D9A97770082E63A /* FlickrPhoto.m in Sources */,
 				A034C95F1DAD12D200BE13E5 /* GroupMembersViewController.m in Sources */,
 				A07E5F721D86FFD5001677CE /* AppDelegate.m in Sources */,
 				A0D89D991D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.m in Sources */,
 				A034C9671DB6593F00BE13E5 /* FileHelper.m in Sources */,
+				A06E6EEA1DBF8437008684DE /* SVRadialGradientLayer.m in Sources */,
 				A0D89D971D8BCB0C0073506E /* SBJsonStreamTokeniser.m in Sources */,
 				A0DBB8E01D95043F0082E63A /* FlickrBuddy.m in Sources */,
 				A07E5F6F1D86FFD5001677CE /* main.m in Sources */,

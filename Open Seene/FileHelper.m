@@ -1,5 +1,5 @@
 //
-//  Helper.m
+//  FileHelper.m
 //  Open Seene
 //
 //  Created by Mathias Zettler on 18.10.16.
@@ -15,6 +15,7 @@
     
     NSString *personalDir;
     NSString *followingDir;
+    NSString *chacheDir;
     NSFileManager *fileManager;
 }
 @end
@@ -31,6 +32,8 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         [self checkAndCreateDir:documentsDirectory];
+        chacheDir = [documentsDirectory stringByAppendingPathComponent:@"cache"];
+        [self checkAndCreateDir:chacheDir];
         NSString *flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
         personalDir = [documentsDirectory stringByAppendingPathComponent:flickr_nsid];
         followingDir = [personalDir stringByAppendingPathComponent:@"following"];
@@ -44,6 +47,46 @@
 /* Class (+) custom "convenient" constructor */
 + (FileHelper*)fileHelper {
     return [[self alloc] initFileHelper];
+}
+
+//persists a member of "Seene" group in device cache
+- (void)cacheMemberOnDevice:(FlickrBuddy*)member {
+    
+    // caching username
+    NSString *usernameFile = [chacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.username", member.nsid]];
+    NSLog(@"writing file: %@ with content: %@", usernameFile, member.username);
+    [[member.username dataUsingEncoding:NSUTF8StringEncoding] writeToFile:usernameFile atomically:YES];
+    
+    // caching usericon
+    NSString *iconUrl = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/buddyicons/%@.jpg",
+                         member.iconfarm, member.iconserver, member.nsid];
+    NSURL *imgurl;
+    
+    if ([iconUrl rangeOfString:@"farm0."].location == NSNotFound) {
+        imgurl = [NSURL URLWithString:iconUrl];
+    } else {
+        imgurl = [NSURL URLWithString:@"https://www.flickr.com/images/buddyicon.gif"];
+    }
+    
+    NSData *imgdata = [NSData dataWithContentsOfURL : imgurl];
+    NSString *imagePath = [chacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", member.nsid]];
+    [imgdata writeToFile:imagePath atomically:NO];
+}
+
+//get username from cache
+- (NSString*)getCachedUsernameForNSID:(NSString*)nsid {
+    NSError *error;
+    NSString *usernameFile = [chacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.username", nsid]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:usernameFile]) {
+        return [NSString stringWithContentsOfFile:usernameFile encoding:NSUTF8StringEncoding error:&error];
+    }
+    return nsid;
+}
+
+//get user's profile image from cache
+- (UIImage*)getCachedImageForNSID:(NSString*)nsid {
+    UIImage *cachedImage = [UIImage imageWithContentsOfFile:[chacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", nsid]]];
+    return cachedImage;
 }
 
 // Read following list from device (AppDirectory/Documents/<NSID>/following/...)

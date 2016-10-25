@@ -19,6 +19,10 @@
 
 @end
 
+//TODO
+//Use FileHelper to read usernames from cache.
+//Format Comments.
+
 
 @implementation CommentsViewController
 
@@ -99,6 +103,7 @@
     
     cell.textLabel.font = [UIFont systemFontOfSize:12.0];
     cell.textLabel.numberOfLines = 0;
+    cell.textLabel.textColor = [UIColor whiteColor];
     [cell setBackgroundColor:[UIColor darkGrayColor]];
     
     NSString *iconUrl = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/buddyicons/%@.jpg",
