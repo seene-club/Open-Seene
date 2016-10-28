@@ -59,6 +59,8 @@
 		A0D89D991D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D8D1D8BCB0C0073506E /* SBJsonStreamWriterAccumulator.m */; };
 		A0D89D9A1D8BCB0C0073506E /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D8F1D8BCB0C0073506E /* SBJsonStreamWriterState.m */; };
 		A0D89D9B1D8BCB0C0073506E /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D89D911D8BCB0C0073506E /* SBJsonWriter.m */; };
+		A0DA7E8B1DC380A9005802EC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DA7E8A1DC380A9005802EC /* AssetsLibrary.framework */; };
+		A0DA7E8D1DC391B2005802EC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DA7E8C1DC391B2005802EC /* ImageIO.framework */; };
 		A0DBB8D81D93EFC30082E63A /* FlickrAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DBB8D71D93EFC30082E63A /* FlickrAPI.m */; };
 		A0DBB8DB1D9419A90082E63A /* Favorized.png in Resources */ = {isa = PBXBuildFile; fileRef = A0DBB8DA1D9419A90082E63A /* Favorized.png */; };
 		A0DBB8DD1D9419B00082E63A /* Favorized@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0DBB8DC1D9419B00082E63A /* Favorized@2x.png */; };
@@ -172,6 +174,8 @@
 		A0D89D8F1D8BCB0C0073506E /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
 		A0D89D901D8BCB0C0073506E /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		A0D89D911D8BCB0C0073506E /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		A0DA7E8A1DC380A9005802EC /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		A0DA7E8C1DC391B2005802EC /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		A0DBB8D71D93EFC30082E63A /* FlickrAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrAPI.m; sourceTree = "<group>"; };
 		A0DBB8D91D93EFEB0082E63A /* FlickrAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPI.h; sourceTree = "<group>"; };
 		A0DBB8DA1D9419A90082E63A /* Favorized.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Favorized.png; sourceTree = "<group>"; };
@@ -190,6 +194,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0DA7E8D1DC391B2005802EC /* ImageIO.framework in Frameworks */,
+				A0DA7E8B1DC380A9005802EC /* AssetsLibrary.framework in Frameworks */,
 				A06E6ED81DBF8218008684DE /* QuartzCore.framework in Frameworks */,
 				A0210B841DBC340A005E5C13 /* PhotosUI.framework in Frameworks */,
 			);
@@ -215,6 +221,8 @@
 		A0210B821DBC3409005E5C13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0DA7E8C1DC391B2005802EC /* ImageIO.framework */,
+				A0DA7E8A1DC380A9005802EC /* AssetsLibrary.framework */,
 				A06E6ED71DBF8218008684DE /* QuartzCore.framework */,
 				A0210B831DBC340A005E5C13 /* PhotosUI.framework */,
 			);
