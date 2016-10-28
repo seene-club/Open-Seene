@@ -10,10 +10,12 @@
 #import "CommentsViewController.h"
 #import "FlickrAPI.h"
 #import "FlickrComment.h"
+#import "FileHelper.h"
 
 @interface CommentsViewController () {
     
     FlickrAPI *flickrAPI;
+    FileHelper *fileHelper;
     NSMutableArray *comments;
 }
 
@@ -33,6 +35,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     flickrAPI = [[FlickrAPI alloc] init];
+    fileHelper = [[FileHelper alloc] initFileHelper];
     
     NSURL *url = [NSURL URLWithString:photo.thumbnailURL];
     NSData *data = [NSData dataWithContentsOfURL : url];
@@ -106,16 +109,9 @@
     cell.textLabel.textColor = [UIColor whiteColor];
     [cell setBackgroundColor:[UIColor darkGrayColor]];
     
-    NSString *iconUrl = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/buddyicons/%@.jpg",
-                         selectedComment.iconfarm, selectedComment.iconserver, selectedComment.authorNSID];
-    
-    NSURL *url = [NSURL URLWithString:iconUrl];
-    NSData *data = [NSData dataWithContentsOfURL : url];
-
-    
     // Label and Image of the cell
-    cell.textLabel.text = selectedComment.commentText;
-    [cell.imageView setImage:[UIImage imageWithData: data]];
+    cell.textLabel.text = [self commentFormatter:selectedComment.commentText];
+    [cell.imageView setImage:[fileHelper getCachedImageForNSID:selectedComment.authorNSID]];
     
     // Round images
     cell.imageView.layer.cornerRadius = cell.imageView.frame.size.width / 2;
@@ -132,6 +128,59 @@
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //[self.tableView reloadData];
+}
+
+
+- (NSString*)commentFormatter:(NSString*)cmnt {
+    
+    NSString *fcmnt = [cmnt stringByReplacingOccurrencesOfString:@"&quot;" withString: @"\""];
+    // to be continued ...
+    
+    // replace all occurrences of [https://www.flickr.com/photos/<NSID>] by @username
+    fcmnt = [self commentUsernameGrabber:fcmnt];
+                       
+    return fcmnt;
+}
+
+
+- (NSString*)commentUsernameGrabber:(NSString*)cmnt {
+    
+    NSString *fcmnt;
+    
+    // Looking for [...] and extract a substring
+    NSRange r1 = [cmnt rangeOfString:@"["];
+    NSRange r2 = [cmnt rangeOfString:@"]"];
+    
+    if ((r1.location == NSNotFound) || (r1.location == NSNotFound)) return cmnt;
+    
+    NSRange rSub = NSMakeRange(r1.location + r1.length, r2.location - r1.location - r1.length);
+    NSString *sub = [cmnt substringWithRange:rSub];
+    
+    NSLog(@"sub: %@", sub);
+    
+    // Looking for the NSID in substring ("https://www.flickr.com/photos/<NSID>")
+    NSString *cmprUser = @"https://www.flickr.com/photos/";
+    
+    if ([sub length] > [cmprUser length]) {
+        NSRange range = [sub rangeOfString:cmprUser];
+        if (range.location != NSNotFound) {
+            // Extracting NSID
+            NSRange rUserNSID = NSMakeRange(range.location + range.length, [sub length] - range.location - range.length);
+            NSString *nsid = [sub substringWithRange:rUserNSID];
+            NSLog(@"NSID: %@", nsid);
+            // grab username from Cache and remove trailing "/" (somethimes there, sometimes not)
+            NSString *username = [NSString stringWithFormat:@"@%@",[fileHelper getCachedUsernameForNSID:[nsid stringByReplacingOccurrencesOfString:@"/" withString:@"" ]]];
+            NSLog(@"Username: %@", username);
+            
+            NSString *userRep = [NSString stringWithFormat:@"[%@%@]",cmprUser, nsid];
+            // call "commentFormatter" recursively to replace other occurences
+            fcmnt = [self commentUsernameGrabber:[cmnt stringByReplacingOccurrencesOfString:userRep withString:username]];
+
+        }
+    }
+   
+    NSLog(@"formatted: %@", fcmnt);
+    return fcmnt;
 }
 
 
