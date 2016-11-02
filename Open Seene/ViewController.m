@@ -45,9 +45,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
     
     [self viewerControlsHidden:YES];
-    [self createTimeline];
+    if ([flickr_token length] > 10) [self createTimeline];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
@@ -65,14 +66,16 @@
 - (void)viewDidAppear:(BOOL)animated {
     
     flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
-    NSLog(@"UserDefaults 'FlickrToken': %@", flickr_token);
     
     if (([flickr_token length] == 0) || (!flickr_token) || ([flickr_token isEqualToString:@"(null)"])) {
+        NSLog(@"Flickr: login invalid!!! Reauthorization necessary...");
         [self performSegueWithIdentifier: @"authSegue" sender: self];
     }
     
     if (!timelineCreated) [self createTimeline];
 }
+
+
 
 - (void)createTimeline {
     // Building Timeline from FlickrBuddies

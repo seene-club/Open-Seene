@@ -58,7 +58,11 @@
         
             // Update Profile Pic
             [self updateOwnProfile];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
         }
+    } else {
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
     }
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
