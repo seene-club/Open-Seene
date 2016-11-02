@@ -16,6 +16,7 @@
     NSString *personalDir;
     NSString *followingDir;
     NSString *chacheDir;
+    NSString *uploadsDir;
     NSFileManager *fileManager;
 }
 @end
@@ -37,8 +38,10 @@
         NSString *flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
         personalDir = [documentsDirectory stringByAppendingPathComponent:flickr_nsid];
         followingDir = [personalDir stringByAppendingPathComponent:@"following"];
+        uploadsDir = [documentsDirectory stringByAppendingPathComponent:@"uploads"];
         [self checkAndCreateDir:personalDir];
         [self checkAndCreateDir:followingDir];
+        [self checkAndCreateDir:uploadsDir];
     }
     
     return self;
@@ -47,6 +50,31 @@
 /* Class (+) custom "convenient" constructor */
 + (FileHelper*)fileHelper {
     return [[self alloc] initFileHelper];
+}
+
+//persists a jpg with depthmap in users upload cache
+-(NSString*)cacheUploadImage:(ALAssetRepresentation*)representation {
+    
+    NSString* filepath = [uploadsDir stringByAppendingPathComponent:[representation filename]];
+    
+    [fileManager createFileAtPath:filepath contents:nil attributes:nil];
+    NSOutputStream *outPutStream = [NSOutputStream outputStreamToFileAtPath:filepath append:YES];
+    [outPutStream open];
+    
+    long long offset = 0;
+    long long bytesRead = 0;
+    
+    NSError *error;
+    uint8_t *buffer = malloc(131072);
+    while (offset<[representation size] && [outPutStream hasSpaceAvailable]) {
+        bytesRead = [representation getBytes:buffer fromOffset:offset length:131072 error:&error];
+        [outPutStream write:buffer maxLength:bytesRead];
+        offset = offset+bytesRead;
+    }
+    [outPutStream close];
+    free(buffer);
+    
+    return filepath;
 }
 
 //persists a member of "Seene" group in device cache

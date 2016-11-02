@@ -11,10 +11,12 @@
 #import <ImageIO/ImageIO.h>
 #import "UploadController.h"
 #import "FlickrAPI.h"
-
+#import "FileHelper.h"
 
 @interface UploadController() {
     FlickrAPI *flickrAPI;
+    FileHelper *fileHelper;
+    ALAssetRepresentation *representation;
 }
 
 @end
@@ -22,6 +24,10 @@
 @implementation UploadController
 
 - (void)viewDidLoad {
+    
+    flickrAPI = [[FlickrAPI alloc] init];
+    fileHelper = [[FileHelper alloc] initFileHelper];
+    
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.allowsEditing = YES;
@@ -31,21 +37,25 @@
     ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
     [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         if (nil != group) {
-            // be sure to filter the group so you only get photos
+            // filter the group for photos only
              [group setAssetsFilter:[ALAssetsFilter allPhotos]];
              
              if (group.numberOfAssets > 0) {
                  [group enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:group.numberOfAssets - 1] options:0 usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                       if (nil != result) {
-                          ALAssetRepresentation *repr = [result defaultRepresentation];
+                          representation = [result defaultRepresentation];
+                          
+                          
                           // this is the most recent saved photo
-                          UIImage *photo = [UIImage imageWithCGImage:[repr fullResolutionImage]];
-                          [self checkSelectedPhoto: photo];
+                          UIImage *photo = [UIImage imageWithCGImage:[representation fullResolutionImage]];
                           self.imageView.image = photo;
                           
-                          NSDictionary *metadata = repr.metadata;
-                          
-                          NSLog(@"image data %@", metadata);
+                          if ([self isSeene: representation]) {
+                              [_uploadButton setEnabled:YES];
+                          } else {
+                              [_uploadButton setEnabled:NO];
+                          }
+
                           
                           // we only need the first (most recent) photo -- stop the enumeration
                           *stop = YES;
@@ -59,20 +69,32 @@
      }];
     
     
-    
     //[self presentViewController:picker animated:YES completion:NULL];
 }
 
-- (Boolean)checkSelectedPhoto:(UIImage*)photo {
-    //UIImage *photo = self.imageView.image;
-    CGDataProviderRef provider = CGImageGetDataProvider(photo.CGImage);
-    NSData* data = (id)CFBridgingRelease(CGDataProviderCopyData(provider));
-    const uint8_t* bytes = [data bytes];
-
-    NSLog(@"image data %s", bytes);
-    return NO;
+- (IBAction)uploadButtonPressed:(id)sender {
+    NSString *cachedSeenePath = [fileHelper cacheUploadImage:representation];
+    [flickrAPI uploadSeene:cachedSeenePath withTitle:@"coming soon..." isPublic:0];
 }
 
+// Is it a Seene? Better way could be to look inside the picture. But looking at metadata should be ok!?
+- (Boolean)isSeene:(ALAssetRepresentation*)repr {
+    NSDictionary *metadata = repr.metadata;
+    NSLog(@"checkSelectedPhoto -> Metadata: %@", metadata);
+    NSDictionary *exif = [metadata objectForKey:@"{Exif}"];
+    NSDictionary *iptc = [metadata objectForKey:@"{IPTC}"];
+    NSString *dimX = (NSString*) [exif valueForKey:@"PixelXDimension"];
+    NSString *dimY = (NSString*) [exif valueForKey:@"PixelYDimension"];
+    NSMutableArray *keyW = (NSMutableArray*) [iptc valueForKey:@"Keywords"];
+    
+    // First check photo dimension (1936x1936)?
+    if (([[NSString stringWithFormat:@"%@", dimX] isEqualToString:[NSString stringWithFormat:@"1936"]]) &&
+        ([[NSString stringWithFormat:@"%@", dimY] isEqualToString:[NSString stringWithFormat:@"1936"]])) {
+        // Does it contain "seene, depth" keywords?
+        if (([keyW containsObject:@"seene, depth"])) return YES;
+    }
+    return NO;
+}
 
 
 

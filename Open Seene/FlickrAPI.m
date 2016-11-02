@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@import MobileCoreServices;
 #import "FlickrAPI.h"
 #import "FlickrBuddy.h"
 #import "FlickrComment.h"
@@ -16,7 +17,117 @@
 #import "SBJson.h"
 #import "NSString+MD5.h"
 
+@interface FlickrAPI () {
+    
+    NSString *postResult;
+}
+
+@end
+
 @implementation FlickrAPI
+
+//POST-Request:https://up.flickr.com/services/upload/
+-(NSString*)uploadSeene:(NSString*)filePath withTitle:(NSString*)title isPublic:(int)publicint {
+    
+    NSURL *url = [NSURL URLWithString:@"https://up.flickr.com/services/upload/"];
+    NSString *fieldName=@"photo";
+    
+    NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@", flrSecret, flrAPIKey, flickr_token];
+    NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
+    NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
+    
+    NSDictionary *params = @{@"api_key"     : flrAPIKey,
+                             @"auth_token"  : flickr_token,
+                             @"api_sig"     : flrSigStr.MD5};
+    
+    
+    NSString *boundary = [self generateBoundaryString];
+    
+    // configure the request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    
+    // set content type
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    // create body
+    NSData *httpBody = [self createBodyWithBoundary:boundary parameters:params paths:@[filePath] fieldName:fieldName];
+    NSString *httpBodyString = [[NSString alloc] initWithData:httpBody encoding:NSUTF8StringEncoding];
+    NSLog(@"FlickrAPI httpBody:\n%@", httpBodyString);
+    
+    request.HTTPBody = httpBody;
+    
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (connectionError) {
+            NSLog(@"error = %@", connectionError);
+            postResult = [NSString stringWithFormat:@"error = %@", connectionError];
+            return;
+        }
+        
+        postResult = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"result = %@", postResult);
+    }];
+    
+    return postResult;
+}
+
+-(NSData *)createBodyWithBoundary:(NSString *)boundary
+                        parameters:(NSDictionary *)parameters
+                             paths:(NSArray *)paths
+                         fieldName:(NSString *)fieldName
+{
+    NSMutableData *httpBody = [NSMutableData data];
+    
+    // add params (all params are strings)
+    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *parameterKey, NSString *parameterValue, BOOL *stop) {
+        [httpBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", parameterKey] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"%@\r\n", parameterValue] dataUsingEncoding:NSUTF8StringEncoding]];
+    }];
+    
+    // add image data
+    for (NSString *path in paths) {
+        NSString *filename  = [path lastPathComponent];
+        NSData   *data      = [NSData dataWithContentsOfFile:path];
+        NSString *mimetype  = [self mimeTypeForPath:path];
+        
+        [httpBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", fieldName, filename] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mimetype] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:data];
+        [httpBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    [httpBody appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    return httpBody;
+}
+
+
+// get a mime type for an extension using MobileCoreServices.framework
+- (NSString *)mimeTypeForPath:(NSString *)path {
+    
+    CFStringRef extension = (__bridge CFStringRef)[path pathExtension];
+    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, extension, NULL);
+    assert(UTI != NULL);
+    
+    NSString *mimetype = CFBridgingRelease(UTTypeCopyPreferredTagWithClass(UTI, kUTTagClassMIMEType));
+    assert(mimetype != NULL);
+    
+    CFRelease(UTI);
+    
+    return mimetype;
+}
+
+- (NSString *)generateBoundaryString {
+    return [NSString stringWithFormat:@"Boundary-%@", [[NSUUID UUID] UUIDString]];
+}
+
+
 
 //flickr.photos.comments.addComment
 -(Boolean)commentSeene:(FlickrPhoto*)photo withText:(NSString*)comment_text {
