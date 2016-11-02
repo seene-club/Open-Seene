@@ -142,7 +142,7 @@
     return fcmnt;
 }
 
-
+// what we can do in future release: https://github.com/TTTAttributedLabel/TTTAttributedLabel
 - (NSString*)commentUsernameGrabber:(NSString*)cmnt {
     
     NSString *fcmnt;
@@ -175,10 +175,9 @@
             NSString *userRep = [NSString stringWithFormat:@"[%@%@]",cmprUser, nsid];
             // call "commentFormatter" recursively to replace other occurences
             fcmnt = [self commentUsernameGrabber:[cmnt stringByReplacingOccurrencesOfString:userRep withString:username]];
-
         }
     }
-   
+
     NSLog(@"formatted: %@", fcmnt);
     return fcmnt;
 }
