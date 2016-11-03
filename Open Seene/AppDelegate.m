@@ -45,7 +45,7 @@
     NSLog(@"AppDelegate: UserDefaults 'FlickrToken': %@", flickr_token);
     
     // If we have a already a token in the UserDefaults, we'll try to retrieve the user's profile data.
-    if ((flickr_token) || ([flickr_token length] > 10)) {
+    if ((flickr_token) && ([flickr_token length] > 10)) {
         
         if ([flickrAPI testFlickrLogin]) {
         

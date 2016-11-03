@@ -1,0 +1,8 @@
+/* 
+  InfoPlist.strings
+  Open Seene
+
+  Created by Alexander Petrossian (PAF) on 03.11.16.
+  Copyright © 2016 Mathias Zettler. All rights reserved.
+*/
+NSPhotoLibraryUsageDescription = "To upload to Flickr";
