@@ -34,6 +34,14 @@
     picker.allowsEditing = NO;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     pickerPicked = false;
+    
+    _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    _tapRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:_tapRecognizer];
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender {
+    [self.view endEditing:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

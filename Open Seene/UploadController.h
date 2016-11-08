@@ -13,4 +13,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *uploadButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *privacyToggle;
+@property (nonatomic) UITapGestureRecognizer *tapRecognizer;
 @end
