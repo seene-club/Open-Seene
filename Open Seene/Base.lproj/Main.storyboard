@@ -105,11 +105,14 @@
                                 <color key="tintColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nmH-bo-mb9">
-                                <frame key="frameInset" minX="334" minY="639" width="72" height="30"/>
+                                <frame key="frameInset" minX="312" minY="639" width="94" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                 <state key="normal" title="upload">
                                     <color key="titleColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="disabled" title="no depthmap">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="uploadButtonPressed:" destination="0Om-Ab-3em" eventType="touchUpInside" id="jEU-F8-o4U"/>
@@ -123,6 +126,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQj-NE-823">
+                                <frame key="frameInset" minX="20" minY="28" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="cameraroll.png"/>
+                                <connections>
+                                    <action selector="cameraButtonPushed:" destination="tcF-yL-U5Z" eventType="touchUpInside" id="iaq-CB-rIZ"/>
+                                    <action selector="cameraRolePressed:" destination="0Om-Ab-3em" eventType="touchUpInside" id="CIg-eS-lSl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -285,7 +297,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhc-lv-KLi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="564" y="-377"/>
+            <point key="canvasLocation" x="1049" y="-496"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="3kQ-Oq-LKk">
@@ -521,7 +533,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1as-GW-jWG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="570" y="-1238"/>
+            <point key="canvasLocation" x="946" y="-1257"/>
         </scene>
     </scenes>
     <resources>
@@ -531,6 +543,7 @@
         <image name="Timeline.png" width="37" height="31"/>
         <image name="Upload.png" width="38" height="31"/>
         <image name="camera.png" width="512" height="512"/>
+        <image name="cameraroll.png" width="1024" height="1024"/>
         <image name="comment.png" width="32" height="32"/>
         <image name="heart_empty.png" width="32" height="32"/>
         <image name="reload.png" width="512" height="512"/>
