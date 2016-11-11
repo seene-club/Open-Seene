@@ -97,8 +97,12 @@
 
 // Call API for User's profile icon & store the URL to UserDefaults
 - (void)updateOwnProfile {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [[NSUserDefaults standardUserDefaults] setValue:[flickrAPI getProfileIconURL:flickr_nsid] forKey:@"FlickrProfileIconURL"];
+    flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    if ((flickr_token) && ([flickr_token length] > 10)) {
+        flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [[NSUserDefaults standardUserDefaults] setValue:[flickrAPI getProfileIconURL:flickr_nsid] forKey:@"FlickrProfileIconURL"];
+    }
 }
 
 @end

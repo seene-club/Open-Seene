@@ -24,6 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *photoThumbnail;
 @property (weak, nonatomic) IBOutlet UILabel *photographerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *photoTitleLabel;
-@property (weak, nonatomic) IBOutlet UITextField *commentTextField;
+@property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 
 @end

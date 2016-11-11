@@ -74,6 +74,7 @@
 		A0DBB8E31D952FF30082E63A /* FlickrAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DBB8E21D952FF30082E63A /* FlickrAlbum.m */; };
 		A0DBB8E51D9567ED0082E63A /* 29874512615_357e771327_o.png in Resources */ = {isa = PBXBuildFile; fileRef = A0DBB8E41D9567ED0082E63A /* 29874512615_357e771327_o.png */; };
 		A0DBB8E81D9A97770082E63A /* FlickrPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DBB8E71D9A97770082E63A /* FlickrPhoto.m */; };
+		A0E973AC1DD5E0A700A2A466 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = A0E973AB1DD5E0A700A2A466 /* user.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +200,7 @@
 		A0DBB8E41D9567ED0082E63A /* 29874512615_357e771327_o.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29874512615_357e771327_o.png; sourceTree = "<group>"; };
 		A0DBB8E61D9A97610082E63A /* FlickrPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPhoto.h; sourceTree = "<group>"; };
 		A0DBB8E71D9A97770082E63A /* FlickrPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhoto.m; sourceTree = "<group>"; };
+		A0E973AB1DD5E0A700A2A466 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +347,7 @@
 				A0276CDB1D9306E600AEE859 /* Profile.png */,
 				A0DBB8DC1D9419B00082E63A /* Favorized@2x.png */,
 				A0DBB8DA1D9419A90082E63A /* Favorized.png */,
+				A0E973AB1DD5E0A700A2A466 /* user.png */,
 				A0DBB8E41D9567ED0082E63A /* 29874512615_357e771327_o.png */,
 				A07E5F6D1D86FFD5001677CE /* Supporting Files */,
 				A07E5FA01D882A83001677CE /* flickrAPI.secret.xcconfig */,
@@ -536,6 +539,7 @@
 				A0167F421D93EC3F00CF413B /* Upload@3x.png in Resources */,
 				A0AA20A41DD1F14300916F6E /* seene-logo.png in Resources */,
 				A0DBB8E51D9567ED0082E63A /* 29874512615_357e771327_o.png in Resources */,
+				A0E973AC1DD5E0A700A2A466 /* user.png in Resources */,
 				A07E5F781D86FFD5001677CE /* Main.storyboard in Resources */,
 				A00A49A91DB696E3007C3263 /* camera.png in Resources */,
 				A034C9631DB108AE00BE13E5 /* checked.png in Resources */,

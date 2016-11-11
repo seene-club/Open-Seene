@@ -33,6 +33,8 @@
     NSMutableArray *timelinePhotos;
     int showIndex;
     Boolean timelineCreated;
+    CGFloat screenWidth;
+    CGFloat screenHeight;
     
 }
 
@@ -46,6 +48,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    screenWidth = screenSize.width;
+    screenHeight = screenSize.height;
+    NSLog(@"Screen: %f x %f", screenWidth, screenHeight);
     
     [self viewerControlsHidden:YES];
     if ([flickr_token length] > 10) [self createTimeline];
@@ -129,8 +137,8 @@
     
     if (webView==nil) {
         wKWebConfig = [[WKWebViewConfiguration alloc] init];
-        webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 60, 414, 414) configuration:wKWebConfig];
-        webView.navigationDelegate = self;
+        webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 60, screenWidth, screenWidth) configuration:wKWebConfig];
+       // webView.navigationDelegate = self;
         [self.view addSubview:webView];
     }
     

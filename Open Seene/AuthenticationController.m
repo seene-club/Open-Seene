@@ -51,7 +51,6 @@
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate updateOwnProfile];
 
-    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self dismissViewControllerAnimated:YES completion:nil];
 }

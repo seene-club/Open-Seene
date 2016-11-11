@@ -53,10 +53,10 @@
 
 - (IBAction)postButtonPushed:(id)sender {
     
-    if ([_commentTextField.text length] > 0) {
+    if ([_commentTextView.text length] > 0) {
         
-        if ([flickrAPI commentSeene:photo withText:_commentTextField.text]) {
-            _commentTextField.text = @"";
+        if ([flickrAPI commentSeene:photo withText:_commentTextView.text]) {
+            _commentTextView.text = @"";
             comments = [flickrAPI getComments:photo.photoid];
             [self.tableView reloadData];
         } else {

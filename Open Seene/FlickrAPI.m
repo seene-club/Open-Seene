@@ -27,7 +27,7 @@
 @implementation FlickrAPI
 
 //POST-Request:https://up.flickr.com/services/upload/
--(NSString*)uploadSeene:(NSString*)filePath withTitle:(NSString*)title isPublic:(int)publicint {
+-(NSString*)uploadSeene:(NSString*)filePath withTitle:(NSString*)title withDescription:(NSString*)description isPublic:(int)publicint {
     
     NSURL *url = [NSURL URLWithString:@"https://up.flickr.com/services/upload/"];
     NSString *fieldName=@"photo";
@@ -59,6 +59,8 @@
     NSLog(@"FlickrAPI httpBody:\n%@", httpBodyString);
     
     request.HTTPBody = httpBody;
+    
+    return NULL;
     
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {

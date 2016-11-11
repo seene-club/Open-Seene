@@ -13,7 +13,7 @@
 @interface FlickrAPI : NSObject
 
 // API methods catalogue
--(NSString*)uploadSeene:(NSString*)filePath withTitle:(NSString*)title isPublic:(int)publicint; //POST-Request:https://up.flickr.com/services/upload/
+-(NSString*)uploadSeene:(NSString*)filePath withTitle:(NSString*)title withDescription:(NSString*)description isPublic:(int)publicint; //POST-Request:https://up.flickr.com/services/upload/
 -(Boolean)testFlickrLogin;                                                                      //flickr.test.login
 -(Boolean)commentSeene:(FlickrPhoto*)photo withText:(NSString*)comment_text;                    //flickr.photos.comments.addComment
 -(NSMutableArray*)getComments:(NSString*)photoid;                                               //flickr.photos.comments.getList

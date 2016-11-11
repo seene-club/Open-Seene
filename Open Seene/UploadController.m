@@ -123,7 +123,7 @@
 
 - (IBAction)uploadButtonPressed:(id)sender {
     NSString *cachedSeenePath = [fileHelper cacheUploadImage:representation];
-    [flickrAPI uploadSeene:cachedSeenePath withTitle:@"coming soon..." isPublic:0];
+    [flickrAPI uploadSeene:cachedSeenePath withTitle:_titleTextField.text withDescription:_DescriptionTextView.text isPublic:_privacyToggle.state];
 }
 
 - (IBAction)cameraRolePressed:(id)sender {
