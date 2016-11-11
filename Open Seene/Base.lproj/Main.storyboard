@@ -151,6 +151,9 @@
                                     <segment title="private"/>
                                 </segments>
                                 <color key="tintColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="indexChanged:" destination="0Om-Ab-3em" eventType="valueChanged" id="3Pj-NB-vM7"/>
+                                </connections>
                             </segmentedControl>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uca-ac-F03">
                                 <rect key="frame" x="20" y="246" width="335" height="320"/>

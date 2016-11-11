@@ -16,6 +16,7 @@
 @interface UploadController() {
     FlickrAPI *flickrAPI;
     FileHelper *fileHelper;
+    NSString *publicUp;
     UIImagePickerController *picker;
     Boolean pickerPicked;
     ALAssetRepresentation *representation;
@@ -28,6 +29,8 @@
 - (void)viewDidLoad {
     flickrAPI = [[FlickrAPI alloc] init];
     fileHelper = [[FileHelper alloc] initFileHelper];
+    
+    publicUp = @"1";
     
     picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
@@ -121,9 +124,25 @@
     }
 }
 
+-(IBAction)indexChanged:(UISegmentedControl *)sender
+{
+    switch (self.privacyToggle.selectedSegmentIndex)
+    {
+        case 0:
+            publicUp = @"1";
+            break;
+        case 1:
+            publicUp = @"0";
+            break;
+        default: 
+            break; 
+    } 
+}
+
+
 - (IBAction)uploadButtonPressed:(id)sender {
     NSString *cachedSeenePath = [fileHelper cacheUploadImage:representation];
-    [flickrAPI uploadSeene:cachedSeenePath withTitle:_titleTextField.text withDescription:_DescriptionTextView.text isPublic:_privacyToggle.state];
+    [flickrAPI uploadSeene:cachedSeenePath withTitle:_titleTextField.text withDescription:_DescriptionTextView.text isPublic:publicUp];
 }
 
 - (IBAction)cameraRolePressed:(id)sender {

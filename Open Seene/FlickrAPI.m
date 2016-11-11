@@ -27,20 +27,23 @@
 @implementation FlickrAPI
 
 //POST-Request:https://up.flickr.com/services/upload/
--(NSString*)uploadSeene:(NSString*)filePath withTitle:(NSString*)title withDescription:(NSString*)description isPublic:(int)publicint {
+-(NSString*)uploadSeene:(NSString*)filePath withTitle:(NSString*)title withDescription:(NSString*)description isPublic:(NSString*)publicUp {
     
     NSURL *url = [NSURL URLWithString:@"https://up.flickr.com/services/upload/"];
     NSString *fieldName=@"photo";
     
     NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
     
-    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@", flrSecret, flrAPIKey, flickr_token];
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@description%@is_public%@title%@", flrSecret, flrAPIKey, flickr_token,description,publicUp,title];
     NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
     NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
     
     NSDictionary *params = @{@"api_key"     : flrAPIKey,
                              @"auth_token"  : flickr_token,
-                             @"api_sig"     : flrSigStr.MD5};
+                             @"api_sig"     : flrSigStr.MD5,
+                             @"title"       : title,
+                             @"description" : description,
+                             @"is_public"   : publicUp};
     
     
     NSString *boundary = [self generateBoundaryString];
@@ -59,9 +62,6 @@
     NSLog(@"FlickrAPI httpBody:\n%@", httpBodyString);
     
     request.HTTPBody = httpBody;
-    
-    return NULL;
-    
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         if (connectionError) {
