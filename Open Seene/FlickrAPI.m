@@ -58,8 +58,6 @@
     
     // create body
     NSData *httpBody = [self createBodyWithBoundary:boundary parameters:params paths:@[filePath] fieldName:fieldName];
-    NSString *httpBodyString = [[NSString alloc] initWithData:httpBody encoding:NSUTF8StringEncoding];
-    NSLog(@"FlickrAPI httpBody:\n%@", httpBodyString);
     
     request.HTTPBody = httpBody;
     
@@ -71,8 +69,28 @@
         }
         
         postResult = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"result = %@", postResult);
+        
+        NSLog(@"FlickrAPI upload RESPONSE: %@", postResult);
+        
+        if ([postResult rangeOfString:@"stat=\"ok\""].location == NSNotFound) {
+            NSLog(@"FlickrAPI upload ERROR: upload failed!");
+            [self lastFailToWithOrigin:@"upload" errorID:@"01" errorText:@"upload failed"];
+        } else {
+            NSRange r1 = [postResult rangeOfString:@"<photoid>"];
+            NSRange r2 = [postResult rangeOfString:@"</photoid>"];
+            NSRange rSub = NSMakeRange(r1.location + r1.length, r2.location - r1.location - r1.length);
+            NSString *photoid = [postResult substringWithRange:rSub];
+            NSLog(@"FlickrAPI upload PHOTO-ID: %@", photoid);
+            
+            NSString *viewerURL = @"TODO";
+            NSString *updatedDescription = [NSString stringWithFormat:@"%@\n\nView in 3D with Open Seene App or visit URL: %@", description, viewerURL];
+            
+            NSLog(@"FlickrAPI upload updated description %@", updatedDescription);
+            // next method to implement: flickr.photos.getSizes
+            // then flickr.photos.setMeta with updated descriptions
+        }
     }];
+    
     
     return postResult;
 }
@@ -112,6 +130,8 @@
 
 // get a mime type for an extension using MobileCoreServices.framework
 - (NSString *)mimeTypeForPath:(NSString *)path {
+    
+    NSLog(@"mimeTypeForPath: %@", path);
     
     CFStringRef extension = (__bridge CFStringRef)[path pathExtension];
     CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, extension, NULL);

@@ -20,6 +20,7 @@
     UIImagePickerController *picker;
     Boolean pickerPicked;
     ALAssetRepresentation *representation;
+    NSString *cachedSeenePath;
 }
 
 @end
@@ -66,12 +67,13 @@
                               // this is the most recent saved photo
                               UIImage *photo = [UIImage imageWithCGImage:[representation fullResolutionImage]];
                               
-                              
                               if ([self isSeene: representation.metadata]) {
                                   [_uploadButton setEnabled:YES];
+                                  cachedSeenePath = [fileHelper cacheUploadImage:representation];
                                   self.imageView.image = [self overlay3DLogo:photo withLogoName:@"3d-256.png"];
                               } else { // Not a Seene!
                                   [_uploadButton setEnabled:NO];
+                                  cachedSeenePath = nil;
                                   self.imageView.image = [self overlay3DLogo:photo withLogoName:@"no3d.png"];
                                   [self flatAlert:@"The most recent image in your camera roll does not contain a depthmap. Do you want to select another image?"];
                               }
@@ -141,7 +143,7 @@
 
 
 - (IBAction)uploadButtonPressed:(id)sender {
-    NSString *cachedSeenePath = [fileHelper cacheUploadImage:representation];
+    NSLog(@"Uploading from cache: %@", cachedSeenePath);
     [flickrAPI uploadSeene:cachedSeenePath withTitle:_titleTextField.text withDescription:_DescriptionTextView.text isPublic:publicUp];
 }
 
@@ -191,9 +193,11 @@
                        
                        if ([self isSeene: representation.metadata]) {
                            [_uploadButton setEnabled:YES];
+                           cachedSeenePath = [fileHelper cacheUploadImage:representation];
                            self.imageView.image = [self overlay3DLogo:photo withLogoName:@"3d-256.png"];
                        } else {
                            [_uploadButton setEnabled:NO];
+                           cachedSeenePath = nil;
                            self.imageView.image = [self overlay3DLogo:photo withLogoName:@"no3d.png"];
                            [self flatAlert:@"The image you have chosen is not a Seene. Do you want to select another image?"];
                        }
