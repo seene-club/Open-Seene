@@ -10,10 +10,14 @@
 #import "FlickrPhoto.h"
 #import "FlickrAPI_keys.h"
 
+static NSString *htmlViewerBaseURL = @"https://seene-shelter.github.io/viewer/#/?url=";
+
 @interface FlickrAPI : NSObject
 
-// API methods catalogue
+// API methods catalogue (original Flickr method name in the comment)
 -(NSString*)uploadSeene:(NSString*)filePath withTitle:(NSString*)title withDescription:(NSString*)description isPublic:(NSString*)publicUp; //POST-Request:https://up.flickr.com/services/upload/
+-(NSString*)getOriginalPhotoURL:(NSString*)photoid;                                             //flickr.photos.getSizes 
+-(Boolean)updatePhotoDescription:(NSString*)photoid withDescription:(NSString*)description;     //flickr.photos.setMeta
 -(Boolean)testFlickrLogin;                                                                      //flickr.test.login
 -(Boolean)commentSeene:(FlickrPhoto*)photo withText:(NSString*)comment_text;                    //flickr.photos.comments.addComment
 -(NSMutableArray*)getComments:(NSString*)photoid;                                               //flickr.photos.comments.getList
@@ -26,10 +30,10 @@
 -(NSString*)getProfileIconURL:(NSString*)flickr_nsid;                                           //flickr.people.getInfo
 -(void)exchangeMiniTokenToFullToken:(NSString*)miniToken;                                       //flickr.auth.getFullToken
 -(void)resetLoginUserDefaults;                                                                  //No API call, just reset login related UserDefaults.
--(NSString*) getLastFailOrigin;
--(NSString*) getLastFailID;
--(NSString*) getLastFailText;
--(void) lastFailClear;
+-(NSString*) getLastFailOrigin;                                                                 //No API call
+-(NSString*) getLastFailID;                                                                     //No API call
+-(NSString*) getLastFailText;                                                                   //No API call
+-(void) lastFailClear;                                                                          //No API call
 
 @end
 

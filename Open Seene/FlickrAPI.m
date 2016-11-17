@@ -26,7 +26,7 @@
 
 @implementation FlickrAPI
 
-//POST-Request:https://up.flickr.com/services/upload/
+//POST-Request:https://up.flickr.com/services/upload/ & multiple API calls for the postprocessing
 -(NSString*)uploadSeene:(NSString*)filePath withTitle:(NSString*)title withDescription:(NSString*)description isPublic:(NSString*)publicUp {
     
     NSURL *url = [NSURL URLWithString:@"https://up.flickr.com/services/upload/"];
@@ -34,7 +34,7 @@
     
     NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
     
-    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@description%@is_public%@title%@", flrSecret, flrAPIKey, flickr_token,description,publicUp,title];
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@description%@is_public%@title%@", flrSecret, flrAPIKey, flickr_token, description, publicUp, title];
     NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
     NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
     
@@ -61,6 +61,7 @@
     
     request.HTTPBody = httpBody;
     
+    // API-Call #1 - upload
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         if (connectionError) {
             NSLog(@"error = %@", connectionError);
@@ -74,7 +75,7 @@
         
         if ([postResult rangeOfString:@"stat=\"ok\""].location == NSNotFound) {
             NSLog(@"FlickrAPI upload ERROR: upload failed!");
-            [self lastFailToWithOrigin:@"upload" errorID:@"01" errorText:@"upload failed"];
+            [self lastFailToWithOrigin:@"upload" errorID:@"-1" errorText:@"upload failed"];
         } else {
             NSRange r1 = [postResult rangeOfString:@"<photoid>"];
             NSRange r2 = [postResult rangeOfString:@"</photoid>"];
@@ -82,15 +83,28 @@
             NSString *photoid = [postResult substringWithRange:rSub];
             NSLog(@"FlickrAPI upload PHOTO-ID: %@", photoid);
             
-            NSString *viewerURL = @"TODO";
+            // API-Call #2 - get original URL
+            NSString *origURL = [self getOriginalPhotoURL:photoid];
+            
+            NSString *viewerURL = [NSString stringWithFormat:@"%@%@", htmlViewerBaseURL, origURL];
             NSString *updatedDescription = [NSString stringWithFormat:@"%@\n\nView in 3D with Open Seene App or visit URL: %@", description, viewerURL];
             
-            NSLog(@"FlickrAPI upload updated description %@", updatedDescription);
-            // next method to implement: flickr.photos.getSizes
-            // then flickr.photos.setMeta with updated descriptions
+            // API-Call #3 - update photo description with ViewerURL
+            NSLog(@"FlickrAPI uploading updated description %@", updatedDescription);
+            [self updatePhotoDescription:photoid withDescription:updatedDescription];
+            
+            // API-Call #4 - retrieve "public seenes" and "private seenes" sets of the uploader
+            NSMutableArray *albumList = [[NSMutableArray alloc] init];
+            albumList = [self getAlbumList:[[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"]];
+            int adx;
+            for (adx = 0; adx < albumList.count; adx++) {
+                FlickrAlbum *album = [albumList objectAtIndex:adx];
+                // API-Call #5 - add Photo to "public seenes" or "private seenes"
+                if ((album.settype == 1) && ([publicUp isEqualToString:@"1"])) [self addPhoto:photoid toPhotoset: album.setid];
+                if ((album.settype == 2) && ([publicUp isEqualToString:@"0"])) [self addPhoto:photoid toPhotoset: album.setid];
+            }
         }
     }];
-    
     
     return postResult;
 }
@@ -129,7 +143,7 @@
 
 
 // get a mime type for an extension using MobileCoreServices.framework
-- (NSString *)mimeTypeForPath:(NSString *)path {
+- (NSString*)mimeTypeForPath:(NSString *)path {
     
     NSLog(@"mimeTypeForPath: %@", path);
     
@@ -145,10 +159,92 @@
     return mimetype;
 }
 
-- (NSString *)generateBoundaryString {
+- (NSString*)generateBoundaryString {
     return [NSString stringWithFormat:@"Boundary-%@", [[NSUUID UUID] UUIDString]];
 }
 
+
+//flickr.photos.getSizes
+-(NSString*)getOriginalPhotoURL:(NSString*)photoid {
+    
+    NSString *flrMethod = @"flickr.photos.getSizes";
+    
+    NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@format%smethod%@nojsoncallback%sphoto_id%@", flrSecret, flrAPIKey, flickr_token, "json", flrMethod, "1", photoid];
+    NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
+    NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=%@&api_key=%@&photo_id=%@&auth_token=%@&api_sig=%@&format=json&nojsoncallback=1", flrMethod, flrAPIKey, photoid, flickr_token, flrSigStr.MD5 ];
+    NSLog(@"FlickrAPI %@ URL: %@", flrMethod, urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSString *connectionResponse = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+
+    SBJsonParser *jsonParser = [SBJsonParser new];
+    id jsonResponse = [jsonParser objectWithString:connectionResponse];
+    NSDictionary *results = (NSDictionary *)jsonResponse;
+    NSDictionary *sizesEnvelope = [results objectForKey:@"sizes"];
+    NSDictionary *sizes = [sizesEnvelope objectForKey:@"size"];
+    NSMutableArray *labels = (NSMutableArray*) [sizes valueForKey:@"label"];
+    NSMutableArray *sources = (NSMutableArray*) [sizes valueForKey:@"source"];
+    
+    int ndx;
+    for (ndx = 0; ndx < labels.count; ndx++)
+        if( [(NSString *)[labels objectAtIndex:ndx] caseInsensitiveCompare:@"Original"] == NSOrderedSame )
+            return (NSString*)[sources objectAtIndex:ndx];
+    
+    return nil;
+}
+
+//flickr.photos.setMeta
+-(Boolean)updatePhotoDescription:(NSString*)photoid withDescription:(NSString*)description {
+    
+    NSString *flrMethod = @"flickr.photos.setMeta";
+    
+    NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@description%@format%smethod%@nojsoncallback%sphoto_id%@", flrSecret, flrAPIKey, flickr_token, description, "json", flrMethod, "1", photoid];
+    NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
+    NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
+    
+    // IMPORTANT: The description must be url-encoded for the request, but it MUST NOT be url-encoded for the MD5-Signature!
+    NSMutableCharacterSet *chars = NSCharacterSet.URLQueryAllowedCharacterSet.mutableCopy;
+    [chars removeCharactersInRange:NSMakeRange('&', 1)]; // %26
+    NSString *encodedDescription = [description stringByAddingPercentEncodingWithAllowedCharacters:chars];
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=%@&photo_id=%@&description=%@&api_key=%@&auth_token=%@&api_sig=%@&format=json&nojsoncallback=1", flrMethod, photoid, encodedDescription, flrAPIKey, flickr_token, flrSigStr.MD5 ];
+    NSLog(@"FlickrAPI %@ URL: %@", flrMethod, urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // 2. Get URLResponse string & parse JSON to Foundation objects.
+    
+    NSString *connectionResponse = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    
+    if (connectionResponse == nil) {
+        [self lastFailToWithOrigin:flrMethod errorID:@"-1" errorText:@"Request execution failed"];
+        return false;
+    }
+    
+    NSLog(@"FlickrAPI %@ RESPONSE: %@", flrMethod, connectionResponse);
+    
+    if ([connectionResponse rangeOfString:@"\"stat\":\"ok\"}"].location == NSNotFound) {
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        id jsonResponse = [jsonParser objectWithString:connectionResponse];
+        NSDictionary *results = (NSDictionary *)jsonResponse;
+        NSString *code = (NSString*) [results valueForKey:@"code"];
+        NSString *message = (NSString*) [results valueForKey:@"message"];
+        NSLog(@"FlickrAPI %@ ERROR: %@ - %@", flrMethod, code, message);
+        [self lastFailToWithOrigin:flrMethod errorID:code errorText:message];
+        
+        return false;
+    } else {
+        NSLog(@"FlickrAPI %@ OK: %@ - %@", flrMethod, photoid, encodedDescription);
+        return true;
+    }
+    
+    return false;
+}
 
 
 //flickr.photos.comments.addComment
@@ -370,6 +466,44 @@
     return false;
 }
 
+//flickr.photosets.addPhoto
+-(Boolean)addPhoto:(NSString*)photoid toPhotoset:(NSString*)photoset_id {
+    
+    NSString *flrMethod = @"flickr.photosets.addPhoto";
+    
+    NSString *flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    
+    NSString *flrSigStr = [NSString stringWithFormat:@"%@api_key%@auth_token%@format%smethod%@nojsoncallback%sphoto_id%@photoset_id%@", flrSecret, flrAPIKey, flickr_token, "json", flrMethod, "1", photoid, photoset_id];
+    NSLog(@"FlickrAPI Signature String: %@", flrSigStr);
+    NSLog(@"FlickrAPI Signature MD5: %@", flrSigStr.MD5);
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=%@&photo_id=%@&photoset_id=%@&api_key=%@&auth_token=%@&api_sig=%@&format=json&nojsoncallback=1", flrMethod, photoid, photoset_id, flrAPIKey, flickr_token, flrSigStr.MD5 ];
+    NSLog(@"FlickrAPI %@ URL: %@", flrMethod, urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // 2. Get URLResponse string & parse JSON to Foundation objects.
+    
+    NSString *connectionResponse = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    
+    NSLog(@"FlickrAPI %@ RESPONSE: %@", flrMethod, connectionResponse);
+    
+    if ([connectionResponse rangeOfString:@"{\"stat\":\"ok\"}"].location == NSNotFound) {
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        id jsonResponse = [jsonParser objectWithString:connectionResponse];
+        NSDictionary *results = (NSDictionary *)jsonResponse;
+        NSString *code = (NSString*) [results valueForKey:@"code"];
+        NSString *message = (NSString*) [results valueForKey:@"message"];
+        NSLog(@"FlickrAPI %@ ERROR: %@ - %@", flrMethod, code, message);
+        [self lastFailToWithOrigin:flrMethod errorID:code errorText:message];
+        
+        return false;
+    } else {
+        NSLog(@"FlickrAPI %@ OK: %@ - %@", flrMethod, photoid, photoset_id);
+        return true;
+    }
+    
+    return false;
+}
 
 
 //flickr.photosets.getPhotos
@@ -439,6 +573,7 @@
 
     return photoList;
 }
+
 
 //flickr.photosets.getList
 -(NSMutableArray*)getAlbumList:(NSString*)flickr_nsid {

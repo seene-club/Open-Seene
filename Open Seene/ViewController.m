@@ -126,10 +126,9 @@
 
 
 - (void)showSeene {
-    //NSString *fullURL = @"https://seene-shelter.github.io/viewer/#/?url=https:%2F%2Fc7.staticflickr.com%2F9%2F8066%2F29189599710_5cff46eac9_o.jpg";
     photo = [timelinePhotos objectAtIndex:showIndex];
     
-    NSString *viewerURL = [NSString stringWithFormat:@"https://seene-shelter.github.io/viewer/#/?url=%@", photo.originalURL];
+    NSString *viewerURL = [NSString stringWithFormat:@"%@%@", htmlViewerBaseURL, photo.originalURL];
     NSLog(@"Loading Seene: %d %@ %@", showIndex, photo.ownerName, photo.originalURL);
 
     NSURL *url = [NSURL URLWithString:viewerURL];
