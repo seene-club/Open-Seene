@@ -16,6 +16,8 @@
 - (NSMutableArray*)loadFollowingListFromPhone;                          //read following list from device (AppDirectory/Documents/<NSID>/following/...)
 - (void)checkAndCreateDir:(NSString*)dirPath;                           //checks if a directory exists. If not it will be created.
 - (NSString*)cacheUploadImage:(ALAssetRepresentation*)representation;   //persists a jpg with depthmap in users upload cache
+- (Boolean)moveUploadedImage:(NSString*)imagePath;                      //move successfully uploaded Seene to this directory
+- (Boolean)alreadyUploadedCheck:(NSString*)fileName;                     //checks if a Photo is already in the uploaded Seenes directory
 - (void)cacheMemberOnDevice:(FlickrBuddy*)member;                       //persists a member of "Seene" group in device cache
 - (NSString*)getCachedUsernameForNSID:(NSString*)nsid;                  //get username from cache
 - (UIImage*)getCachedImageForNSID:(NSString*)nsid;                      //get user's profile image from cache

@@ -35,9 +35,6 @@
 - (void)viewDidLoad {
     flickrAPI = [[FlickrAPI alloc] init];
     
-    [self.tabBarItem setImage:[[UIImage imageNamed:@"Profile.png"]
-                               imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    
     flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
     
     [_membersButton setEnabled:NO];

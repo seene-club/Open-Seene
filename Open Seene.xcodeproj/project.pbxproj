@@ -46,6 +46,8 @@
 		A07E5F881D86FFD6001677CE /* Open_SeeneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F871D86FFD6001677CE /* Open_SeeneTests.m */; };
 		A07E5F931D86FFD6001677CE /* Open_SeeneUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F921D86FFD6001677CE /* Open_SeeneUITests.m */; };
 		A07E5FA41D884DF1001677CE /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5FA31D884DF1001677CE /* AuthenticationController.m */; };
+		A09019FF1DDF14E900D0B6B2 /* uploaded.png in Resources */ = {isa = PBXBuildFile; fileRef = A09019FE1DDF14E900D0B6B2 /* uploaded.png */; };
+		A0901A011DDF198800D0B6B2 /* flickrcloud.png in Resources */ = {isa = PBXBuildFile; fileRef = A0901A001DDF198800D0B6B2 /* flickrcloud.png */; };
 		A0A155961DA3B99000119380 /* FlickrComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A155951DA3B99000119380 /* FlickrComment.m */; };
 		A0A155991DA3D92000119380 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A155981DA3D92000119380 /* CommentsViewController.m */; };
 		A0AA20A01DD1E4E500916F6E /* 3d-128.png in Resources */ = {isa = PBXBuildFile; fileRef = A0AA209F1DD1E4E500916F6E /* 3d-128.png */; };
@@ -153,6 +155,8 @@
 		A07E5FA01D882A83001677CE /* flickrAPI.secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = flickrAPI.secret.xcconfig; sourceTree = "<group>"; };
 		A07E5FA31D884DF1001677CE /* AuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationController.m; sourceTree = "<group>"; };
 		A07E5FA51D884EAA001677CE /* AuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationController.h; sourceTree = "<group>"; };
+		A09019FE1DDF14E900D0B6B2 /* uploaded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploaded.png; sourceTree = "<group>"; };
+		A0901A001DDF198800D0B6B2 /* flickrcloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flickrcloud.png; sourceTree = "<group>"; };
 		A0A155941DA3B96D00119380 /* FlickrComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrComment.h; sourceTree = "<group>"; };
 		A0A155951DA3B99000119380 /* FlickrComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrComment.m; sourceTree = "<group>"; };
 		A0A155971DA3D90000119380 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
@@ -323,7 +327,9 @@
 				A07E5F7E1D86FFD5001677CE /* Info.plist */,
 				A0AA209F1DD1E4E500916F6E /* 3d-128.png */,
 				A0AA20A11DD1EA5800916F6E /* 3d-256.png */,
+				A09019FE1DDF14E900D0B6B2 /* uploaded.png */,
 				A0AA20A71DD21BAE00916F6E /* no3d.png */,
+				A0901A001DDF198800D0B6B2 /* flickrcloud.png */,
 				A0AA20A31DD1F14300916F6E /* seene-logo.png */,
 				A0AA20A51DD2191600916F6E /* cameraroll.png */,
 				A034C9621DB108AE00BE13E5 /* checked.png */,
@@ -536,8 +542,10 @@
 				A0AA20A01DD1E4E500916F6E /* 3d-128.png in Resources */,
 				A07E5F7A1D86FFD5001677CE /* Assets.xcassets in Resources */,
 				A00A49B11DB6A169007C3263 /* comment.png in Resources */,
+				A09019FF1DDF14E900D0B6B2 /* uploaded.png in Resources */,
 				A0167F421D93EC3F00CF413B /* Upload@3x.png in Resources */,
 				A0AA20A41DD1F14300916F6E /* seene-logo.png in Resources */,
+				A0901A011DDF198800D0B6B2 /* flickrcloud.png in Resources */,
 				A0DBB8E51D9567ED0082E63A /* 29874512615_357e771327_o.png in Resources */,
 				A0E973AC1DD5E0A700A2A466 /* user.png in Resources */,
 				A07E5F781D86FFD5001677CE /* Main.storyboard in Resources */,

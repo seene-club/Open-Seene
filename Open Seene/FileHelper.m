@@ -13,10 +13,11 @@
 
 @interface FileHelper () {
     
-    NSString *personalDir;
-    NSString *followingDir;
-    NSString *chacheDir;
-    NSString *uploadsDir;
+    NSString *personalDir;          // personal file storage of a user
+    NSString *followingDir;         // store information of people the user is following here
+    NSString *cacheDir;             // shared cache (all accounts)
+    NSString *uploadsDir;           // preparing Uploads here
+    NSString *uploadedDir;          // successfully uploaded files
     NSFileManager *fileManager;
 }
 @end
@@ -33,15 +34,17 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         [self checkAndCreateDir:documentsDirectory];
-        chacheDir = [documentsDirectory stringByAppendingPathComponent:@"cache"];
-        [self checkAndCreateDir:chacheDir];
+        cacheDir = [documentsDirectory stringByAppendingPathComponent:@"cache"];
+        [self checkAndCreateDir:cacheDir];
         NSString *flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
         personalDir = [documentsDirectory stringByAppendingPathComponent:flickr_nsid];
-        followingDir = [personalDir stringByAppendingPathComponent:@"following"];
-        uploadsDir = [documentsDirectory stringByAppendingPathComponent:@"uploads"];
         [self checkAndCreateDir:personalDir];
+        followingDir = [personalDir stringByAppendingPathComponent:@"following"];
         [self checkAndCreateDir:followingDir];
+        uploadsDir = [documentsDirectory stringByAppendingPathComponent:@"uploads"];
         [self checkAndCreateDir:uploadsDir];
+        uploadedDir = [uploadsDir stringByAppendingPathComponent:@"uploadedSeenes"];
+        [self checkAndCreateDir:uploadedDir];
     }
     
     return self;
@@ -77,11 +80,48 @@
     return filepath;
 }
 
+-(Boolean)moveUploadedImage:(NSString*)imagePath {
+    
+    [self listDirectoryContent:uploadsDir];
+    
+    NSString *fileName = [[imagePath componentsSeparatedByString:@"/"] lastObject];
+    NSString *moveDest = [uploadedDir stringByAppendingPathComponent:fileName];
+    NSLog(@"DEBUG: move source DIR: %@", imagePath);
+    NSLog(@"DEBUG: move destin DIR: %@", moveDest);
+    
+    NSError *err = NULL;
+    BOOL result = [fileManager moveItemAtPath:imagePath toPath:moveDest error:&err];
+    if(!result)
+        NSLog(@"Error: %@", err);
+    
+    [self listDirectoryContent:uploadedDir];
+    
+    return result;
+}
+
+-(Boolean)alreadyUploadedCheck:(NSString*)fileName {
+    NSString *filePath = [uploadedDir stringByAppendingPathComponent:fileName];
+    return [fileManager fileExistsAtPath:filePath];
+}
+
+// internal method to list directory contents (debug)
+-(void)listDirectoryContent:(NSString*)dir {
+    NSLog(@"DEBUG: list DIR: %@", dir);
+    
+    NSString *item;
+    NSArray *directoryContent = [fileManager contentsOfDirectoryAtPath:dir error:NULL];
+    int ndx = 0;
+    for (item in directoryContent){
+        ndx++;
+        NSLog(@"item: %i. %@", ndx, item);
+    }
+}
+
 //persists a member of "Seene" group in device cache
 - (void)cacheMemberOnDevice:(FlickrBuddy*)member {
     
     // caching username
-    NSString *usernameFile = [chacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.username", member.nsid]];
+    NSString *usernameFile = [cacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.username", member.nsid]];
     NSLog(@"writing file: %@ with content: %@", usernameFile, member.username);
     [[member.username dataUsingEncoding:NSUTF8StringEncoding] writeToFile:usernameFile atomically:YES];
     
@@ -97,14 +137,14 @@
     }
     
     NSData *imgdata = [NSData dataWithContentsOfURL : imgurl];
-    NSString *imagePath = [chacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", member.nsid]];
+    NSString *imagePath = [cacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", member.nsid]];
     [imgdata writeToFile:imagePath atomically:NO];
 }
 
 //get username from cache
 - (NSString*)getCachedUsernameForNSID:(NSString*)nsid {
     NSError *error;
-    NSString *usernameFile = [chacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.username", nsid]];
+    NSString *usernameFile = [cacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.username", nsid]];
     if ([[NSFileManager defaultManager] fileExistsAtPath:usernameFile]) {
         return [NSString stringWithContentsOfFile:usernameFile encoding:NSUTF8StringEncoding error:&error];
     }
@@ -113,7 +153,7 @@
 
 //get user's profile image from cache
 - (UIImage*)getCachedImageForNSID:(NSString*)nsid {
-    UIImage *cachedImage = [UIImage imageWithContentsOfFile:[chacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", nsid]]];
+    UIImage *cachedImage = [UIImage imageWithContentsOfFile:[cacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", nsid]]];
     return cachedImage;
 }
 

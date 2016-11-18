@@ -29,6 +29,8 @@
 //POST-Request:https://up.flickr.com/services/upload/ & multiple API calls for the postprocessing
 -(NSString*)uploadSeene:(NSString*)filePath withTitle:(NSString*)title withDescription:(NSString*)description isPublic:(NSString*)publicUp {
     
+    [[NSUserDefaults standardUserDefaults] setValue:@"uploading..." forKey:@"UploadProgress"];
+    
     NSURL *url = [NSURL URLWithString:@"https://up.flickr.com/services/upload/"];
     NSString *fieldName=@"photo";
     
@@ -66,6 +68,7 @@
         if (connectionError) {
             NSLog(@"error = %@", connectionError);
             postResult = [NSString stringWithFormat:@"error = %@", connectionError];
+            [[NSUserDefaults standardUserDefaults] setValue:@"connection error!" forKey:@"UploadProgress"];
             return;
         }
         
@@ -76,7 +79,9 @@
         if ([postResult rangeOfString:@"stat=\"ok\""].location == NSNotFound) {
             NSLog(@"FlickrAPI upload ERROR: upload failed!");
             [self lastFailToWithOrigin:@"upload" errorID:@"-1" errorText:@"upload failed"];
+            [[NSUserDefaults standardUserDefaults] setValue:@"upload error!" forKey:@"UploadProgress"];
         } else {
+            [[NSUserDefaults standardUserDefaults] setValue:@"updating metadata..." forKey:@"UploadProgress"];
             NSRange r1 = [postResult rangeOfString:@"<photoid>"];
             NSRange r2 = [postResult rangeOfString:@"</photoid>"];
             NSRange rSub = NSMakeRange(r1.location + r1.length, r2.location - r1.location - r1.length);
@@ -94,6 +99,7 @@
             [self updatePhotoDescription:photoid withDescription:updatedDescription];
             
             // API-Call #4 - retrieve "public seenes" and "private seenes" sets of the uploader
+            [[NSUserDefaults standardUserDefaults] setValue:@"updating album..." forKey:@"UploadProgress"];
             NSMutableArray *albumList = [[NSMutableArray alloc] init];
             albumList = [self getAlbumList:[[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"]];
             int adx;
@@ -103,6 +109,7 @@
                 if ((album.settype == 1) && ([publicUp isEqualToString:@"1"])) [self addPhoto:photoid toPhotoset: album.setid];
                 if ((album.settype == 2) && ([publicUp isEqualToString:@"0"])) [self addPhoto:photoid toPhotoset: album.setid];
             }
+            [[NSUserDefaults standardUserDefaults] setValue:@"upload successful!" forKey:@"UploadProgress"];
         }
     }];
     
