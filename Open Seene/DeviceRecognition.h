@@ -1,6 +1,5 @@
 //
 //  DeviceRecognition.h
-//  INTERnal
 //  On which device I'm running? Cause I'm universal!
 //
 //  Created by Mathias Zettler on 16.10.13.
