@@ -48,6 +48,11 @@
 		A07E5FA41D884DF1001677CE /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5FA31D884DF1001677CE /* AuthenticationController.m */; };
 		A09019FF1DDF14E900D0B6B2 /* uploaded.png in Resources */ = {isa = PBXBuildFile; fileRef = A09019FE1DDF14E900D0B6B2 /* uploaded.png */; };
 		A0901A011DDF198800D0B6B2 /* flickrcloud.png in Resources */ = {isa = PBXBuildFile; fileRef = A0901A001DDF198800D0B6B2 /* flickrcloud.png */; };
+		A0901A041DE4918A00D0B6B2 /* DeviceRecognition.m in Sources */ = {isa = PBXBuildFile; fileRef = A0901A031DE4918A00D0B6B2 /* DeviceRecognition.m */; };
+		A0901A061DE4923600D0B6B2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0901A051DE4923600D0B6B2 /* UIKit.framework */; };
+		A0901A081DE4944E00D0B6B2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0901A071DE4944E00D0B6B2 /* SystemConfiguration.framework */; };
+		A0901A0A1DE494CC00D0B6B2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0901A091DE494CC00D0B6B2 /* CoreGraphics.framework */; };
+		A0901A0D1DE4991F00D0B6B2 /* Main_iPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0901A0B1DE4991F00D0B6B2 /* Main_iPhone5.storyboard */; };
 		A0A155961DA3B99000119380 /* FlickrComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A155951DA3B99000119380 /* FlickrComment.m */; };
 		A0A155991DA3D92000119380 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A155981DA3D92000119380 /* CommentsViewController.m */; };
 		A0AA20A01DD1E4E500916F6E /* 3d-128.png in Resources */ = {isa = PBXBuildFile; fileRef = A0AA209F1DD1E4E500916F6E /* 3d-128.png */; };
@@ -157,6 +162,12 @@
 		A07E5FA51D884EAA001677CE /* AuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationController.h; sourceTree = "<group>"; };
 		A09019FE1DDF14E900D0B6B2 /* uploaded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploaded.png; sourceTree = "<group>"; };
 		A0901A001DDF198800D0B6B2 /* flickrcloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flickrcloud.png; sourceTree = "<group>"; };
+		A0901A021DE4915F00D0B6B2 /* DeviceRecognition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceRecognition.h; sourceTree = "<group>"; };
+		A0901A031DE4918A00D0B6B2 /* DeviceRecognition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceRecognition.m; sourceTree = "<group>"; };
+		A0901A051DE4923600D0B6B2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A0901A071DE4944E00D0B6B2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A0901A091DE494CC00D0B6B2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A0901A0C1DE4991F00D0B6B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone5.storyboard; sourceTree = "<group>"; };
 		A0A155941DA3B96D00119380 /* FlickrComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrComment.h; sourceTree = "<group>"; };
 		A0A155951DA3B99000119380 /* FlickrComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrComment.m; sourceTree = "<group>"; };
 		A0A155971DA3D90000119380 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
@@ -212,6 +223,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0901A0A1DE494CC00D0B6B2 /* CoreGraphics.framework in Frameworks */,
+				A0901A081DE4944E00D0B6B2 /* SystemConfiguration.framework in Frameworks */,
+				A0901A061DE4923600D0B6B2 /* UIKit.framework in Frameworks */,
 				A0DA7E8F1DC3C91E005802EC /* MobileCoreServices.framework in Frameworks */,
 				A0DA7E8D1DC391B2005802EC /* ImageIO.framework in Frameworks */,
 				A0DA7E8B1DC380A9005802EC /* AssetsLibrary.framework in Frameworks */,
@@ -240,6 +254,9 @@
 		A0210B821DBC3409005E5C13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0901A091DE494CC00D0B6B2 /* CoreGraphics.framework */,
+				A0901A071DE4944E00D0B6B2 /* SystemConfiguration.framework */,
+				A0901A051DE4923600D0B6B2 /* UIKit.framework */,
 				A0DA7E8E1DC3C91E005802EC /* MobileCoreServices.framework */,
 				A0DA7E8C1DC391B2005802EC /* ImageIO.framework */,
 				A0DA7E8A1DC380A9005802EC /* AssetsLibrary.framework */,
@@ -298,6 +315,8 @@
 				A07E5F741D86FFD5001677CE /* ViewController.m */,
 				A0A155971DA3D90000119380 /* CommentsViewController.h */,
 				A0A155981DA3D92000119380 /* CommentsViewController.m */,
+				A0901A021DE4915F00D0B6B2 /* DeviceRecognition.h */,
+				A0901A031DE4918A00D0B6B2 /* DeviceRecognition.m */,
 				A034C95D1DAD12BC00BE13E5 /* GroupMembersViewController.h */,
 				A034C95E1DAD12D200BE13E5 /* GroupMembersViewController.m */,
 				A034C9681DB6595000BE13E5 /* FileHelper.h */,
@@ -321,6 +340,7 @@
 				A0DBB8E71D9A97770082E63A /* FlickrPhoto.m */,
 				A05C2D401D8B2C2F00D1E351 /* NSString+MD5.h */,
 				A05C2D411D8B2C7000D1E351 /* NSString+MD5.m */,
+				A0901A0B1DE4991F00D0B6B2 /* Main_iPhone5.storyboard */,
 				A07E5F761D86FFD5001677CE /* Main.storyboard */,
 				A07E5F791D86FFD5001677CE /* Assets.xcassets */,
 				A07E5F7B1D86FFD5001677CE /* LaunchScreen.storyboard */,
@@ -477,12 +497,13 @@
 		A07E5F621D86FFD5001677CE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Mathias Zettler";
 				TargetAttributes = {
 					A07E5F691D86FFD5001677CE = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 67ZDN37K8F;
+						ProvisioningStyle = Manual;
 					};
 					A07E5F821D86FFD6001677CE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -526,6 +547,7 @@
 				A0AA20A81DD21BAE00916F6E /* no3d.png in Resources */,
 				A0DBB8DB1D9419A90082E63A /* Favorized.png in Resources */,
 				A062C1BC1D9326490090F0EE /* Timeline@3x.png in Resources */,
+				A0901A0D1DE4991F00D0B6B2 /* Main_iPhone5.storyboard in Resources */,
 				A0167F411D93EC3F00CF413B /* Upload@2x.png in Resources */,
 				A062C1BB1D9326490090F0EE /* Timeline@2x.png in Resources */,
 				A062C1BA1D9326490090F0EE /* Timeline.png in Resources */,
@@ -582,6 +604,7 @@
 				A0D89D921D8BCB0C0073506E /* SBJsonParser.m in Sources */,
 				A0A155991DA3D92000119380 /* CommentsViewController.m in Sources */,
 				A0D89D951D8BCB0C0073506E /* SBJsonStreamParserAdapter.m in Sources */,
+				A0901A041DE4918A00D0B6B2 /* DeviceRecognition.m in Sources */,
 				A06E6EE71DBF8437008684DE /* SVProgressAnimatedView.m in Sources */,
 				A05C2D421D8B2C7000D1E351 /* NSString+MD5.m in Sources */,
 				A0D89D941D8BCB0C0073506E /* SBJsonStreamParserAccumulator.m in Sources */,
@@ -657,6 +680,14 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		A0901A0B1DE4991F00D0B6B2 /* Main_iPhone5.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A0901A0C1DE4991F00D0B6B2 /* Base */,
+			);
+			name = Main_iPhone5.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -673,8 +704,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -717,8 +750,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -751,6 +786,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Seene-Club.Open-Seene";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "42032bb8-2c76-41c6-908d-33bfd93230c8";
+				PROVISIONING_PROFILE_SPECIFIER = "Mathias Zettlers DEV";
 			};
 			name = Debug;
 		};
@@ -758,11 +795,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 67ZDN37K8F;
 				INFOPLIST_FILE = "Open Seene/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Seene-Club.Open-Seene";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "73608d22-d12a-4feb-a6f1-750a94c0563f";
+				PROVISIONING_PROFILE_SPECIFIER = "INTER 012016 INHOUSE";
 			};
 			name = Release;
 		};
