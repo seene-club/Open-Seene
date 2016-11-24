@@ -44,12 +44,12 @@
     
     // Load Following List from Device
     followingList = [fileHelper loadFollowingListFromPhone];
-    [SVProgressHUD showWithStatus:@"contacting Flickr"];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [SVProgressHUD showWithStatus:@"contacting Flickr"];
     // 1. Load all members from the "Seene" group
     memberList = [flickrAPI getGroupContactList];
     

@@ -73,7 +73,7 @@
 - (IBAction)membersBUttonPushed:(id)sender {
     
     if ([self tokenExists]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:[[NSUserDefaults standardUserDefaults] stringForKey:@"StoryboardName"] bundle:nil];
 
         UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SeeneGroupMembersView"];
 

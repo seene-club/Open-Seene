@@ -12,6 +12,7 @@
 #import "FlickrBuddy.h"
 #import "FlickrAlbum.h"
 #import "FileHelper.h"
+#import "StoryboardFinder.h"
 
 @interface AppDelegate () {
     
@@ -21,6 +22,9 @@
     NSString *flickr_nsid;
     NSString *flickr_username;
     NSString *flickr_fullname;
+    StoryboardFinder *sbFinder;
+    NSString *sbName;
+    
 }
 
 @end
@@ -30,6 +34,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    sbFinder = [[StoryboardFinder alloc] initStoryboardFinder];
+    [sbFinder storyboardNameToUserDefaults];
+    sbName = [[NSUserDefaults standardUserDefaults] stringForKey:@"StoryboardName"];
+    
+    NSLog(@"Storyboard for device: %@", sbName);
     
     // Experimenting with Cache Sizes to get rid of the memory leak of UIWebView...
     int cacheSizeMemory = 4*1024*1024; // 4MB
@@ -66,6 +75,13 @@
     }
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    // Chance the Storyboard for the root Controller!
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: sbName bundle:[NSBundle mainBundle]];
+    UIViewController *myController = [storyboard instantiateViewControllerWithIdentifier:@"entryPoint"];
+    [self.window makeKeyAndVisible];
+    [self.window.rootViewController presentViewController:myController animated:YES completion:NULL];
+    
     return YES;
 }
 
