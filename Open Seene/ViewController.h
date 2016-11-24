@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UIWebViewDelegate>
+@interface ViewController : UIViewController <WKNavigationDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *usernameButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;

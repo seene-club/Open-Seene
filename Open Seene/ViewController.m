@@ -7,6 +7,7 @@
 //
 
 #import <WebKit/WebKit.h>
+#import <mach/mach.h>
 #import "ViewController.h"
 #import "NSString+MD5.h"
 #import "SBJson.h"
@@ -32,6 +33,7 @@
     NSMutableArray *buddyList;
     NSMutableArray *timelinePhotos;
     int showIndex;
+    int reportedIndex;
     Boolean timelineCreated;
     CGFloat screenWidth;
     CGFloat screenHeight;
@@ -136,8 +138,9 @@
     
     if (webView==nil) {
         wKWebConfig = [[WKWebViewConfiguration alloc] init];
+        wKWebConfig.selectionGranularity = WKSelectionGranularityCharacter;
         webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 60, screenWidth, screenWidth) configuration:wKWebConfig];
-       // webView.navigationDelegate = self;
+        webView.navigationDelegate = self;
         [self.view addSubview:webView];
     }
     
@@ -265,17 +268,73 @@
    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [self report_memory:@"Memory Usage"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
+
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    NSLog(@"Open Seene did receive memory warning!!!");
+    [self report_memory:@"memory warning!!!"];
+    [webView stopLoading];
     [webView loadHTMLString: @"" baseURL: nil];
+    
+    NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
+    NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
+    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
+        [webView removeFromSuperview];
+    }];
+    
     webView = nil;
-    [self showSeene];
+    
+    
+    if (reportedIndex != showIndex) {
+       reportedIndex = showIndex;
+       UIAlertView *alert = [[UIAlertView alloc]
+                             initWithTitle:@"Could not load Seene!"
+                             message:@"Open Seene did receive a memory warning and WkWebView stopped loading this Seene! Do you want to try to releod the Seene?"
+                             delegate:self cancelButtonTitle:@"Cancel"
+                             otherButtonTitles:@"Yes", nil];
+       [alert show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    // Yes button response
+    if (buttonIndex == 1) {
+        reportedIndex = -1;
+        [self showSeene];
+    }
+}
+
+-(void)report_memory:(NSString*)origin {
+    static unsigned last_resident_size=0;
+    static unsigned greatest = 0;
+    static unsigned last_greatest = 0;
+    
+    struct task_basic_info info;
+    mach_msg_type_number_t size = sizeof(info);
+    kern_return_t kerr = task_info(mach_task_self(),
+                                   TASK_BASIC_INFO,
+                                   (task_info_t)&info,
+                                   &size);
+    if( kerr == KERN_SUCCESS ) {
+        int diff = (int)info.resident_size - (int)last_resident_size;
+        unsigned latest = info.resident_size;
+        if( latest > greatest   )   greatest = latest;  // track greatest mem usage
+        int greatest_diff = greatest - last_greatest;
+        int latest_greatest_diff = latest - greatest;
+        NSLog(@"%@: %10u (%10d) : %10d :   greatest: %10u (%d)", origin, info.resident_size, diff, latest_greatest_diff, greatest, greatest_diff);
+    } else {
+        NSLog(@"Error with task_info(): %s", mach_error_string(kerr));
+    }
+    last_resident_size = info.resident_size;
+    last_greatest = greatest;
 }
 
 @end

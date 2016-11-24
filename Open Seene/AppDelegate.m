@@ -41,10 +41,12 @@
     NSLog(@"Storyboard for device: %@", sbName);
     
     // Experimenting with Cache Sizes to get rid of the memory leak of UIWebView...
+    /*
     int cacheSizeMemory = 4*1024*1024; // 4MB
     int cacheSizeDisk = 32*1024*1024; // 32MB
     NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
     [NSURLCache setSharedURLCache:sharedCache];
+    */
     
     flickrAPI = [[FlickrAPI alloc] init];
     fileHelper = [[FileHelper alloc] initFileHelper];
