@@ -41,7 +41,7 @@
     flickrAPI = [[FlickrAPI alloc] init];
     memberList = [[NSMutableArray alloc] init];
     followingList = [[NSMutableArray alloc] init];
-    
+    [self showProgressHUD];
     // Load Following List from Device
     followingList = [fileHelper loadFollowingListFromPhone];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -49,7 +49,19 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self performSelectorOnMainThread:@selector(showProgressHUD)  withObject:nil waitUntilDone:NO];
+    // Don't wait for GUI Refresh and API Calls, just force SVProgressHUD to show up. (TimerTasks run in different Threads)
+    NSTimer *timedTread = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(showProgressHUD) userInfo:nil repeats:NO];
+    NSTimer *splitTread = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(retrieveData) userInfo:nil repeats:NO];
+}
+
+- (void)showProgressHUD {
     [SVProgressHUD showWithStatus:@"contacting Flickr"];
+}
+
+- (void)retrieveData {
+    [self performSelectorOnMainThread:@selector(showProgressHUD)  withObject:nil waitUntilDone:NO];
+
     // 1. Load all members from the "Seene" group
     memberList = [flickrAPI getGroupContactList];
     
