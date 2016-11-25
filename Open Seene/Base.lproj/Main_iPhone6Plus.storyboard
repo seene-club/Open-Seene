@@ -347,9 +347,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CIz-hp-Ays">
-                                <rect key="frame" x="166" y="644" width="33" height="32"/>
+                                <rect key="frame" x="158" y="635" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <state key="normal" image="heart_empty.png">
+                                <state key="normal" image="Like-256px.png">
                                     <color key="titleColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -370,7 +370,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;title&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gxu-46-fs3">
-                                <rect key="frame" x="7" y="540" width="399" height="88"/>
+                                <rect key="frame" x="7" y="530" width="399" height="88"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -408,9 +408,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RkW-2y-spd">
-                                <rect key="frame" x="214" y="644" width="32" height="32"/>
+                                <rect key="frame" x="217" y="635" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <state key="normal" image="comment.png">
+                                <state key="normal" image="Comment-256px.png">
                                     <color key="titleColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -418,7 +418,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGq-9r-oji">
-                                <rect key="frame" x="7" y="509" width="162" height="26"/>
+                                <rect key="frame" x="7" y="499" width="162" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="&lt;username&gt;">
@@ -574,13 +574,13 @@
     <resources>
         <image name="Arrow1 Left.png" width="48" height="48"/>
         <image name="Arrow1 Right.png" width="48" height="48"/>
+        <image name="Comment-256px.png" width="256" height="256"/>
+        <image name="Like-256px.png" width="256" height="256"/>
         <image name="Profile.png" width="31" height="31"/>
         <image name="Timeline.png" width="37" height="31"/>
         <image name="Upload.png" width="38" height="31"/>
         <image name="camera.png" width="512" height="512"/>
         <image name="cameraroll.png" width="1024" height="1024"/>
-        <image name="comment.png" width="32" height="32"/>
-        <image name="heart_empty.png" width="32" height="32"/>
         <image name="reload.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>

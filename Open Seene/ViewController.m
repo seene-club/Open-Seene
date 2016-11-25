@@ -151,15 +151,15 @@
     [_titleLabel setText:photo.title];
     
     UIImage *likeButton;
-    UIImage *commentButton = [UIImage imageNamed:@"comment.png"];
+    UIImage *commentButton = [UIImage imageNamed:@"Comment-256px.png"];
     
     // check if photo is already liked
     if ([[NSString stringWithFormat:@"%@",photo.isFavorite] isEqualToString:[NSString stringWithFormat:@"1"]]) {
         //[_likeButton setTitle:@"remove like" forState:UIControlStateNormal];
-        likeButton = [UIImage imageNamed:@"heart.png"];
+        likeButton = [UIImage imageNamed:@"Like-Fill-256px.png"];
     } else {
         //[_likeButton setTitle:@"like" forState:UIControlStateNormal];
-        likeButton = [UIImage imageNamed:@"heart_empty.png"];
+        likeButton = [UIImage imageNamed:@"Like-256px.png"];
     }
     
     [_likeButton setImage:[self burnTextIntoImage:photo.favoritesCount :likeButton] forState:UIControlStateNormal];
@@ -182,7 +182,7 @@
     [img drawInRect:rect];
     
     [[UIColor blackColor] set];           // set text color
-    NSInteger fontSize = 14;
+    NSInteger fontSize = 110;
     UIFont *font = [UIFont systemFontOfSize:fontSize];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];

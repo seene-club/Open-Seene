@@ -85,6 +85,10 @@
 		A0DBB8E81D9A97770082E63A /* FlickrPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DBB8E71D9A97770082E63A /* FlickrPhoto.m */; };
 		A0E973AC1DD5E0A700A2A466 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = A0E973AB1DD5E0A700A2A466 /* user.png */; };
 		A0EC7ABE1DE6F7430037078F /* Main_iPhone6Plus.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EC7ABC1DE6F7430037078F /* Main_iPhone6Plus.storyboard */; };
+		A0EC7AC31DE822B80037078F /* Comment-256px.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC7ABF1DE822B80037078F /* Comment-256px.png */; };
+		A0EC7AC41DE822B80037078F /* Comment-Fill-256px.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC7AC01DE822B80037078F /* Comment-Fill-256px.png */; };
+		A0EC7AC51DE822B80037078F /* Like-256px.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC7AC11DE822B80037078F /* Like-256px.png */; };
+		A0EC7AC61DE822B80037078F /* Like-Fill-256px.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC7AC21DE822B80037078F /* Like-Fill-256px.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +227,10 @@
 		A0DBB8E71D9A97770082E63A /* FlickrPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhoto.m; sourceTree = "<group>"; };
 		A0E973AB1DD5E0A700A2A466 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		A0EC7ABD1DE6F7430037078F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone6Plus.storyboard; sourceTree = "<group>"; };
+		A0EC7ABF1DE822B80037078F /* Comment-256px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Comment-256px.png"; sourceTree = "<group>"; };
+		A0EC7AC01DE822B80037078F /* Comment-Fill-256px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Comment-Fill-256px.png"; sourceTree = "<group>"; };
+		A0EC7AC11DE822B80037078F /* Like-256px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Like-256px.png"; sourceTree = "<group>"; };
+		A0EC7AC21DE822B80037078F /* Like-Fill-256px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Like-Fill-256px.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +381,10 @@
 				A00A49B41DB6A2EA007C3263 /* Arrow1 Right.png */,
 				A00A49A81DB696E3007C3263 /* camera.png */,
 				A00A49AA1DB69837007C3263 /* reload.png */,
+				A0EC7ABF1DE822B80037078F /* Comment-256px.png */,
+				A0EC7AC01DE822B80037078F /* Comment-Fill-256px.png */,
+				A0EC7AC11DE822B80037078F /* Like-256px.png */,
+				A0EC7AC21DE822B80037078F /* Like-Fill-256px.png */,
 				A00A49B01DB6A169007C3263 /* comment.png */,
 				A00A49AE1DB6A0DD007C3263 /* heart.png */,
 				A00A49AC1DB6A0D5007C3263 /* heart_empty.png */,
@@ -558,7 +570,9 @@
 				A07E5F7D1D86FFD5001677CE /* LaunchScreen.storyboard in Resources */,
 				A0AA20A81DD21BAE00916F6E /* no3d.png in Resources */,
 				A0DBB8DB1D9419A90082E63A /* Favorized.png in Resources */,
+				A0EC7AC31DE822B80037078F /* Comment-256px.png in Resources */,
 				A062C1BC1D9326490090F0EE /* Timeline@3x.png in Resources */,
+				A0EC7AC41DE822B80037078F /* Comment-Fill-256px.png in Resources */,
 				A0901A0D1DE4991F00D0B6B2 /* Main_iPhone5.storyboard in Resources */,
 				A0167F411D93EC3F00CF413B /* Upload@2x.png in Resources */,
 				A062C1BB1D9326490090F0EE /* Timeline@2x.png in Resources */,
@@ -573,6 +587,7 @@
 				A0276CDC1D9306E600AEE859 /* Profile@3x.png in Resources */,
 				A034C9611DB108A700BE13E5 /* unchecked.png in Resources */,
 				A00A49AF1DB6A0DD007C3263 /* heart.png in Resources */,
+				A0EC7AC51DE822B80037078F /* Like-256px.png in Resources */,
 				A034C9651DB62CE100BE13E5 /* fail.png in Resources */,
 				A0AA20A01DD1E4E500916F6E /* 3d-128.png in Resources */,
 				A07E5F7A1D86FFD5001677CE /* Assets.xcassets in Resources */,
@@ -584,6 +599,7 @@
 				A0DBB8E51D9567ED0082E63A /* 29874512615_357e771327_o.png in Resources */,
 				A0E973AC1DD5E0A700A2A466 /* user.png in Resources */,
 				A07E5F781D86FFD5001677CE /* Main.storyboard in Resources */,
+				A0EC7AC61DE822B80037078F /* Like-Fill-256px.png in Resources */,
 				A00A49A91DB696E3007C3263 /* camera.png in Resources */,
 				A034C9631DB108AE00BE13E5 /* checked.png in Resources */,
 				A0276CDD1D9306E600AEE859 /* Profile@2x.png in Resources */,
