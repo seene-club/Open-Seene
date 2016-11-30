@@ -21,6 +21,9 @@
     BOOL scanComplete;
     NSMutableArray *memberList;
     NSMutableArray *followingList;
+    UIImage *followActivated;
+    UIImage *followDeactivated;
+    UIImage *followNotPossible;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -36,6 +39,10 @@
     // Do any additional setup after loading the view, typically from a nib.
     [self.tableView setHidden:YES];
     scanComplete = NO;
+    
+    followDeactivated = [self imageWithImage:[UIImage imageNamed:@"Follow-Deactivated.png"] scaledToSize:CGSizeMake(70, 40)];
+    followActivated = [self imageWithImage:[UIImage imageNamed:@"Follow-Activated.png"] scaledToSize:CGSizeMake(70, 40)];
+    followNotPossible = [self imageWithImage:[UIImage imageNamed:@"NotPublic@3x.png"] scaledToSize:CGSizeMake(70, 40)];
     
     fileHelper = [[FileHelper alloc] initFileHelper];
     flickrAPI = [[FlickrAPI alloc] init];
@@ -143,15 +150,13 @@
     NSString *canFollowString = @"scanning...";
     if (scanComplete) {
         if (selectedMember.public_set == nil) {
-            canFollowString = @"No Album \"Public Seenes\" found for this user.";
-            
-            UIImage *image = [UIImage imageNamed:@"fail.png"];
+            canFollowString = @"No Album \"Public Seenes\" found!";
             
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+            CGRect frame = CGRectMake(0.0, 0.0, followNotPossible.size.width, followNotPossible.size.height);
             button.frame = frame;   // match the button's size with the image size
             button.tag = indexPath.row;
-            [button setBackgroundImage:image forState:UIControlStateNormal];
+            [button setBackgroundImage:followNotPossible forState:UIControlStateNormal];
             
             cell.accessoryView = button;
             
@@ -171,7 +176,7 @@
                 }
             }
             
-            UIImage *image = (checked) ? [UIImage imageNamed:@"checked.png"] : [UIImage imageNamed:@"unchecked.png"];
+            UIImage *image = (checked) ? followActivated : followDeactivated;
             
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
@@ -223,10 +228,10 @@
         BOOL checked =  (selectedMember.following==0) ? NO : YES;
         if (checked) {
             selectedMember.following = 0;
-            newImage = [UIImage imageNamed:@"unchecked.png"];
+            newImage = followDeactivated;
         } else {
             selectedMember.following = 1;
-            newImage = [UIImage imageNamed:@"checked.png"];
+            newImage = followActivated;
         }
         
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -235,6 +240,17 @@
     }
     
     followingList = [fileHelper loadFollowingListFromPhone];
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 
