@@ -198,11 +198,17 @@
     NSString *dimY = (NSString*) [exif valueForKey:@"PixelYDimension"];
     NSMutableArray *keyW = (NSMutableArray*) [iptc valueForKey:@"Keywords"];
     
-    // First check photo dimension (1936x1936)?
-    if (([[NSString stringWithFormat:@"%@", dimX] isEqualToString:[NSString stringWithFormat:@"1936"]]) &&
-        ([[NSString stringWithFormat:@"%@", dimY] isEqualToString:[NSString stringWithFormat:@"1936"]])) {
-        // Does it contain "seene, depth" keywords?
-        if (([keyW containsObject:@"seene, depth"])) return YES;
+    
+    // Does it contain "seene, depth" keywords?
+    if (([keyW containsObject:@"seene, depth"])) {
+        // Check photo dimension back camera (1936x1936)?
+        if (([[NSString stringWithFormat:@"%@", dimX] isEqualToString:[NSString stringWithFormat:@"1936"]]) &&
+            ([[NSString stringWithFormat:@"%@", dimY] isEqualToString:[NSString stringWithFormat:@"1936"]])) return YES;
+        
+        // Check photo dimension front camera (960x960)?
+        if (([[NSString stringWithFormat:@"%@", dimX] isEqualToString:[NSString stringWithFormat:@"960"]]) &&
+            ([[NSString stringWithFormat:@"%@", dimY] isEqualToString:[NSString stringWithFormat:@"960"]])) return YES;
+         
     }
     return NO;
 }
