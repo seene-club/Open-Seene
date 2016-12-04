@@ -14,6 +14,10 @@
 
 @interface AuthenticationController () {
     FlickrAPI *flickrAPI;
+    NSString *flickr_token;
+    NSString *flickr_nsid;
+    NSString *flickr_username;
+    NSString *flickr_fullname;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *okButton;
@@ -48,11 +52,20 @@
     NSString *miniToken = [NSString stringWithFormat:@"%@-%@-%@", _fkey1.text, _fkey2.text, _fkey3.text];
     [flickrAPI exchangeMiniTokenToFullToken:miniToken];
     
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate updateOwnProfile];
+    [self updateOwnProfile];
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+// Call API for User's profile icon & store the URL to UserDefaults
+- (void)updateOwnProfile {
+    flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
+    if ((flickr_token) && ([flickr_token length] > 10)) {
+        flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [[NSUserDefaults standardUserDefaults] setValue:[flickrAPI getProfileIconURL:flickr_nsid] forKey:@"FlickrProfileIconURL"];
+    }
 }
 
 - (IBAction)okPushed:(id)sender {

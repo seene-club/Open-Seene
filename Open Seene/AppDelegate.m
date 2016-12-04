@@ -7,21 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "SBJson.h"
-#import "FlickrAPI.h"
-#import "FlickrBuddy.h"
-#import "FlickrAlbum.h"
-#import "FileHelper.h"
 #import "StoryboardFinder.h"
 
 @interface AppDelegate () {
     
-    FlickrAPI *flickrAPI;
-    FileHelper *fileHelper;
-    NSString *flickr_token;
-    NSString *flickr_nsid;
-    NSString *flickr_username;
-    NSString *flickr_fullname;
+    
     StoryboardFinder *sbFinder;
     NSString *sbName;
     
@@ -34,57 +24,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    NSTimer *timedThread = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(triggerEntryPointView) userInfo:nil repeats:NO];
+    return YES;
+}
+
+- (void)triggerEntryPointView {
     sbFinder = [[StoryboardFinder alloc] initStoryboardFinder];
     [sbFinder storyboardNameToUserDefaults];
     sbName = [[NSUserDefaults standardUserDefaults] stringForKey:@"StoryboardName"];
+    NSLog(@"AppDelegate: Storyboard for device: %@", sbName);
     
-    NSLog(@"Storyboard for device: %@", sbName);
     
-    // Experimenting with Cache Sizes to get rid of the memory leak of UIWebView...
-    /*
-    int cacheSizeMemory = 4*1024*1024; // 4MB
-    int cacheSizeDisk = 32*1024*1024; // 32MB
-    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
-    [NSURLCache setSharedURLCache:sharedCache];
-    */
-    
-    flickrAPI = [[FlickrAPI alloc] init];
-    fileHelper = [[FileHelper alloc] initFileHelper];
-    
-    flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
-    
-    NSLog(@"AppDelegate: UserDefaults 'FlickrToken': %@", flickr_token);
-    
-    // If we have a already a token in the UserDefaults, we'll try to retrieve the user's profile data.
-    if ((flickr_token) && ([flickr_token length] > 10)) {
-        
-        if ([flickrAPI testFlickrLogin]) {
-        
-            flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
-            flickr_username = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrUsername"];
-            flickr_fullname = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrFullname"];
-            NSLog(@"AppDelegate: UserDefaults 'FlickrNSID': %@", flickr_nsid);
-            NSLog(@"AppDelegate: UserDefaults 'FlickrUsername': %@", flickr_username);
-            NSLog(@"AppDelegate: UserDefaults 'FlickrFullname': %@", flickr_fullname);
-        
-            // Update Profile Pic
-            [self updateOwnProfile];
-        } else {
-            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
-        }
-    } else {
-        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
-    }
-
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-    // Chance the Storyboard for the root Controller!
+    NSLog(@"AppDelegate: SplashScreen init");
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName: sbName bundle:[NSBundle mainBundle]];
     UIViewController *myController = [storyboard instantiateViewControllerWithIdentifier:@"entryPoint"];
     [self.window makeKeyAndVisible];
     [self.window.rootViewController presentViewController:myController animated:YES completion:NULL];
-    
-    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -113,14 +68,5 @@
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 
-// Call API for User's profile icon & store the URL to UserDefaults
-- (void)updateOwnProfile {
-    flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
-    if ((flickr_token) && ([flickr_token length] > 10)) {
-        flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        [[NSUserDefaults standardUserDefaults] setValue:[flickrAPI getProfileIconURL:flickr_nsid] forKey:@"FlickrProfileIconURL"];
-    }
-}
 
 @end

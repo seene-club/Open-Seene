@@ -6,6 +6,7 @@
 //  Copyright © 2016 Mathias Zettler. All rights reserved.
 //
 
+#import <WebKit/WebKit.h>
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController <WKNavigationDelegate>
@@ -18,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *reloadButton;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
+@property (weak, nonatomic) IBOutlet UIImageView *previewImage;
+
+- (void)createTimeline;
 
 
 @end

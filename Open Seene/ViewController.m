@@ -6,10 +6,11 @@
 //  Copyright © 2016 Mathias Zettler. All rights reserved.
 //
 
-#import <WebKit/WebKit.h>
+
 #import <mach/mach.h>
 #import "ViewController.h"
 #import "NSString+MD5.h"
+#import "UIImage+animatedGIF.h"
 #import "SBJson.h"
 #import "AppDelegate.h"
 #import "FlickrAPI.h"
@@ -57,8 +58,11 @@
     screenHeight = screenSize.height;
     NSLog(@"Screen: %f x %f", screenWidth, screenHeight);
     
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"loading_animation_3D" withExtension:@"gif"];
+    _previewImage.image =  [UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]];
+    
     [self viewerControlsHidden:YES];
-    if ([flickr_token length] > 10) [self createTimeline];
+    if (([flickr_token length] > 10) && (!timelineCreated)) [self createTimeline];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
@@ -86,11 +90,9 @@
 }
 
 
-
+// TODO den ladenden Teil nur noch im Splash Screen!
 - (void)createTimeline {
     // Building Timeline from FlickrBuddies
-    //AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    //buddyList = appDelegate.buddyList;
     fileHelper = [[FileHelper alloc] initFileHelper];
     buddyList = [fileHelper loadFollowingListFromPhone];
     
@@ -126,21 +128,28 @@
     }
 }
 
-
-- (void)showSeene {
-    photo = [timelinePhotos objectAtIndex:showIndex];
+- (NSURLRequest *)getURLrequestForIndex:(int)timelineIndex {
+    photo = [timelinePhotos objectAtIndex:timelineIndex];
     
     NSString *viewerURL = [NSString stringWithFormat:@"%@%@", htmlViewerBaseURL, photo.originalURL];
-    NSLog(@"Loading Seene: %d %@ %@", showIndex, photo.ownerName, photo.originalURL);
-
+    NSLog(@"Loading Seene: %d %@ %@", timelineIndex, photo.ownerName, photo.originalURL);
+    
     NSURL *url = [NSURL URLWithString:viewerURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    return requestObj;
+}
+
+
+- (void)showSeene {
+     NSURLRequest *requestObj = [self getURLrequestForIndex:showIndex];
     
     if (webView==nil) {
         wKWebConfig = [[WKWebViewConfiguration alloc] init];
         wKWebConfig.selectionGranularity = WKSelectionGranularityCharacter;
         webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 60, screenWidth, screenWidth) configuration:wKWebConfig];
         webView.navigationDelegate = self;
+        [webView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:NULL];
+        [webView setHidden:YES];
         [self.view addSubview:webView];
     }
     
@@ -171,6 +180,22 @@
     [_previousButton setEnabled:(showIndex + 0 > 0)];
     [_previousButton setHidden:!(showIndex + 0 > 0)];
     
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"loading"] && object == webView) {
+        if(webView.loading) {
+            NSLog(@"DEBUG: WkWebView IS loading...");
+        } else {
+            NSLog(@"DEBUG: WkWebView NOT loading");
+            NSTimer *timedThread = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(showWkWebView) userInfo:nil repeats:NO];
+            
+        }
+    }
+}
+
+- (void)showWkWebView {
+    [webView setHidden:NO];
 }
 
 
@@ -217,11 +242,13 @@
 }
 
 - (IBAction)previousPushed:(id)sender {
+    [self destroyWkWebView];
     showIndex--;
     [self showSeene];
 }
 
 - (IBAction)nextPushed:(id)sender {
+    [self destroyWkWebView];
     showIndex++;
     [self showSeene];
 }
@@ -277,21 +304,27 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    NSLog(@"Open Seene did receive memory warning!!!");
-    [self report_memory:@"memory warning!!!"];
+- (void)destroyWkWebView {
+    NSLog(@"DEBUG: destroyWkWebView triggered!!!");
+    [webView setHidden:YES];
+    [webView removeObserver:self forKeyPath:@"loading"];
     [webView stopLoading];
     [webView loadHTMLString: @"" baseURL: nil];
     
     NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
     NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
     [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
-        [webView removeFromSuperview];
+        
     }];
-    
+    [webView removeFromSuperview];
     webView = nil;
-    
+}
+
+
+- (void)didReceiveMemoryWarning {
+    NSLog(@"Open Seene did receive memory warning!!!");
+    [self report_memory:@"memory warning!!!"];
+    [self destroyWkWebView];
     
     if (reportedIndex != showIndex) {
        reportedIndex = showIndex;
