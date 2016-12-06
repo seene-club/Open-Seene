@@ -58,7 +58,7 @@
     screenHeight = screenSize.height;
     NSLog(@"Screen: %f x %f", screenWidth, screenHeight);
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"loading_animation_3D" withExtension:@"gif"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"loading_animation_3D_01" withExtension:@"gif"];
     _previewImage.image =  [UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]];
     
     [self viewerControlsHidden:YES];
@@ -74,19 +74,19 @@
     [_commentButton setHidden:hiddenstate];
     [_nextButton setHidden:hiddenstate];
     [_previousButton setHidden:hiddenstate];
+    [_previewImage setHidden:hiddenstate];
 }
 
 // when view appears, check if user has already authorized Flickr account for "Open Seene"
 - (void)viewDidAppear:(BOOL)animated {
-    
     flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
     
     if (([flickr_token length] == 0) || (!flickr_token) || ([flickr_token isEqualToString:@"(null)"])) {
         NSLog(@"Flickr: login invalid!!! Reauthorization necessary...");
         [self performSegueWithIdentifier: @"authSegue" sender: self];
+    } else {
+        if (!timelineCreated) [self createTimeline];
     }
-    
-    if (!timelineCreated) [self createTimeline];
 }
 
 
@@ -307,8 +307,8 @@
 - (void)destroyWkWebView {
     NSLog(@"DEBUG: destroyWkWebView triggered!!!");
     [webView setHidden:YES];
-    [webView removeObserver:self forKeyPath:@"loading"];
     [webView stopLoading];
+    [webView removeObserver:self forKeyPath:@"loading"];
     [webView loadHTMLString: @"" baseURL: nil];
     
     NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];

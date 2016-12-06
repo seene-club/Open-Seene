@@ -45,7 +45,7 @@
 		A07E5F881D86FFD6001677CE /* Open_SeeneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F871D86FFD6001677CE /* Open_SeeneTests.m */; };
 		A07E5F931D86FFD6001677CE /* Open_SeeneUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5F921D86FFD6001677CE /* Open_SeeneUITests.m */; };
 		A07E5FA41D884DF1001677CE /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A07E5FA31D884DF1001677CE /* AuthenticationController.m */; };
-		A08890171DF060120044D439 /* loading_animation_3D.gif in Resources */ = {isa = PBXBuildFile; fileRef = A08890161DF060120044D439 /* loading_animation_3D.gif */; };
+		A08890171DF060120044D439 /* loading_animation_3D_01.gif in Resources */ = {isa = PBXBuildFile; fileRef = A08890161DF060120044D439 /* loading_animation_3D_01.gif */; };
 		A08890191DF09BC30044D439 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = A08890181DF09BC30044D439 /* UIImage+animatedGIF.m */; };
 		A088901C1DF1CAB00044D439 /* splash_animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = A088901B1DF1CAB00044D439 /* splash_animation.gif */; };
 		A088901E1DF1CAD90044D439 /* loading_animation_3D_02.gif in Resources */ = {isa = PBXBuildFile; fileRef = A088901D1DF1CAD90044D439 /* loading_animation_3D_02.gif */; };
@@ -58,6 +58,16 @@
 		A0901A0A1DE494CC00D0B6B2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0901A091DE494CC00D0B6B2 /* CoreGraphics.framework */; };
 		A0901A0D1DE4991F00D0B6B2 /* Main_iPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0901A0B1DE4991F00D0B6B2 /* Main_iPhone5.storyboard */; };
 		A0901A101DE4CEA500D0B6B2 /* StoryboardFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = A0901A0F1DE4CEA500D0B6B2 /* StoryboardFinder.m */; };
+		A0967DE81DF6AECF001E4959 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0967DE71DF6AECF001E4959 /* Launch Screen.storyboard */; };
+		A0967DEA1DF6B0BC001E4959 /* splash_animation.png in Resources */ = {isa = PBXBuildFile; fileRef = A0967DE91DF6B0BC001E4959 /* splash_animation.png */; };
+		A0967DEC1DF6B469001E4959 /* loading_animation_3D_03.gif in Resources */ = {isa = PBXBuildFile; fileRef = A0967DEB1DF6B469001E4959 /* loading_animation_3D_03.gif */; };
+		A0967DEE1DF6C1D1001E4959 /* loading_animation_3D_04.gif in Resources */ = {isa = PBXBuildFile; fileRef = A0967DED1DF6C1D1001E4959 /* loading_animation_3D_04.gif */; };
+		A0967DF01DF6C318001E4959 /* loading_animation_3D_05.gif in Resources */ = {isa = PBXBuildFile; fileRef = A0967DEF1DF6C318001E4959 /* loading_animation_3D_05.gif */; };
+		A0967DF21DF6C374001E4959 /* loading_animation_3D_06.gif in Resources */ = {isa = PBXBuildFile; fileRef = A0967DF11DF6C374001E4959 /* loading_animation_3D_06.gif */; };
+		A0967DF41DF6C52E001E4959 /* loading_animation_3D_07.gif in Resources */ = {isa = PBXBuildFile; fileRef = A0967DF31DF6C52E001E4959 /* loading_animation_3D_07.gif */; };
+		A0967DF61DF6C80C001E4959 /* loading_animation_3D_08.gif in Resources */ = {isa = PBXBuildFile; fileRef = A0967DF51DF6C80C001E4959 /* loading_animation_3D_08.gif */; };
+		A0967DF81DF6CB22001E4959 /* loading_animation_3D_09.gif in Resources */ = {isa = PBXBuildFile; fileRef = A0967DF71DF6CB22001E4959 /* loading_animation_3D_09.gif */; };
+		A0967DFE1DF6D8DD001E4959 /* loading_animation_3D_00.gif in Resources */ = {isa = PBXBuildFile; fileRef = A0967DFD1DF6D8DD001E4959 /* loading_animation_3D_00.gif */; };
 		A09F1A0A1DE6F272007F1625 /* Main_iPhone6.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A09F1A081DE6F272007F1625 /* Main_iPhone6.storyboard */; };
 		A0A155961DA3B99000119380 /* FlickrComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A155951DA3B99000119380 /* FlickrComment.m */; };
 		A0A155991DA3D92000119380 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A155981DA3D92000119380 /* CommentsViewController.m */; };
@@ -167,7 +177,6 @@
 		A07E5F741D86FFD5001677CE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A07E5F771D86FFD5001677CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A07E5F791D86FFD5001677CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A07E5F7C1D86FFD5001677CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A07E5F7E1D86FFD5001677CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A07E5F831D86FFD6001677CE /* Open SeeneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Open SeeneTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A07E5F871D86FFD6001677CE /* Open_SeeneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Open_SeeneTests.m; sourceTree = "<group>"; };
@@ -178,7 +187,7 @@
 		A07E5FA01D882A83001677CE /* flickrAPI.secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = flickrAPI.secret.xcconfig; sourceTree = "<group>"; };
 		A07E5FA31D884DF1001677CE /* AuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationController.m; sourceTree = "<group>"; };
 		A07E5FA51D884EAA001677CE /* AuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationController.h; sourceTree = "<group>"; };
-		A08890161DF060120044D439 /* loading_animation_3D.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_animation_3D.gif; sourceTree = "<group>"; };
+		A08890161DF060120044D439 /* loading_animation_3D_01.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_animation_3D_01.gif; sourceTree = "<group>"; };
 		A08890181DF09BC30044D439 /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		A088901A1DF09BF40044D439 /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		A088901B1DF1CAB00044D439 /* splash_animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splash_animation.gif; sourceTree = "<group>"; };
@@ -195,6 +204,16 @@
 		A0901A0C1DE4991F00D0B6B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone5.storyboard; sourceTree = "<group>"; };
 		A0901A0E1DE4CE4F00D0B6B2 /* StoryboardFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardFinder.h; sourceTree = "<group>"; };
 		A0901A0F1DE4CEA500D0B6B2 /* StoryboardFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryboardFinder.m; sourceTree = "<group>"; };
+		A0967DE71DF6AECF001E4959 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
+		A0967DE91DF6B0BC001E4959 /* splash_animation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash_animation.png; sourceTree = "<group>"; };
+		A0967DEB1DF6B469001E4959 /* loading_animation_3D_03.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_animation_3D_03.gif; sourceTree = "<group>"; };
+		A0967DED1DF6C1D1001E4959 /* loading_animation_3D_04.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_animation_3D_04.gif; sourceTree = "<group>"; };
+		A0967DEF1DF6C318001E4959 /* loading_animation_3D_05.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_animation_3D_05.gif; sourceTree = "<group>"; };
+		A0967DF11DF6C374001E4959 /* loading_animation_3D_06.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_animation_3D_06.gif; sourceTree = "<group>"; };
+		A0967DF31DF6C52E001E4959 /* loading_animation_3D_07.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_animation_3D_07.gif; sourceTree = "<group>"; };
+		A0967DF51DF6C80C001E4959 /* loading_animation_3D_08.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_animation_3D_08.gif; sourceTree = "<group>"; };
+		A0967DF71DF6CB22001E4959 /* loading_animation_3D_09.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_animation_3D_09.gif; sourceTree = "<group>"; };
+		A0967DFD1DF6D8DD001E4959 /* loading_animation_3D_00.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_animation_3D_00.gif; sourceTree = "<group>"; };
 		A09F1A091DE6F272007F1625 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone6.storyboard; sourceTree = "<group>"; };
 		A0A155941DA3B96D00119380 /* FlickrComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrComment.h; sourceTree = "<group>"; };
 		A0A155951DA3B99000119380 /* FlickrComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrComment.m; sourceTree = "<group>"; };
@@ -390,14 +409,23 @@
 				A09F1A081DE6F272007F1625 /* Main_iPhone6.storyboard */,
 				A0EC7ABC1DE6F7430037078F /* Main_iPhone6Plus.storyboard */,
 				A07E5F761D86FFD5001677CE /* Main.storyboard */,
+				A0967DE71DF6AECF001E4959 /* Launch Screen.storyboard */,
 				A07E5F791D86FFD5001677CE /* Assets.xcassets */,
-				A07E5F7B1D86FFD5001677CE /* LaunchScreen.storyboard */,
 				A07E5F7E1D86FFD5001677CE /* Info.plist */,
 				A0AA209F1DD1E4E500916F6E /* 3d-128.png */,
 				A0AA20A11DD1EA5800916F6E /* 3d-256.png */,
 				A088901B1DF1CAB00044D439 /* splash_animation.gif */,
-				A08890161DF060120044D439 /* loading_animation_3D.gif */,
+				A0967DE91DF6B0BC001E4959 /* splash_animation.png */,
+				A0967DFD1DF6D8DD001E4959 /* loading_animation_3D_00.gif */,
+				A08890161DF060120044D439 /* loading_animation_3D_01.gif */,
 				A088901D1DF1CAD90044D439 /* loading_animation_3D_02.gif */,
+				A0967DEB1DF6B469001E4959 /* loading_animation_3D_03.gif */,
+				A0967DED1DF6C1D1001E4959 /* loading_animation_3D_04.gif */,
+				A0967DEF1DF6C318001E4959 /* loading_animation_3D_05.gif */,
+				A0967DF11DF6C374001E4959 /* loading_animation_3D_06.gif */,
+				A0967DF31DF6C52E001E4959 /* loading_animation_3D_07.gif */,
+				A0967DF51DF6C80C001E4959 /* loading_animation_3D_08.gif */,
+				A0967DF71DF6CB22001E4959 /* loading_animation_3D_09.gif */,
 				A09019FE1DDF14E900D0B6B2 /* uploaded.png */,
 				A0AA20A71DD21BAE00916F6E /* no3d.png */,
 				A0901A001DDF198800D0B6B2 /* flickrcloud.png */,
@@ -607,28 +635,36 @@
 				A0276CDE1D9306E600AEE859 /* Profile.png in Resources */,
 				A0AA20A21DD1EA5800916F6E /* 3d-256.png in Resources */,
 				A0AA20A81DD21BAE00916F6E /* no3d.png in Resources */,
+				A0967DEC1DF6B469001E4959 /* loading_animation_3D_03.gif in Resources */,
 				A0D7F9701DEEF252002AA87B /* Follow-Activated@3x.png in Resources */,
+				A0967DF21DF6C374001E4959 /* loading_animation_3D_06.gif in Resources */,
 				A0DBB8DB1D9419A90082E63A /* Favorized.png in Resources */,
 				A0EC7AC31DE822B80037078F /* Comment-256px.png in Resources */,
 				A062C1BC1D9326490090F0EE /* Timeline@3x.png in Resources */,
 				A0EC7AC41DE822B80037078F /* Comment-Fill-256px.png in Resources */,
 				A0901A0D1DE4991F00D0B6B2 /* Main_iPhone5.storyboard in Resources */,
 				A0167F411D93EC3F00CF413B /* Upload@2x.png in Resources */,
+				A0967DF81DF6CB22001E4959 /* loading_animation_3D_09.gif in Resources */,
 				A062C1BB1D9326490090F0EE /* Timeline@2x.png in Resources */,
 				A062C1BA1D9326490090F0EE /* Timeline.png in Resources */,
+				A0967DEE1DF6C1D1001E4959 /* loading_animation_3D_04.gif in Resources */,
 				A0AA20A61DD2191600916F6E /* cameraroll.png in Resources */,
 				A00A49B51DB6A2EA007C3263 /* Arrow1 Right.png in Resources */,
 				A0D7F9711DEEF252002AA87B /* Follow-Deactivated.png in Resources */,
 				A06E6EE81DBF8437008684DE /* SVProgressHUD.bundle in Resources */,
+				A0967DF41DF6C52E001E4959 /* loading_animation_3D_07.gif in Resources */,
 				A0DBB8DD1D9419B00082E63A /* Favorized@2x.png in Resources */,
 				A0D7F96E1DEEF252002AA87B /* Follow-Activated.png in Resources */,
 				A088901E1DF1CAD90044D439 /* loading_animation_3D_02.gif in Resources */,
+				A0967DEA1DF6B0BC001E4959 /* splash_animation.png in Resources */,
 				A09F1A0A1DE6F272007F1625 /* Main_iPhone6.storyboard in Resources */,
+				A0967DF01DF6C318001E4959 /* loading_animation_3D_05.gif in Resources */,
 				A00A49B31DB6A2E1007C3263 /* Arrow1 Left.png in Resources */,
 				A0167F401D93EC3F00CF413B /* Upload.png in Resources */,
 				A0276CDC1D9306E600AEE859 /* Profile@3x.png in Resources */,
 				A034C9611DB108A700BE13E5 /* unchecked.png in Resources */,
 				A00A49AF1DB6A0DD007C3263 /* heart.png in Resources */,
+				A0967DF61DF6C80C001E4959 /* loading_animation_3D_08.gif in Resources */,
 				A0EC7AC51DE822B80037078F /* Like-256px.png in Resources */,
 				A0D7F9731DEEF252002AA87B /* Follow-Deactivated@3x.png in Resources */,
 				A034C9651DB62CE100BE13E5 /* fail.png in Resources */,
@@ -638,11 +674,13 @@
 				A07E5F7A1D86FFD5001677CE /* Assets.xcassets in Resources */,
 				A00A49B11DB6A169007C3263 /* comment.png in Resources */,
 				A09019FF1DDF14E900D0B6B2 /* uploaded.png in Resources */,
+				A0967DE81DF6AECF001E4959 /* Launch Screen.storyboard in Resources */,
+				A0967DFE1DF6D8DD001E4959 /* loading_animation_3D_00.gif in Resources */,
 				A0D7F9721DEEF252002AA87B /* Follow-Deactivated@2x.png in Resources */,
 				A0167F421D93EC3F00CF413B /* Upload@3x.png in Resources */,
 				A0AA20A41DD1F14300916F6E /* seene-logo.png in Resources */,
 				A0901A011DDF198800D0B6B2 /* flickrcloud.png in Resources */,
-				A08890171DF060120044D439 /* loading_animation_3D.gif in Resources */,
+				A08890171DF060120044D439 /* loading_animation_3D_01.gif in Resources */,
 				A0DBB8E51D9567ED0082E63A /* 29874512615_357e771327_o.png in Resources */,
 				A0E973AC1DD5E0A700A2A466 /* user.png in Resources */,
 				A07E5F781D86FFD5001677CE /* Main.storyboard in Resources */,
@@ -750,14 +788,6 @@
 				A07E5F771D86FFD5001677CE /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A07E5F7B1D86FFD5001677CE /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A07E5F7C1D86FFD5001677CE /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		A0901A0B1DE4991F00D0B6B2 /* Main_iPhone5.storyboard */ = {

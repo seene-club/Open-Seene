@@ -111,7 +111,7 @@
                                 <color key="textColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="VWo-9R-zuB">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" text="#seene #3D" translatesAutoresizingMaskIntoConstraints="NO" id="VWo-9R-zuB">
                                 <rect key="frame" x="20" y="135" width="280" height="70"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -425,6 +425,10 @@
                                     <color key="titleColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4ht-Xb-XW7">
+                                <rect key="frame" x="0.0" y="60" width="320" height="320"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -436,6 +440,7 @@
                         <outlet property="commentButton" destination="RkW-2y-spd" id="wGc-uw-ECn"/>
                         <outlet property="likeButton" destination="CIz-hp-Ays" id="pkp-zx-ANR"/>
                         <outlet property="nextButton" destination="7GE-EU-zOt" id="Cic-Xi-CW8"/>
+                        <outlet property="previewImage" destination="4ht-Xb-XW7" id="4ZD-rT-xCX"/>
                         <outlet property="previousButton" destination="MxV-Vh-CZN" id="AUe-d5-Jyx"/>
                         <outlet property="reloadButton" destination="uZn-CT-ZRn" id="r5d-NY-Uep"/>
                         <outlet property="titleLabel" destination="Gxu-46-fs3" id="Klj-lF-KhE"/>

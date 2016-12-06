@@ -36,7 +36,8 @@
     flickrAPI = [[FlickrAPI alloc] init];
     NSString *fullURL = [NSString stringWithFormat:@"https://www.flickr.com/auth-%@", flrAPIid];
     NSURL *url = [NSURL URLWithString:fullURL];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
+    [requestObj setValue:agentString forHTTPHeaderField:@"User-Agent"];
     [_authView loadRequest:requestObj];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }

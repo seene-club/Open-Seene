@@ -35,7 +35,7 @@
     NSLog(@"AppDelegate: Storyboard for device: %@", sbName);
     
     
-    NSLog(@"AppDelegate: SplashScreen init");
+    NSLog(@"AppDelegate: ViewController init");
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName: sbName bundle:[NSBundle mainBundle]];
     UIViewController *myController = [storyboard instantiateViewControllerWithIdentifier:@"entryPoint"];
     [self.window makeKeyAndVisible];
