@@ -39,28 +39,9 @@
 
 
 -(NSString*)storyboardNameForCurrentDevice {
-    
-    // Simulator
-    if ([[device platformString] isEqualToString:@"Simulator"]) {
-        if (([device screenWidth] == 320) && ([device screenHeight] == 568)) return @"Main_iPhone5";
-        if (([device screenWidth] == 375) && ([device screenHeight] == 667)) return @"Main_iPhone6";
-        if (([device screenWidth] == 414) && ([device screenHeight] == 736)) return @"Main_iPhone6Plus";
-    } else { // Real device
-        // handle iPhone SE (Size of iPhone 5/5s)
-        if ([[device platformString] isEqualToString:@"iPhone SE"]) return @"Main_iPhone5";
-        
-        // handle iPhone 6/6s (and Plus models)
-        if ([[device platformString] rangeOfString:@"iPhone 6"].location != NSNotFound) {
-            if ([[device platformString] rangeOfString:@"Plus"].location != NSNotFound) return @"Main_iPhone6Plus";
-            return @"Main_iPhone6";
-        }
-        
-        // handle iPhone 7/7 Plus (same size as 6/6s)
-        if ([[device platformString] rangeOfString:@"iPhone 7"].location != NSNotFound) {
-            if ([[device platformString] rangeOfString:@"Plus"].location != NSNotFound) return @"Main_iPhone6Plus";
-            return @"Main_iPhone6";
-        }
-    }
+    if (([device screenWidth] == 320) && ([device screenHeight] == 568)) return @"Main_iPhone5";        // iPhone 5(S/E) normal mode, iPhone 6/7 zoomed
+    if (([device screenWidth] == 375) && ([device screenHeight] == 667)) return @"Main_iPhone6";        // iPhone 6/7    normal mode, iPhone 6/7 Plus zoomed
+    if (([device screenWidth] == 414) && ([device screenHeight] == 736)) return @"Main_iPhone6Plus";    // iPhone 6/7 Plus normal mode
     return @"Main";
 }
 
