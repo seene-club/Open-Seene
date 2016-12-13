@@ -429,6 +429,14 @@
                                 <rect key="frame" x="0.0" y="60" width="375" height="374"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XMQ-qc-qCN">
+                                <rect key="frame" x="196" y="438" width="162" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="&lt;dateupload&gt;">
+                                    <color key="titleColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -438,6 +446,7 @@
                     <connections>
                         <outlet property="cameraButton" destination="lhS-He-QjE" id="6Ej-ov-yN5"/>
                         <outlet property="commentButton" destination="RkW-2y-spd" id="wGc-uw-ECn"/>
+                        <outlet property="dateLabelButton" destination="XMQ-qc-qCN" id="EPz-bi-Vjl"/>
                         <outlet property="likeButton" destination="CIz-hp-Ays" id="pkp-zx-ANR"/>
                         <outlet property="nextButton" destination="7GE-EU-zOt" id="Cic-Xi-CW8"/>
                         <outlet property="previewImage" destination="Nxn-mD-Xoj" id="KcF-Bh-32Z"/>

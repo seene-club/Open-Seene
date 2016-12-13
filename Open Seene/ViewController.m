@@ -75,6 +75,7 @@
     [_nextButton setHidden:hiddenstate];
     [_previousButton setHidden:hiddenstate];
     [_previewImage setHidden:hiddenstate];
+    [_dateLabelButton setHidden:hiddenstate];
 }
 
 // when view appears, check if user has already authorized Flickr account for "Open Seene"
@@ -90,7 +91,6 @@
 }
 
 
-// TODO den ladenden Teil nur noch im Splash Screen!
 - (void)createTimeline {
     // Building Timeline from FlickrBuddies
     fileHelper = [[FileHelper alloc] initFileHelper];
@@ -139,6 +139,17 @@
     return requestObj;
 }
 
+- (NSString*)dateStringFromUnixTimestamp:(NSString*)uts {
+    double unixTimeStamp = [uts doubleValue];
+    NSTimeInterval unixTimeInterval = unixTimeStamp;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:unixTimeInterval];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    return [dateFormatter stringFromDate:date];
+}
 
 - (void)showSeene {
      NSURLRequest *requestObj = [self getURLrequestForIndex:showIndex];
@@ -151,12 +162,13 @@
         [webView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:NULL];
         [webView setHidden:YES];
         [self.view addSubview:webView];
+        [webView loadRequest:requestObj];
     }
-    
-    [webView loadRequest:requestObj];
     
     // Fill-in labels
     [_usernameButton setTitle:[NSString stringWithFormat:@"@%@",photo.ownerName] forState:UIControlStateNormal];
+    
+    [_dateLabelButton setTitle:[self dateStringFromUnixTimestamp:photo.dateupload] forState:UIControlStateNormal];
     [_titleLabel setText:photo.title];
     
     UIImage *likeButton;

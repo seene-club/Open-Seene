@@ -418,7 +418,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGq-9r-oji">
-                                <rect key="frame" x="7" y="487" width="162" height="26"/>
+                                <rect key="frame" x="7" y="484" width="162" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="&lt;username&gt;">
@@ -429,6 +429,14 @@
                                 <rect key="frame" x="0.0" y="60" width="414" height="414"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcL-GQ-OqF">
+                                <rect key="frame" x="240" y="484" width="162" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="&lt;dateupload&gt;">
+                                    <color key="titleColor" red="0.46335887329999997" green="1" blue="0.8308937273" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -438,6 +446,7 @@
                     <connections>
                         <outlet property="cameraButton" destination="lhS-He-QjE" id="6Ej-ov-yN5"/>
                         <outlet property="commentButton" destination="RkW-2y-spd" id="wGc-uw-ECn"/>
+                        <outlet property="dateLabelButton" destination="fcL-GQ-OqF" id="oHg-jy-sD0"/>
                         <outlet property="likeButton" destination="CIz-hp-Ays" id="pkp-zx-ANR"/>
                         <outlet property="nextButton" destination="7GE-EU-zOt" id="Cic-Xi-CW8"/>
                         <outlet property="previewImage" destination="6O1-WQ-L51" id="t35-yl-HRW"/>
