@@ -133,6 +133,10 @@
     
     NSString *viewerURL = [NSString stringWithFormat:@"%@%@", htmlViewerBaseURL, photo.originalURL];
     NSLog(@"Loading Seene: %d %@ %@", timelineIndex, photo.ownerName, photo.originalURL);
+    NSLog(@"thumbnail-URL: %@",photo.thumbnailURL);
+    
+   
+    
     
     NSURL *url = [NSURL URLWithString:viewerURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
@@ -164,6 +168,27 @@
         [self.view addSubview:webView];
         [webView loadRequest:requestObj];
     }
+    
+    // remove all existing subviews tagged 4711 (blurred)
+    for (UIView *subview in [self.view subviews]) {
+        if (subview.tag == 4711) {
+            [subview removeFromSuperview];
+        }
+    }
+    
+    //TODO: cache thumbnails on device (cached data can also be used for upcoming timeline in thumbnail view)
+    UIImage *bgimg = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:photo.thumbnailURL]]];
+    self.view.layer.contents = (id)bgimg.CGImage;
+    
+    // create a new blurred subview
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    blurEffectView.frame = self.view.bounds;
+    blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    blurEffectView.tag = 4711;
+    
+    [self.view addSubview:blurEffectView];
+    [self.view sendSubviewToBack:blurEffectView];
     
     // Fill-in labels
     [_usernameButton setTitle:[NSString stringWithFormat:@"@%@",photo.ownerName] forState:UIControlStateNormal];
