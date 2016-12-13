@@ -111,7 +111,12 @@
     
     // Label and Image of the cell
     cell.textLabel.text = [self commentFormatter:selectedComment.commentText];
-    [cell.imageView setImage:[fileHelper getCachedImageForNSID:selectedComment.authorNSID]];
+    UIImage *cachedImage = [fileHelper getCachedImageForNSID:selectedComment.authorNSID];
+    if (cachedImage == nil) { // retrieving image for non-cached people
+        [fileHelper cacheMemberFromComment:selectedComment];
+        cachedImage = [fileHelper getCachedImageForNSID:selectedComment.authorNSID];
+    }
+    [cell.imageView setImage:cachedImage];
     
     // Round images
     cell.imageView.layer.cornerRadius = cell.imageView.frame.size.width / 2;

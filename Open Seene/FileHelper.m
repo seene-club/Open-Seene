@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "FileHelper.h"
+#import "FlickrAPI.h"
 #import "FlickrAlbum.h"
 #import "FlickrBuddy.h"
+#import "FlickrComment.h"
 
 @interface FileHelper () {
     
@@ -117,6 +119,22 @@
     }
 }
 
+//persists a commentator of a Seene in device cache. Maybe not a Seenester!
+- (void)cacheMemberFromComment:(FlickrComment*)comment {
+    FlickrBuddy *commentator = [FlickrBuddy flickrBuddyWithID:comment.authorNSID];
+    commentator.username = comment.authorname;
+    
+    NSString *usernameFile = [cacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.username", commentator.nsid]];
+    NSLog(@"writing file: %@ with content: %@", usernameFile, commentator.username);
+    [[commentator.username dataUsingEncoding:NSUTF8StringEncoding] writeToFile:usernameFile atomically:YES];
+    
+    FlickrAPI *flickrAPI = [[FlickrAPI alloc] init];
+    NSString *iconUrl = [flickrAPI getProfileIconURL:commentator.nsid];
+    
+    [self cacheIconURLforNSID:iconUrl NSID:commentator.nsid];
+}
+
+
 //persists a member of "Seene" group in device cache
 - (void)cacheMemberOnDevice:(FlickrBuddy*)member {
     
@@ -128,6 +146,11 @@
     // caching usericon
     NSString *iconUrl = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/buddyicons/%@.jpg",
                          member.iconfarm, member.iconserver, member.nsid];
+    [self cacheIconURLforNSID:iconUrl NSID:member.nsid];
+}
+
+// internal method to save the image from URL to the cache
+- (void)cacheIconURLforNSID:(NSString *)iconUrl NSID:(NSString *)nsid {
     NSURL *imgurl;
     
     if ([iconUrl rangeOfString:@"farm0."].location == NSNotFound) {
@@ -137,7 +160,7 @@
     }
     
     NSData *imgdata = [NSData dataWithContentsOfURL : imgurl];
-    NSString *imagePath = [cacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", member.nsid]];
+    NSString *imagePath = [cacheDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", nsid]];
     [imgdata writeToFile:imagePath atomically:NO];
 }
 
