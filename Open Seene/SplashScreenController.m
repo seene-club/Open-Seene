@@ -44,8 +44,11 @@
 
 // TODO Timeline nach ViewController bringen!
 - (void)viewDidAppear:(BOOL)animated {
-    //NSTimer *timedThread = [NSTimer scheduledTimerWithTimeInterval:3.1 target:self selector:@selector(triggerEntryPointView) userInfo:nil repeats:NO];
+    NSTimer *timedThread = [NSTimer scheduledTimerWithTimeInterval:3.1 target:self selector:@selector(triggerTokenCheck) userInfo:nil repeats:NO];
+    
+}
 
+- (void)triggerTokenCheck {
     flickrAPI = [[FlickrAPI alloc] init];
     fileHelper = [[FileHelper alloc] initFileHelper];
     
@@ -75,7 +78,6 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
         NSLog(@"DEBUG: ticket not valid!");
     }
-
     
 }
 

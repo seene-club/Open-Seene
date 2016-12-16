@@ -51,9 +51,25 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
+- (NSString*)replaceMentions:(NSString*)cmnt {
+    
+    int ndx;
+    for (ndx = 0; ndx < comments.count; ndx++) {
+        FlickrComment *comment = [comments objectAtIndex:ndx];
+        
+        cmnt = [cmnt stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"@{%@}", comment.authorname]
+                                                    withString:[NSString stringWithFormat:@"[https://www.flickr.com/photos/%@/]", comment.authorNSID]];
+    }
+    
+    return cmnt;
+    
+}
+
 - (IBAction)postButtonPushed:(id)sender {
     
     if ([_commentTextView.text length] > 0) {
+        
+        _commentTextView.text = [self replaceMentions:_commentTextView.text];
         
         if ([flickrAPI commentSeene:photo withText:_commentTextView.text]) {
             _commentTextView.text = @"";
@@ -131,10 +147,29 @@
 }
 
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    //automatic reload since iOS 7!
     //[self.tableView reloadData];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewRowAction *editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"reply" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        FlickrComment *selectedComment = [comments objectAtIndex:indexPath.row];
+        
+        NSLog(@"reply for: %@", selectedComment.authorname);
+        _commentTextView.text = [NSString stringWithFormat:@"%@ @{%@}", _commentTextView.text, selectedComment.authorname];
+        tableView.editing = NO;
+
+    }];
+    editAction.backgroundColor = [UIColor lightGrayColor];
+    
+    
+    return @[editAction];
+}
 
 - (NSString*)commentFormatter:(NSString*)cmnt {
     
@@ -143,12 +178,38 @@
     
     // replace all occurrences of [https://www.flickr.com/photos/<NSID>] by @username
     fcmnt = [self commentUsernameGrabber:fcmnt];
+    fcmnt = [self commentFormatURLs:fcmnt];
+    
+    NSLog(@"Formatted Comment: %@", fcmnt);
                        
     return fcmnt;
 }
 
+- (NSString*)commentFormatURLs:(NSString*)cmnt {
+    NSLog(@"DEBUG: commentFormatURLs - INPUT: %@",cmnt);
+    NSString *pattern = @"(?i)<a([^>]+)>(.+?)</a>";
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression
+                                  regularExpressionWithPattern:pattern
+                                  options:NSRegularExpressionCaseInsensitive error:&error];
+    if(error != nil){
+        NSLog(@"Error with RegExp: %@",error);
+    } else{
+        NSString *replaced = [regex stringByReplacingMatchesInString:cmnt
+                                                             options:0
+                                                               range:NSMakeRange(0, [cmnt length])
+                                                        withTemplate:[NSString stringWithFormat:@"%@", @"http://$2"]];
+        
+        NSLog(@"Replaced URL OUTPUT: %@",replaced);
+        return replaced;
+    }
+    
+    return cmnt;
+}
+
 // what we can do in future release: https://github.com/TTTAttributedLabel/TTTAttributedLabel
 - (NSString*)commentUsernameGrabber:(NSString*)cmnt {
+    NSLog(@"DEBUG: commentUsernameGrabber - INPUT: %@", cmnt);
     
     NSString *fcmnt;
     
@@ -156,12 +217,15 @@
     NSRange r1 = [cmnt rangeOfString:@"["];
     NSRange r2 = [cmnt rangeOfString:@"]"];
     
-    if ((r1.location == NSNotFound) || (r1.location == NSNotFound)) return cmnt;
+    if ((r1.location == NSNotFound) || (r2.location == NSNotFound)) return cmnt;
     
     NSRange rSub = NSMakeRange(r1.location + r1.length, r2.location - r1.location - r1.length);
     NSString *sub = [cmnt substringWithRange:rSub];
     
-    NSLog(@"sub: %@", sub);
+    // some mentions come along with http:// some with https://
+    sub  = [sub  stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"];
+    cmnt = [cmnt stringByReplacingOccurrencesOfString:@"[http://" withString:@"[https://"];
+    NSLog(@"mention - sub: %@", sub);
     
     // Looking for the NSID in substring ("https://www.flickr.com/photos/<NSID>")
     NSString *cmprUser = @"https://www.flickr.com/photos/";
@@ -179,11 +243,13 @@
             
             NSString *userRep = [NSString stringWithFormat:@"[%@%@]",cmprUser, nsid];
             // call "commentFormatter" recursively to replace other occurences
+            NSLog(@"DEBUG: commentUsernameGrabber - recursive call!!!");
             fcmnt = [self commentUsernameGrabber:[cmnt stringByReplacingOccurrencesOfString:userRep withString:username]];
         }
     }
 
-    NSLog(@"formatted: %@", fcmnt);
+    NSLog(@"DEBUG: commentUsernameGrabber - formatted OUTPUT: %@", fcmnt);
+    if (fcmnt == nil) return @"";
     return fcmnt;
 }
 
