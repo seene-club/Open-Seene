@@ -275,6 +275,7 @@
 }
 
 - (IBAction)reloadPushed:(id)sender {
+    [self destroyWkWebView];
     [self createTimeline];
 }
 
