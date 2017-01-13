@@ -135,9 +135,6 @@
     NSLog(@"Loading Seene: %d %@ %@", timelineIndex, photo.ownerName, photo.originalURL);
     NSLog(@"thumbnail-URL: %@",photo.thumbnailURL);
     
-   
-    
-    
     NSURL *url = [NSURL URLWithString:viewerURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     return requestObj;

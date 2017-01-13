@@ -42,13 +42,11 @@
     _splashImage.image =  [UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]];
 }
 
-// TODO Timeline nach ViewController bringen!
-- (void)viewDidAppear:(BOOL)animated {
-    NSTimer *timedThread = [NSTimer scheduledTimerWithTimeInterval:3.1 target:self selector:@selector(triggerTokenCheck) userInfo:nil repeats:NO];
-    
-}
 
-- (void)triggerTokenCheck {
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"SplashScreenController: viewDidAppear! triggering TokenCheck...");
+   // NSTimer *timedThread = [NSTimer scheduledTimerWithTimeInterval:3.1 target:self selector:@selector(triggerTokenCheck) userInfo:nil repeats:NO];
+    
     flickrAPI = [[FlickrAPI alloc] init];
     fileHelper = [[FileHelper alloc] initFileHelper];
     
@@ -78,22 +76,42 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
         NSLog(@"DEBUG: ticket not valid!");
     }
+
     
 }
 
-- (void)triggerEntryPointView {
+/*
+- (void)triggerTokenCheck {
+    NSLog(@"SplashScreenController: checking token...");
+    flickrAPI = [[FlickrAPI alloc] init];
+    fileHelper = [[FileHelper alloc] initFileHelper];
     
-    sbFinder = [[StoryboardFinder alloc] initStoryboardFinder];
-    [sbFinder storyboardNameToUserDefaults];
-    sbName = [[NSUserDefaults standardUserDefaults] stringForKey:@"StoryboardName"];
-    NSLog(@"SplashScreenController: Storyboard for device: %@", sbName);
+    flickr_token = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrToken"];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: sbName bundle:[NSBundle mainBundle]];
-    UIViewController *myController = [storyboard instantiateViewControllerWithIdentifier:@"entryPoint"];
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate.window makeKeyAndVisible];
-    [appDelegate.window.window.rootViewController presentViewController:myController animated:YES completion:NULL];
+    NSLog(@"SplashScreenController: UserDefaults 'FlickrToken': %@", flickr_token);
     
+    // If we have a already a token in the UserDefaults, we'll try to retrieve the user's profile data.
+    if ((flickr_token) && ([flickr_token length] > 10)) {
+        
+        if ([flickrAPI testFlickrLogin]) {
+            
+            flickr_nsid = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrNSID"];
+            flickr_username = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrUsername"];
+            flickr_fullname = [[NSUserDefaults standardUserDefaults] stringForKey:@"FlickrFullname"];
+            NSLog(@"SplashScreenController: UserDefaults 'FlickrNSID': %@", flickr_nsid);
+            NSLog(@"SplashScreenController: UserDefaults 'FlickrUsername': %@", flickr_username);
+            NSLog(@"SplashScreenController: UserDefaults 'FlickrFullname': %@", flickr_fullname);
+            [[NSUserDefaults standardUserDefaults] setValue:[flickrAPI getProfileIconURL:flickr_nsid] forKey:@"FlickrProfileIconURL"];
+            //ViewController *viewController = [[ViewController alloc] init];
+            //[viewController createTimeline];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
+            NSLog(@"DEBUG: test login to Flickr failed!");
+        }
+    } else {
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"FlickrToken"];
+        NSLog(@"DEBUG: ticket not valid!");
+    }
 }
-
+*/
 @end

@@ -36,10 +36,12 @@
     
     
     NSLog(@"AppDelegate: ViewController init");
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName: sbName bundle:[NSBundle mainBundle]];
     UIViewController *myController = [storyboard instantiateViewControllerWithIdentifier:@"entryPoint"];
     [self.window makeKeyAndVisible];
     [self.window.rootViewController presentViewController:myController animated:YES completion:NULL];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

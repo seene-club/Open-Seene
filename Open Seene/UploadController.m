@@ -208,6 +208,10 @@
         // Check photo dimension front camera (960x960)?
         if (([[NSString stringWithFormat:@"%@", dimX] isEqualToString:[NSString stringWithFormat:@"960"]]) &&
             ([[NSString stringWithFormat:@"%@", dimY] isEqualToString:[NSString stringWithFormat:@"960"]])) return YES;
+        
+        // Check photo dimension Android back camera (1080x1080)?
+        if (([[NSString stringWithFormat:@"%@", dimX] isEqualToString:[NSString stringWithFormat:@"1080"]]) &&
+            ([[NSString stringWithFormat:@"%@", dimY] isEqualToString:[NSString stringWithFormat:@"1080"]])) return YES;
          
     }
     return NO;
